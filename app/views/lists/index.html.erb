@@ -1,0 +1,23 @@
+<div class="container mt-4">
+  <h1>Your Movie Lists</h1>
+
+  <div class="card p-3 shadow-sm mb-4">
+    <h3>Create a New List</h3>
+    <%= simple_form_for @list do |f| %>
+      <%= f.input :name %>
+      <%= f.submit "Create List", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <% @lists.each do |list| %>
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h3><%= link_to list.name, list_path(list) %></h3>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

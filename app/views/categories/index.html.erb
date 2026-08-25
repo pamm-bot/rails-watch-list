@@ -1,0 +1,17 @@
+<div class="container mt-4">
+  <h1>Categories</h1>
+
+  <div class="card p-3 shadow-sm mb-4">
+    <h3>Create a New Category</h3>
+    <%= simple_form_for @category do |f| %>
+      <%= f.input :name %>
+      <%= f.submit "Create Category", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <ul class="list-group">
+    <% @categories.each do |category| %>
+      <li class="list-group-item"><%= category.name %></li>
+    <% end %>
+  </ul>
+</div>

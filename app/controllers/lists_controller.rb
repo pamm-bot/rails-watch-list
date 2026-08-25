@@ -8,6 +8,7 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @bookmark = Bookmark.new
     @review = Review.new
+    @categories = Category.all
   end
 
   def create

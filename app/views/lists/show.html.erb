@@ -10,6 +10,11 @@
             <h5><%= bookmark.movie.title %></h5>
             <p><%= bookmark.comment %></p>
 
+            <%= simple_form_for bookmark.movie, url: movie_path(bookmark.movie), method: :patch do |f| %>
+              <%= f.input :category_id, collection: @categories, include_blank: "No category", label: "Category" %>
+              <%= f.submit "Save", class: "btn btn-outline-secondary btn-sm" %>
+            <% end %>
+
             <%= link_to "Delete",
                 bookmark_path(bookmark),
                 data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },

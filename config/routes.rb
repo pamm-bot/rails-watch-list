@@ -10,5 +10,5 @@ Rails.application.routes.draw do
 
   resources :bookmarks, only: [ :destroy ]
   resources :categories, only: [ :index, :create ]
-  resources :movies, only: [ :update ]
+  resources :movies, only: [ :index, :create, :update ]
 end

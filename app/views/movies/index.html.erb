@@ -8,38 +8,42 @@
     </div>
   <% end %>
 
-  <%= form_with url: movies_path, method: :get, class: "d-flex gap-2 mb-4" do |f| %>
+  <%= form_with url: movies_path, method: :get, class: "d-flex gap-2 mb-4",
+        data: { controller: "search", turbo_frame: "movie_results" } do |f| %>
     <%= f.hidden_field :list_id, value: @list&.id %>
-    <%= f.text_field :query, value: @query, placeholder: "Search for a movie...", class: "form-control" %>
+    <%= f.text_field :query, value: @query, placeholder: "Search for a movie...", class: "form-control",
+          data: { action: "input->search#submit" } %>
     <%= f.submit "Search", class: "btn btn-primary" %>
   <% end %>
 
-  <% if @query.present? && @results.empty? %>
-    <p>No results for "<%= @query %>".</p>
-  <% end %>
+  <%= turbo_frame_tag "movie_results" do %>
+    <% if @query.present? && @results.empty? %>
+      <p>No results for "<%= @query %>".</p>
+    <% end %>
 
-  <div class="row">
-    <% @results.each do |result| %>
-      <div class="col-md-3">
-        <div class="card shadow-sm mb-4">
-          <% if result["poster_path"].present? %>
-            <img src="<%= TmdbClient.poster_url(result["poster_path"]) %>" class="card-img-top">
-          <% end %>
-          <div class="card-body">
-            <h5><%= result["title"] %></h5>
-            <p class="small text-truncate"><%= result["overview"] %></p>
-
-            <%= form_with url: movies_path, method: :post do |f| %>
-              <%= f.hidden_field :title, value: result["title"] %>
-              <%= f.hidden_field :overview, value: result["overview"] %>
-              <%= f.hidden_field :poster_path, value: result["poster_path"] %>
-              <%= f.hidden_field :vote_average, value: result["vote_average"] %>
-              <%= f.hidden_field :list_id, value: @list&.id %>
-              <%= f.submit(@list ? "Add to #{@list.name}" : "Add to my movies", class: "btn btn-success btn-sm") %>
+    <div class="row">
+      <% @results.each do |result| %>
+        <div class="col-md-3">
+          <div class="card shadow-sm mb-4">
+            <% if result["poster_path"].present? %>
+              <img src="<%= TmdbClient.poster_url(result["poster_path"]) %>" class="card-img-top">
             <% end %>
+            <div class="card-body">
+              <h5><%= result["title"] %></h5>
+              <p class="small text-truncate"><%= result["overview"] %></p>
+
+              <%= form_with url: movies_path, method: :post, data: { turbo_frame: "_top" } do |f| %>
+                <%= f.hidden_field :title, value: result["title"] %>
+                <%= f.hidden_field :overview, value: result["overview"] %>
+                <%= f.hidden_field :poster_path, value: result["poster_path"] %>
+                <%= f.hidden_field :vote_average, value: result["vote_average"] %>
+                <%= f.hidden_field :list_id, value: @list&.id %>
+                <%= f.submit(@list ? "Add to #{@list.name}" : "Add to my movies", class: "btn btn-success btn-sm") %>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>

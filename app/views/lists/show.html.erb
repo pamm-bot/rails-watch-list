@@ -37,6 +37,18 @@
   <hr>
 
   <h3>Reviews</h3>
+  <% if @list.reviews.any? %>
+    <ul class="list-group mb-3">
+      <% @list.reviews.each do |review| %>
+        <li class="list-group-item">
+          <strong><%= review.rating %>/5</strong> — <%= review.content %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-muted">No reviews yet.</p>
+  <% end %>
+
   <%= simple_form_for [@list, @review] do |f| %>
     <%= f.input :content %>
     <%= f.input :rating %>

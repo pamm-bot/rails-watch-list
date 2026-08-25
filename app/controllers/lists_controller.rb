@@ -20,6 +20,15 @@ class ListsController < ApplicationController
     end
   end
 
+  def update
+    @list = List.find(params[:id])
+    if @list.update(list_params)
+      redirect_to list_path(@list)
+    else
+      render :show, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def list_params

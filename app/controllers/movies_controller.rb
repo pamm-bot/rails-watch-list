@@ -2,6 +2,7 @@ class MoviesController < ApplicationController
   def index
     @query = params[:query]
     @results = TmdbClient.search(@query)
+    @list = List.find(params[:list_id]) if params[:list_id].present?
   end
 
   def create
@@ -11,7 +12,13 @@ class MoviesController < ApplicationController
     @movie.rating = params[:vote_average].to_f.round
 
     if @movie.save
-      redirect_to movies_path, notice: "#{@movie.title} added to your movies."
+      if params[:list_id].present?
+        list = List.find(params[:list_id])
+        Bookmark.find_or_create_by(list: list, movie: @movie)
+        redirect_to list, notice: "#{@movie.title} added to #{list.name}."
+      else
+        redirect_to movies_path, notice: "#{@movie.title} added to your movies."
+      end
     else
       redirect_to movies_path, alert: @movie.errors.full_messages.to_sentence
     end

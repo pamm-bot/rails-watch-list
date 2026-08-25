@@ -8,7 +8,9 @@
           <img src="<%= bookmark.movie.poster_url %>" class="card-img-top">
           <div class="card-body">
             <h5><%= bookmark.movie.title %></h5>
-            <p><%= bookmark.comment %></p>
+            <% if bookmark.comment.present? %>
+              <p><%= bookmark.comment %></p>
+            <% end %>
 
             <%= simple_form_for bookmark.movie, url: movie_path(bookmark.movie), method: :patch do |f| %>
               <%= f.input :category_id, collection: @categories, include_blank: "No category", label: "Category" %>
@@ -27,12 +29,7 @@
 
   <hr>
 
-  <h3>Add a Movie</h3>
-  <%= simple_form_for [@list, @bookmark] do |f| %>
-    <%= f.association :movie %>
-    <%= f.input :comment %>
-    <%= f.submit "Add", class: "btn btn-primary" %>
-  <% end %>
+  <%= link_to "Search & Add a Movie", movies_path(list_id: @list.id), class: "btn btn-primary" %>
 
   <hr>
 
@@ -41,7 +38,12 @@
     <ul class="list-group mb-3">
       <% @list.reviews.each do |review| %>
         <li class="list-group-item">
-          <strong><%= review.rating %>/5</strong> — <%= review.content %>
+          <span class="star-display">
+            <% (1..5).each do |n| %>
+              <i class="fa-star <%= "filled" if n <= review.rating %>"></i>
+            <% end %>
+          </span>
+          — <%= review.content %>
         </li>
       <% end %>
     </ul>
@@ -51,7 +53,17 @@
 
   <%= simple_form_for [@list, @review] do |f| %>
     <%= f.input :content %>
-    <%= f.input :rating %>
+    <div class="form-group mb-3">
+      <label>Rating</label>
+      <div class="star-rating">
+        <% (5).downto(1) do |n| %>
+          <%= f.radio_button :rating, n, id: "rating_#{n}" %>
+          <%= f.label :rating, for: "rating_#{n}" do %>
+            <span class="visually-hidden"><%= n %> stars</span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
     <%= f.submit "Submit Review", class: "btn btn-secondary" %>
   <% end %>
 </div>

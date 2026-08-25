@@ -1,7 +1,15 @@
 <div class="container mt-4">
   <h1>Browse Movies</h1>
 
+  <% if @list %>
+    <div class="alert alert-info d-flex justify-content-between align-items-center">
+      <span>Adding movies to: <strong><%= @list.name %></strong></span>
+      <%= link_to "Back to list", list_path(@list), class: "btn btn-outline-secondary btn-sm" %>
+    </div>
+  <% end %>
+
   <%= form_with url: movies_path, method: :get, class: "d-flex gap-2 mb-4" do |f| %>
+    <%= f.hidden_field :list_id, value: @list&.id %>
     <%= f.text_field :query, value: @query, placeholder: "Search for a movie...", class: "form-control" %>
     <%= f.submit "Search", class: "btn btn-primary" %>
   <% end %>
@@ -26,7 +34,8 @@
               <%= f.hidden_field :overview, value: result["overview"] %>
               <%= f.hidden_field :poster_path, value: result["poster_path"] %>
               <%= f.hidden_field :vote_average, value: result["vote_average"] %>
-              <%= f.submit "Add to my movies", class: "btn btn-success btn-sm" %>
+              <%= f.hidden_field :list_id, value: @list&.id %>
+              <%= f.submit(@list ? "Add to #{@list.name}" : "Add to my movies", class: "btn btn-success btn-sm") %>
             <% end %>
           </div>
         </div>

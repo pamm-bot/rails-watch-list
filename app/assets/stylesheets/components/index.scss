@@ -1,1 +1,55 @@
-// Components folder (empty for now)
+// Components folder
+
+.star-rating {
+  display: inline-flex;
+  flex-direction: row-reverse;
+
+  input {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+    font-size: 1.6rem;
+    color: #ccc;
+
+    &::before {
+      content: "\f005";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 400;
+    }
+  }
+
+  input:checked ~ label,
+  label:hover,
+  label:hover ~ label {
+    color: #ffb400;
+
+    &::before {
+      font-weight: 900;
+    }
+  }
+}
+
+.star-display {
+  color: #ccc;
+  font-size: 1.2rem;
+
+  i {
+    font-style: normal;
+
+    &::before {
+      content: "\f005";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 400;
+    }
+  }
+
+  i.filled {
+    color: #ffb400;
+
+    &::before {
+      font-weight: 900;
+    }
+  }
+}

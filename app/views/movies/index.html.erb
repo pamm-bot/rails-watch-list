@@ -21,8 +21,8 @@
 
     <div class="row">
       <% @results.each do |result| %>
-        <div class="col-md-3">
-          <div class="card shadow-sm mb-4">
+        <div class="col-md-3 d-flex">
+          <div class="card shadow-sm mb-4 h-100 w-100">
             <% if result["poster_path"].present? %>
               <img src="<%= TmdbClient.poster_url(result["poster_path"]) %>" class="card-img-top movie-poster">
             <% end %>

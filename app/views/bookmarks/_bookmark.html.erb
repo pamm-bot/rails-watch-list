@@ -1,5 +1,5 @@
-<div class="col-md-4">
-  <div class="card shadow-sm mb-4">
+<div class="col-md-4 d-flex">
+  <div class="card shadow-sm mb-4 h-100 w-100">
     <div class="position-relative">
       <img src="<%= bookmark.movie.poster_url %>" class="card-img-top movie-poster">
       <%= link_to "",
@@ -11,7 +11,7 @@
     <div class="card-body">
       <h5><%= bookmark.movie.title %></h5>
       <% if bookmark.movie.rating.present? %>
-        <p class="small">TMDb: <%= bookmark.movie.rating %>/10</p>
+        <p class="small star-display"><i class="fa-star filled"></i> <%= bookmark.movie.rating %>/10</p>
       <% end %>
       <% if bookmark.comment.present? %>
         <p><%= bookmark.comment %></p>
@@ -45,23 +45,21 @@
             <% end %>
           </ul>
         <% else %>
-          <p class="small">No reviews yet.</p>
-        <% end %>
-
-        <%= simple_form_for [bookmark, Review.new] do |f| %>
-          <%= f.input :content, label: "Review" %>
-          <div class="form-group mb-2">
-            <label>Rating</label>
-            <div class="star-rating">
-              <% (5).downto(1) do |n| %>
-                <%= f.radio_button :rating, n, id: "bookmark_#{bookmark.id}_rating_#{n}" %>
-                <%= f.label :rating, for: "bookmark_#{bookmark.id}_rating_#{n}" do %>
-                  <span class="visually-hidden"><%= n %> stars</span>
+          <%= simple_form_for [bookmark, Review.new] do |f| %>
+            <%= f.input :content, label: "Review" %>
+            <div class="form-group mb-2">
+              <label>Rating</label>
+              <div class="star-rating">
+                <% (5).downto(1) do |n| %>
+                  <%= f.radio_button :rating, n, id: "bookmark_#{bookmark.id}_rating_#{n}" %>
+                  <%= f.label :rating, for: "bookmark_#{bookmark.id}_rating_#{n}" do %>
+                    <span class="visually-hidden"><%= n %> stars</span>
+                  <% end %>
                 <% end %>
-              <% end %>
+              </div>
             </div>
-          </div>
-          <%= f.submit "Submit Review", class: "btn btn-secondary btn-sm" %>
+            <%= f.submit "Submit Review", class: "btn btn-secondary btn-sm" %>
+          <% end %>
         <% end %>
       <% end %>
     </div>

@@ -1,8 +1,8 @@
 <div class="col-md-4">
   <div class="card shadow-sm mb-4">
     <div class="position-relative">
-      <img src="<%= bookmark.movie.poster_url %>" class="card-img-top">
-      <%= link_to "&times;".html_safe,
+      <img src="<%= bookmark.movie.poster_url %>" class="card-img-top movie-poster">
+      <%= link_to "",
           bookmark_path(bookmark),
           data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
           class: "delete-x",
@@ -13,14 +13,11 @@
       <% if bookmark.movie.rating.present? %>
         <p class="text-muted small">TMDb: <%= bookmark.movie.rating %>/10</p>
       <% end %>
+      <% if bookmark.movie.category.present? %>
+        <span class="badge bg-secondary mb-2"><%= bookmark.movie.category.name %></span>
+      <% end %>
       <% if bookmark.comment.present? %>
         <p><%= bookmark.comment %></p>
-      <% end %>
-
-      <%= simple_form_for bookmark.movie, url: movie_path(bookmark.movie), method: :patch,
-            html: { data: { controller: "auto-submit" } } do |f| %>
-        <%= f.input :category_id, collection: @categories, include_blank: "No category", label: "Category",
-              input_html: { data: { action: "change->auto-submit#submit" } } %>
       <% end %>
 
       <% if bookmark.watched? %>

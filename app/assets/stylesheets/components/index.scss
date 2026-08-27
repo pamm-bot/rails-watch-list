@@ -1,5 +1,10 @@
 // Components folder
 
+.movie-poster {
+  height: 220px;
+  object-fit: cover;
+}
+
 .delete-x {
   position: absolute;
   top: 8px;
@@ -9,16 +14,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  font-size: 1.2rem;
-  line-height: 1;
   text-decoration: none;
 
-  &:hover {
-    background: #dc3545;
-    color: #fff;
+  &::before {
+    content: "\f00d";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: #000;
+    text-shadow: 0 0 3px #fff, 0 0 3px #fff;
+  }
+
+  &:hover::before {
+    color: #dc3545;
   }
 }
 

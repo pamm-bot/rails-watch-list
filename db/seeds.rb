@@ -3,7 +3,4 @@ Movie.create(title: "Wonder Woman 1984", overview: "...", poster_url: "...", rat
 Movie.create(title: "The Shawshank Redemption", overview: "...", poster_url: "...", rating: 8.7)
 Movie.create(title: "Ocean's Eight", overview: "...", poster_url: "...", rating: 7.0)
 
-[
-  "Action", "Comedy", "Drama", "Horror", "Sci-Fi",
-  "Thriller", "Documentary", "Animation", "Romance", "Fantasy"
-].each { |name| Category.find_or_create_by!(name: name) }
+TmdbClient::GENRES.values.each { |name| Category.find_or_create_by!(name: name) }

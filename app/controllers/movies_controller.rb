@@ -11,6 +11,10 @@ class MoviesController < ApplicationController
     @movie.poster_url = TmdbClient.poster_url(params[:poster_path])
     @movie.rating = params[:vote_average].to_f.round
 
+    if (genre_name = TmdbClient.genre_name(params[:genre_id]))
+      @movie.category = Category.find_or_create_by(name: genre_name)
+    end
+
     if @movie.save
       if params[:list_id].present?
         list = List.find(params[:list_id])
@@ -26,15 +30,4 @@ class MoviesController < ApplicationController
     end
   end
 
-  def update
-    @movie = Movie.find(params[:id])
-    @movie.update(movie_params)
-    redirect_back fallback_location: root_path
-  end
-
-  private
-
-  def movie_params
-    params.require(:movie).permit(:category_id)
-  end
 end

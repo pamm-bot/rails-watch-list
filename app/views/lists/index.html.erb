@@ -18,13 +18,14 @@
   <div class="row">
     <% @lists.each do |list| %>
       <div class="col-md-4">
-        <div class="card shadow-sm mb-4">
+        <div class="card shadow-sm mb-4 position-relative">
+          <%= link_to "",
+              list_path(list),
+              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+              class: "delete-x",
+              aria: { label: "Delete" } %>
           <div class="card-body">
             <h3><%= link_to list.name, list_path(list) %></h3>
-            <%= link_to "Delete",
-                list_path(list),
-                data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-                class: "btn btn-danger btn-sm" %>
           </div>
         </div>
       </div>

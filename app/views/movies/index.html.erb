@@ -26,7 +26,7 @@
         <div class="col-md-3">
           <div class="card shadow-sm mb-4">
             <% if result["poster_path"].present? %>
-              <img src="<%= TmdbClient.poster_url(result["poster_path"]) %>" class="card-img-top">
+              <img src="<%= TmdbClient.poster_url(result["poster_path"]) %>" class="card-img-top movie-poster">
             <% end %>
             <div class="card-body">
               <h5><%= result["title"] %></h5>
@@ -37,6 +37,7 @@
                 <%= f.hidden_field :overview, value: result["overview"] %>
                 <%= f.hidden_field :poster_path, value: result["poster_path"] %>
                 <%= f.hidden_field :vote_average, value: result["vote_average"] %>
+                <%= f.hidden_field :genre_id, value: result["genre_ids"]&.first %>
                 <%= f.hidden_field :list_id, value: @list&.id %>
 
                 <% if @list %>

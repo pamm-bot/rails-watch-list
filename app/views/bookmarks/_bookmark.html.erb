@@ -1,0 +1,72 @@
+<div class="col-md-4">
+  <div class="card shadow-sm mb-4">
+    <img src="<%= bookmark.movie.poster_url %>" class="card-img-top">
+    <div class="card-body">
+      <h5><%= bookmark.movie.title %></h5>
+      <% if bookmark.movie.rating.present? %>
+        <p class="text-muted small">TMDb: <%= bookmark.movie.rating %>/10</p>
+      <% end %>
+      <% if bookmark.comment.present? %>
+        <p><%= bookmark.comment %></p>
+      <% end %>
+
+      <%= simple_form_for bookmark.movie, url: movie_path(bookmark.movie), method: :patch do |f| %>
+        <%= f.input :category_id, collection: @categories, include_blank: "No category", label: "Category" %>
+        <%= f.submit "Save", class: "btn btn-outline-secondary btn-sm" %>
+      <% end %>
+
+      <% if bookmark.watched? %>
+        <%= button_to "Move back to To Watch",
+            bookmark_path(bookmark),
+            method: :patch, params: { bookmark: { watched: false } },
+            class: "btn btn-link btn-sm text-muted p-0" %>
+      <% else %>
+        <%= button_to "Mark as Watched",
+            bookmark_path(bookmark),
+            method: :patch, params: { bookmark: { watched: true } },
+            class: "btn btn-outline-primary btn-sm" %>
+      <% end %>
+
+      <%= link_to "Delete",
+          bookmark_path(bookmark),
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+          class: "btn btn-danger btn-sm" %>
+
+      <% if bookmark.watched? %>
+        <hr>
+        <% if bookmark.reviews.any? %>
+          <ul class="list-group mb-2">
+            <% bookmark.reviews.each do |review| %>
+              <li class="list-group-item">
+                <span class="star-display">
+                  <% (1..5).each do |n| %>
+                    <i class="fa-star <%= "filled" if n <= review.rating %>"></i>
+                  <% end %>
+                </span>
+                — <%= review.content %>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="text-muted small">No reviews yet.</p>
+        <% end %>
+
+        <%= simple_form_for [bookmark, Review.new] do |f| %>
+          <%= f.input :content, label: "Review" %>
+          <div class="form-group mb-2">
+            <label>Rating</label>
+            <div class="star-rating">
+              <% (5).downto(1) do |n| %>
+                <%= f.radio_button :rating, n, id: "bookmark_#{bookmark.id}_rating_#{n}" %>
+                <%= f.label :rating, for: "bookmark_#{bookmark.id}_rating_#{n}" do %>
+                  <span class="visually-hidden"><%= n %> stars</span>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <%= f.submit "Submit Review", class: "btn btn-secondary btn-sm" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

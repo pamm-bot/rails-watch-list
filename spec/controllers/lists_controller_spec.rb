@@ -32,13 +32,6 @@ if defined?(ListsController)
       end
     end
 
-    describe "GET new" do
-      it "assigns a new list as @list" do
-        get :new, params: {}
-        expect(assigns(:list)).to be_a_new(List)
-      end
-    end
-
     describe "POST create" do
       describe "with valid params" do
         it "creates a new List" do
@@ -53,9 +46,9 @@ if defined?(ListsController)
           expect(assigns(:list)).to be_persisted
         end
 
-        it "redirects to the created list" do
+        it "redirects to the lists index" do
           post :create, params: { list: valid_attributes}
-          expect(response).to redirect_to(List.last)
+          expect(response).to redirect_to(lists_path)
         end
       end
 
@@ -65,9 +58,9 @@ if defined?(ListsController)
           expect(assigns(:list)).to be_a_new(List)
         end
 
-        it "re-renders the 'new' template" do
+        it "re-renders the 'index' template" do
           post :create, params: { list: invalid_attributes}
-          expect(response).to render_template("new")
+          expect(response).to render_template("index")
         end
       end
     end

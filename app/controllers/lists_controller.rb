@@ -6,9 +6,8 @@ class ListsController < ApplicationController
 
   def show
     @list = List.find(params[:id])
-    @bookmark = Bookmark.new
-    @review = Review.new
     @categories = Category.all
+    @to_watch, @watched = @list.bookmarks_by_watched
   end
 
   def create
@@ -26,6 +25,8 @@ class ListsController < ApplicationController
     if @list.update(list_params)
       redirect_to list_path(@list)
     else
+      @categories = Category.all
+      @to_watch, @watched = @list.bookmarks_by_watched
       render :show, status: :unprocessable_entity
     end
   end

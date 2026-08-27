@@ -1,69 +1,27 @@
 <div class="container mt-4">
   <h1><%= @list.name %></h1>
 
-  <div class="row mt-4">
-    <% @list.bookmarks.each do |bookmark| %>
-      <div class="col-md-4">
-        <div class="card shadow-sm mb-4">
-          <img src="<%= bookmark.movie.poster_url %>" class="card-img-top">
-          <div class="card-body">
-            <h5><%= bookmark.movie.title %></h5>
-            <% if bookmark.comment.present? %>
-              <p><%= bookmark.comment %></p>
-            <% end %>
+  <%= link_to "Search & Add a Movie", movies_path(list_id: @list.id), class: "btn btn-primary mt-3" %>
 
-            <%= simple_form_for bookmark.movie, url: movie_path(bookmark.movie), method: :patch do |f| %>
-              <%= f.input :category_id, collection: @categories, include_blank: "No category", label: "Category" %>
-              <%= f.submit "Save", class: "btn btn-outline-secondary btn-sm" %>
-            <% end %>
+  <hr>
 
-            <%= link_to "Delete",
-                bookmark_path(bookmark),
-                data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-                class: "btn btn-danger btn-sm" %>
-          </div>
-        </div>
-      </div>
+  <h3>To Watch</h3>
+  <div class="row mt-3">
+    <% if @to_watch.empty? %>
+      <p class="text-muted">Nothing here yet.</p>
+    <% else %>
+      <%= render @to_watch %>
     <% end %>
   </div>
 
   <hr>
 
-  <%= link_to "Search & Add a Movie", movies_path(list_id: @list.id), class: "btn btn-primary" %>
-
-  <hr>
-
-  <h3>Reviews</h3>
-  <% if @list.reviews.any? %>
-    <ul class="list-group mb-3">
-      <% @list.reviews.each do |review| %>
-        <li class="list-group-item">
-          <span class="star-display">
-            <% (1..5).each do |n| %>
-              <i class="fa-star <%= "filled" if n <= review.rating %>"></i>
-            <% end %>
-          </span>
-          — <%= review.content %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p class="text-muted">No reviews yet.</p>
-  <% end %>
-
-  <%= simple_form_for [@list, @review] do |f| %>
-    <%= f.input :content %>
-    <div class="form-group mb-3">
-      <label>Rating</label>
-      <div class="star-rating">
-        <% (5).downto(1) do |n| %>
-          <%= f.radio_button :rating, n, id: "rating_#{n}" %>
-          <%= f.label :rating, for: "rating_#{n}" do %>
-            <span class="visually-hidden"><%= n %> stars</span>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-    <%= f.submit "Submit Review", class: "btn btn-secondary" %>
-  <% end %>
+  <h3>Watched</h3>
+  <div class="row mt-3">
+    <% if @watched.empty? %>
+      <p class="text-muted">No movies marked as watched yet.</p>
+    <% else %>
+      <%= render @watched %>
+    <% end %>
+  </div>
 </div>

@@ -38,6 +38,14 @@
                 <%= f.hidden_field :poster_path, value: result["poster_path"] %>
                 <%= f.hidden_field :vote_average, value: result["vote_average"] %>
                 <%= f.hidden_field :list_id, value: @list&.id %>
+
+                <% if @list %>
+                  <div class="form-check mb-2">
+                    <%= f.check_box :watched, class: "form-check-input" %>
+                    <%= f.label :watched, "Already watched?", class: "form-check-label" %>
+                  </div>
+                <% end %>
+
                 <%= f.submit(@list ? "Add to #{@list.name}" : "Add to my movies", class: "btn btn-success btn-sm") %>
               <% end %>
             </div>

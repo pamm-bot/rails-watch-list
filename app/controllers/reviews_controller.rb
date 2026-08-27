@@ -1,14 +1,13 @@
 class ReviewsController < ApplicationController
   def create
-    @list = List.find(params[:list_id])
+    @bookmark = Bookmark.find(params[:bookmark_id])
     @review = Review.new(review_params)
-    @review.list = @list
+    @review.bookmark = @bookmark
 
     if @review.save
-      redirect_to @list
+      redirect_to @bookmark.list, notice: "Review added."
     else
-      @bookmark = Bookmark.new
-      render "lists/show", status: :unprocessable_entity
+      redirect_to @bookmark.list, alert: @review.errors.full_messages.to_sentence
     end
   end
 

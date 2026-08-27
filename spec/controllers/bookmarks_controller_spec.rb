@@ -20,13 +20,6 @@ if defined?(BookmarksController)
       { list_id: @list.id, bookmark: { movie_id: @movie.id, comment: "Good!" } }
     end
 
-    describe "GET new" do
-      it "assigns a new bookmark to @bookmark" do
-        get :new, params: valid_attributes
-        expect(assigns(:bookmark)).to be_a_new(Bookmark)
-      end
-    end
-
     describe "POST create" do
       describe "with valid params" do
         it "creates a new bookmark" do

@@ -14,7 +14,9 @@ class MoviesController < ApplicationController
     if @movie.save
       if params[:list_id].present?
         list = List.find(params[:list_id])
-        Bookmark.find_or_create_by(list: list, movie: @movie)
+        Bookmark.find_or_create_by(list: list, movie: @movie) do |bookmark|
+          bookmark.watched = params[:watched] == "1"
+        end
         redirect_to list, notice: "#{@movie.title} added to #{list.name}."
       else
         redirect_to movies_path, notice: "#{@movie.title} added to your movies."

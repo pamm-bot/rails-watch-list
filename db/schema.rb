@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_25_123825) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_27_113706) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -20,6 +20,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_25_123825) do
     t.bigint "list_id", null: false
     t.bigint "movie_id", null: false
     t.datetime "updated_at", null: false
+    t.boolean "watched", default: false, null: false
     t.index ["list_id"], name: "index_bookmarks_on_list_id"
     t.index ["movie_id", "list_id"], name: "index_bookmarks_on_movie_id_and_list_id", unique: true
     t.index ["movie_id"], name: "index_bookmarks_on_movie_id"
@@ -49,16 +50,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_25_123825) do
   end
 
   create_table "reviews", force: :cascade do |t|
+    t.bigint "bookmark_id", null: false
     t.text "content"
     t.datetime "created_at", null: false
-    t.bigint "list_id", null: false
     t.integer "rating"
     t.datetime "updated_at", null: false
-    t.index ["list_id"], name: "index_reviews_on_list_id"
+    t.index ["bookmark_id"], name: "index_reviews_on_bookmark_id"
   end
 
   add_foreign_key "bookmarks", "lists"
   add_foreign_key "bookmarks", "movies"
   add_foreign_key "movies", "categories"
-  add_foreign_key "reviews", "lists"
+  add_foreign_key "reviews", "bookmarks"
 end

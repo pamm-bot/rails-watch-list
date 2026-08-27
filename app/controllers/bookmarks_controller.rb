@@ -7,9 +7,16 @@ class BookmarksController < ApplicationController
     if @bookmark.save
       redirect_to @list
     else
-      @review = Review.new
+      @categories = Category.all
+      @to_watch, @watched = @list.bookmarks_by_watched
       render "lists/show", status: :unprocessable_entity
     end
+  end
+
+  def update
+    @bookmark = Bookmark.find(params[:id])
+    @bookmark.update(bookmark_params)
+    redirect_back fallback_location: root_path
   end
 
   def destroy
@@ -21,6 +28,6 @@ class BookmarksController < ApplicationController
   private
 
   def bookmark_params
-    params.require(:bookmark).permit(:comment, :movie_id)
+    params.require(:bookmark).permit(:comment, :movie_id, :watched)
   end
 end

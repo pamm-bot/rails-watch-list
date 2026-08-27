@@ -9,10 +9,12 @@
           aria: { label: "Delete" } %>
     </div>
     <div class="card-body">
-      <h5><%= bookmark.movie.title %></h5>
-      <% if bookmark.movie.rating.present? %>
-        <p class="small star-display"><i class="fa-star filled"></i> <%= bookmark.movie.rating %>/10</p>
-      <% end %>
+      <div class="d-flex justify-content-between align-items-start">
+        <h5 class="mb-0"><%= bookmark.movie.title %></h5>
+        <% if bookmark.movie.rating.present? %>
+          <span class="movie-rating"><i class="fa-star"></i> <%= bookmark.movie.rating %>/10</span>
+        <% end %>
+      </div>
       <% if bookmark.comment.present? %>
         <p><%= bookmark.comment %></p>
       <% end %>

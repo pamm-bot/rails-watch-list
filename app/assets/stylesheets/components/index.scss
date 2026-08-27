@@ -31,6 +31,25 @@
   }
 }
 
+.movie-rating {
+  font-size: 0.75rem;
+  white-space: nowrap;
+  margin-left: 8px;
+  padding-top: 3px;
+
+  i {
+    font-style: normal;
+    color: #ffb400;
+
+    &::before {
+      content: "\f005";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: 0.7rem;
+    }
+  }
+}
+
 .star-rating {
   display: inline-flex;
   flex-direction: row-reverse;

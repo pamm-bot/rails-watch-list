@@ -31,6 +31,17 @@ class TmdbClient
     GENRES[genre_id.to_i]
   end
 
+  # Genres kept out of kids-mode lists. Action stays allowed on purpose.
+  MATURE_GENRE_IDS = [ 27 ].freeze # Horror
+
+  def self.mature?(genre_ids, adult: false)
+    adult || (genre_ids || []).any? { |id| MATURE_GENRE_IDS.include?(id.to_i) }
+  end
+
+  def self.mature_genre_name?(name)
+    MATURE_GENRE_IDS.include?(GENRES.key(name))
+  end
+
   def self.get(path, params)
     uri = URI("#{BASE_URL}#{path}")
     uri.query = URI.encode_www_form(params.merge(api_key: api_key))

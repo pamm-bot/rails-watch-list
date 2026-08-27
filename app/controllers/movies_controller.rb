@@ -1,8 +1,11 @@
 class MoviesController < ApplicationController
   def index
     @query = params[:query]
-    @results = TmdbClient.search(@query)
     @list = List.find(params[:list_id])
+    @results = TmdbClient.search(@query)
+    if @list.kids_mode?
+      @results = @results.reject { |r| TmdbClient.mature?(r["genre_ids"], adult: r["adult"]) }
+    end
     @titles_in_list = @list.movies.pluck(:title)
   end
 

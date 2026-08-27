@@ -5,6 +5,7 @@
     <h3>Create a New List</h3>
     <%= simple_form_for @list do |f| %>
       <%= f.input :name %>
+      <%= f.input :kids_mode, as: :boolean, label: "Are you under 12?" %>
       <%= f.submit "Create List", class: "btn btn-primary" %>
     <% end %>
   </div>

@@ -17,7 +17,7 @@
   <h3>To Watch</h3>
   <div class="row mt-3">
     <% if @to_watch.empty? %>
-      <p class="text-muted">Nothing here yet.</p>
+      <p>Nothing here yet.</p>
     <% else %>
       <%= render @to_watch %>
     <% end %>
@@ -28,7 +28,7 @@
   <h3>Watched</h3>
   <div class="row mt-3">
     <% if @watched.empty? %>
-      <p class="text-muted">No movies marked as watched yet.</p>
+      <p>No movies marked as watched yet.</p>
     <% else %>
       <%= render @watched %>
     <% end %>

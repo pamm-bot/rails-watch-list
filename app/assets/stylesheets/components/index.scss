@@ -26,7 +26,8 @@
   }
 
   &:hover::before {
-    color: #dc3545;
+    color: #fff;
+    text-shadow: 0 0 3px #000, 0 0 3px #000;
   }
 }
 

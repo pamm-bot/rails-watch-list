@@ -11,10 +11,7 @@
     <div class="card-body">
       <h5><%= bookmark.movie.title %></h5>
       <% if bookmark.movie.rating.present? %>
-        <p class="text-muted small">TMDb: <%= bookmark.movie.rating %>/10</p>
-      <% end %>
-      <% if bookmark.movie.category.present? %>
-        <span class="badge bg-secondary mb-2"><%= bookmark.movie.category.name %></span>
+        <p class="small">TMDb: <%= bookmark.movie.rating %>/10</p>
       <% end %>
       <% if bookmark.comment.present? %>
         <p><%= bookmark.comment %></p>
@@ -48,7 +45,7 @@
             <% end %>
           </ul>
         <% else %>
-          <p class="text-muted small">No reviews yet.</p>
+          <p class="small">No reviews yet.</p>
         <% end %>
 
         <%= simple_form_for [bookmark, Review.new] do |f| %>

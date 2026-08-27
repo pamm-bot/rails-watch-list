@@ -1,5 +1,27 @@
 // Components folder
 
+.delete-x {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 1;
+  text-decoration: none;
+
+  &:hover {
+    background: #dc3545;
+    color: #fff;
+  }
+}
+
 .star-rating {
   display: inline-flex;
   flex-direction: row-reverse;

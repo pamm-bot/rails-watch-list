@@ -1,6 +1,13 @@
 <div class="col-md-4">
   <div class="card shadow-sm mb-4">
-    <img src="<%= bookmark.movie.poster_url %>" class="card-img-top">
+    <div class="position-relative">
+      <img src="<%= bookmark.movie.poster_url %>" class="card-img-top">
+      <%= link_to "&times;".html_safe,
+          bookmark_path(bookmark),
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+          class: "delete-x",
+          aria: { label: "Delete" } %>
+    </div>
     <div class="card-body">
       <h5><%= bookmark.movie.title %></h5>
       <% if bookmark.movie.rating.present? %>
@@ -10,9 +17,10 @@
         <p><%= bookmark.comment %></p>
       <% end %>
 
-      <%= simple_form_for bookmark.movie, url: movie_path(bookmark.movie), method: :patch do |f| %>
-        <%= f.input :category_id, collection: @categories, include_blank: "No category", label: "Category" %>
-        <%= f.submit "Save", class: "btn btn-outline-secondary btn-sm" %>
+      <%= simple_form_for bookmark.movie, url: movie_path(bookmark.movie), method: :patch,
+            html: { data: { controller: "auto-submit" } } do |f| %>
+        <%= f.input :category_id, collection: @categories, include_blank: "No category", label: "Category",
+              input_html: { data: { action: "change->auto-submit#submit" } } %>
       <% end %>
 
       <% if bookmark.watched? %>
@@ -26,11 +34,6 @@
             method: :patch, params: { bookmark: { watched: true } },
             class: "btn btn-outline-primary btn-sm" %>
       <% end %>
-
-      <%= link_to "Delete",
-          bookmark_path(bookmark),
-          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-          class: "btn btn-danger btn-sm" %>
 
       <% if bookmark.watched? %>
         <hr>

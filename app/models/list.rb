@@ -5,7 +5,9 @@ class List < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
-  def bookmarks_by_watched
-    bookmarks.includes(:movie, :reviews).partition { |b| !b.watched? }
+  def bookmarks_by_watched(category_id: nil)
+    scope = bookmarks.includes(:movie, :reviews)
+    scope = scope.joins(:movie).where(movies: { category_id: category_id }) if category_id.present?
+    scope.partition { |b| !b.watched? }
   end
 end

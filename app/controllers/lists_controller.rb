@@ -7,7 +7,8 @@ class ListsController < ApplicationController
   def show
     @list = List.find(params[:id])
     @categories = Category.all
-    @to_watch, @watched = @list.bookmarks_by_watched
+    @selected_category_id = params[:category_id]
+    @to_watch, @watched = @list.bookmarks_by_watched(category_id: @selected_category_id)
   end
 
   def create
@@ -26,7 +27,8 @@ class ListsController < ApplicationController
       redirect_to list_path(@list)
     else
       @categories = Category.all
-      @to_watch, @watched = @list.bookmarks_by_watched
+      @selected_category_id = params[:category_id]
+      @to_watch, @watched = @list.bookmarks_by_watched(category_id: @selected_category_id)
       render :show, status: :unprocessable_entity
     end
   end

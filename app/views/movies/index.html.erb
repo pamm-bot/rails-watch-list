@@ -1,16 +1,14 @@
 <div class="container mt-4">
   <h1>Browse Movies</h1>
 
-  <% if @list %>
-    <div class="alert alert-info d-flex justify-content-between align-items-center">
-      <span>Adding movies to: <strong><%= @list.name %></strong></span>
-      <%= link_to "Back to list", list_path(@list), class: "btn btn-outline-secondary btn-sm" %>
-    </div>
-  <% end %>
+  <div class="alert alert-info d-flex justify-content-between align-items-center">
+    <span>Adding movies to: <strong><%= @list.name %></strong></span>
+    <%= link_to "Back to list", list_path(@list), class: "btn btn-outline-secondary btn-sm" %>
+  </div>
 
   <%= form_with url: movies_path, method: :get, class: "d-flex gap-2 mb-4",
         data: { controller: "search", turbo_frame: "movie_results" } do |f| %>
-    <%= f.hidden_field :list_id, value: @list&.id %>
+    <%= f.hidden_field :list_id, value: @list.id %>
     <%= f.text_field :query, value: @query, placeholder: "Search for a movie...", class: "form-control",
           data: { action: "input->search#submit" } %>
     <%= f.submit "Search", class: "btn btn-primary" %>
@@ -38,16 +36,14 @@
                 <%= f.hidden_field :poster_path, value: result["poster_path"] %>
                 <%= f.hidden_field :vote_average, value: result["vote_average"] %>
                 <%= f.hidden_field :genre_id, value: result["genre_ids"]&.first %>
-                <%= f.hidden_field :list_id, value: @list&.id %>
+                <%= f.hidden_field :list_id, value: @list.id %>
 
-                <% if @list %>
-                  <div class="form-check mb-2">
-                    <%= f.check_box :watched, class: "form-check-input" %>
-                    <%= f.label :watched, "Already watched?", class: "form-check-label" %>
-                  </div>
-                <% end %>
+                <div class="form-check mb-2">
+                  <%= f.check_box :watched, class: "form-check-input" %>
+                  <%= f.label :watched, "Already watched?", class: "form-check-label" %>
+                </div>
 
-                <%= f.submit(@list ? "Add to #{@list.name}" : "Add to my movies", class: "btn btn-success btn-sm") %>
+                <%= f.submit "Add to #{@list.name}", class: "btn btn-success btn-sm" %>
               <% end %>
             </div>
           </div>

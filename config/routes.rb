@@ -10,6 +10,5 @@ Rails.application.routes.draw do
   resources :bookmarks, only: [ :destroy, :update ] do
     resources :reviews, only: [ :create ]
   end
-  resources :categories, only: [ :index, :create ]
   resources :movies, only: [ :index, :create ]
 end

@@ -3,6 +3,7 @@ class MoviesController < ApplicationController
     @query = params[:query]
     @results = TmdbClient.search(@query)
     @list = List.find(params[:list_id])
+    @titles_in_list = @list.movies.pluck(:title)
   end
 
   def create

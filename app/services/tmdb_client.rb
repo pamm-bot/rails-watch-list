@@ -18,7 +18,7 @@ class TmdbClient
   def self.search(query)
     return [] if query.blank?
 
-    get("/search/movie", query: query)["results"] || []
+    get("/search/movie", query: query, include_adult: false)["results"] || []
   end
 
   def self.poster_url(poster_path)
@@ -34,8 +34,22 @@ class TmdbClient
   # Genres kept out of kids-mode lists. Action stays allowed on purpose.
   MATURE_GENRE_IDS = [ 27 ].freeze # Horror
 
-  def self.mature?(genre_ids, adult: false)
-    adult || (genre_ids || []).any? { |id| MATURE_GENRE_IDS.include?(id.to_i) }
+  # TMDb's own "adult" flag misses a lot of borderline/explicit titles
+  # (e.g. parody or exploitation movies with these words right in the
+  # title), so this catches them by keyword as a second line of defense.
+  EXPLICIT_KEYWORDS = %w[porn porno pornographic xxx erotic erotica].freeze
+
+  def self.mature?(genre_ids, adult: false, title: nil)
+    adult ||
+      (genre_ids || []).any? { |id| MATURE_GENRE_IDS.include?(id.to_i) } ||
+      explicit_title?(title)
+  end
+
+  def self.explicit_title?(title)
+    return false if title.blank?
+
+    downcased = title.downcase
+    EXPLICIT_KEYWORDS.any? { |word| downcased.include?(word) }
   end
 
   def self.mature_genre_name?(name)

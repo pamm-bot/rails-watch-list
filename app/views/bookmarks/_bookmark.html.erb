@@ -1,13 +1,7 @@
 <div class="col-md-4 d-flex" id="<%= dom_id(bookmark) %>">
   <div class="card shadow-sm mb-4 h-100 w-100">
     <div class="position-relative">
-      <% if bookmark.movie.poster_url.present? %>
-        <img src="<%= bookmark.movie.poster_url %>" class="card-img-top movie-poster">
-      <% else %>
-        <div class="movie-poster d-flex align-items-center justify-content-center bg-light text-muted small text-center px-2">
-          No poster available
-        </div>
-      <% end %>
+      <img src="<%= bookmark.movie.poster_url %>" class="card-img-top movie-poster">
       <%= link_to "",
           bookmark_path(bookmark),
           data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },

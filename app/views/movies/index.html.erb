@@ -20,13 +20,7 @@
       <% @results.each do |result| %>
         <div class="col-md-3 d-flex">
           <div class="card shadow-sm mb-4 h-100 w-100">
-            <% if result["poster_path"].present? %>
-              <img src="<%= TmdbClient.poster_url(result["poster_path"]) %>" class="card-img-top movie-poster">
-            <% else %>
-              <div class="movie-poster d-flex align-items-center justify-content-center bg-light text-muted small text-center px-2">
-                No poster available
-              </div>
-            <% end %>
+            <img src="<%= TmdbClient.poster_url(result["poster_path"]) %>" class="card-img-top movie-poster">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-start">
                 <h5 class="mb-0"><%= result["title"] %></h5>

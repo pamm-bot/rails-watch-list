@@ -1,19 +1,18 @@
 <div class="container mt-4">
-  <h1>Browse Movies</h1>
-
-  <%= link_to "Back to list", list_path(@list), class: "btn btn-outline-ocean btn-sm mb-3" %>
-
-  <%= form_with url: movies_path, method: :get, class: "d-flex gap-2 mb-4",
-        data: { controller: "search", turbo_frame: "movie_results" } do |f| %>
+  <%= form_with url: movies_path, method: :get, class: "d-flex gap-2 mb-4 flex-wrap",
+        data: { controller: "search auto-submit", turbo_frame: "movie_results" } do |f| %>
     <%= f.hidden_field :list_id, value: @list.id %>
-    <%= f.text_field :query, value: @query, placeholder: "Search for a movie...", class: "form-control",
+    <%= f.text_field :query, value: @query, placeholder: "Search for a movie...", class: "form-control form-control-narrow",
           data: { action: "input->search#submit" } %>
-    <%= f.submit "Search", class: "btn btn-ocean" %>
+    <%= f.select :category_id, @categories.map { |c| [c.name, c.id] }, { include_blank: "Category", selected: @selected_category_id },
+          { class: "form-select w-auto", data: { action: "change->auto-submit#submit" } } %>
+    <%= f.select :min_rating, [["7+", 7], ["8+", 8], ["9+", 9]], { include_blank: "Rating", selected: @min_rating },
+          { class: "form-select w-auto", data: { action: "change->auto-submit#submit" } } %>
   <% end %>
 
   <%= turbo_frame_tag "movie_results" do %>
-    <% if @query.present? && @results.empty? %>
-      <p>No results for "<%= @query %>".</p>
+    <% if @results.empty? %>
+      <p>No results<%= " for \"#{@query}\"" if @query.present? %>.</p>
     <% end %>
 
     <div class="row">

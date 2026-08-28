@@ -2,10 +2,29 @@ class MoviesController < ApplicationController
   def index
     @query = params[:query]
     @list = List.find(params[:list_id])
-    @results = TmdbClient.search(@query).select { |r| r["poster_path"].present? }
+    @categories = Category.all
+    @selected_category_id = params[:category_id]
+    @min_rating = params[:min_rating]
+
+    genre_id = TmdbClient::GENRES.key(Category.find(@selected_category_id).name) if @selected_category_id.present?
+
+    @results = if @query.present?
+      TmdbClient.search(@query)
+    else
+      TmdbClient.discover(genre_id: genre_id, min_rating: @min_rating)
+    end
+
+    @results = @results.select { |r| r["poster_path"].present? }
     if @list.kids_mode?
       @results = @results.reject { |r| TmdbClient.mature?(r["genre_ids"], adult: r["adult"], title: r["title"]) }
     end
+    if @selected_category_id.present?
+      @results = @results.select { |r| r["genre_ids"]&.include?(genre_id) }
+    end
+    if @min_rating.present?
+      @results = @results.select { |r| r["vote_average"].to_f >= @min_rating.to_f }
+    end
+
     @titles_in_list = @list.movies.pluck(:title)
   end
 

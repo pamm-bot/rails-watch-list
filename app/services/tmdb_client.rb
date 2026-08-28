@@ -21,6 +21,17 @@ class TmdbClient
     get("/search/movie", query: query, include_adult: false)["results"] || []
   end
 
+  # For filter-only browsing (no title typed): TMDb's search endpoint
+  # requires a query string, so this uses "discover" instead, which
+  # supports filtering by genre/rating with no text query.
+  def self.discover(genre_id: nil, min_rating: nil)
+    params = { include_adult: false, sort_by: "popularity.desc" }
+    params[:with_genres] = genre_id if genre_id.present?
+    params["vote_average.gte"] = min_rating if min_rating.present?
+
+    get("/discover/movie", params)["results"] || []
+  end
+
   def self.poster_url(poster_path)
     return nil if poster_path.blank?
 

@@ -62,6 +62,26 @@ if defined?(BookmarksController)
           delete :destroy, params: { id: @bookmark.id }
         }.to change(Bookmark, :count).by(-1)
       end
+
+      it "does not delete another user's bookmark" do
+        other_user = User.create!(email_address: "other_bookmarks_controller_spec@example.com", password: "password123")
+        other_list = List.create!(name: "Comedy", user: other_user)
+        other_bookmark = Bookmark.create!(list: other_list, movie: @movie)
+
+        expect {
+          delete :destroy, params: { id: other_bookmark.id }
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    describe "PATCH update" do
+      it "toggles a bookmark between watched and to-watch" do
+        @bookmark = Bookmark.create!(valid_attributes[:bookmark].merge(list_id: @list.id))
+
+        patch :update, params: { id: @bookmark.id, bookmark: { watched: true } }, format: :turbo_stream
+
+        expect(@bookmark.reload.watched).to eq(true)
+      end
     end
   end
 else

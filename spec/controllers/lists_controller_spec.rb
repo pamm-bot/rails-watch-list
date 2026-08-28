@@ -26,7 +26,7 @@ if defined?(ListsController)
       it "assigns all lists as @lists" do
         list = List.create! valid_attributes.merge(user: user)
         get :index, params: {}
-        expect(assigns(:lists)).to eq([list])
+        expect(assigns(:lists)).to eq([ list ])
       end
     end
 
@@ -42,30 +42,30 @@ if defined?(ListsController)
       describe "with valid params" do
         it "creates a new List" do
           expect {
-            post :create, params: { list: valid_attributes}
+            post :create, params: { list: valid_attributes }
           }.to change(List, :count).by(1)
         end
 
         it "assigns a newly created list as @list" do
-          post :create, params: { list: valid_attributes}
+          post :create, params: { list: valid_attributes }
           expect(assigns(:list)).to be_a(List)
           expect(assigns(:list)).to be_persisted
         end
 
         it "redirects to the lists index" do
-          post :create, params: { list: valid_attributes}
+          post :create, params: { list: valid_attributes }
           expect(response).to redirect_to(lists_path)
         end
       end
 
       describe "with invalid params" do
         it "assigns a newly created but unsaved list as @list" do
-          post :create, params: { list: invalid_attributes}
+          post :create, params: { list: invalid_attributes }
           expect(assigns(:list)).to be_a_new(List)
         end
 
         it "re-renders the 'index' template" do
-          post :create, params: { list: invalid_attributes}
+          post :create, params: { list: invalid_attributes }
           expect(response).to render_template("index")
         end
       end

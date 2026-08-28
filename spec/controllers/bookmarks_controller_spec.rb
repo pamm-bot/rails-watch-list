@@ -6,7 +6,6 @@ end
 
 if defined?(BookmarksController)
   RSpec.describe BookmarksController, type: :controller do
-
     before(:each) do
       @user = User.create!(email_address: "bookmarks_controller_spec@example.com", password: "password123")
       sign_in_as(@user)

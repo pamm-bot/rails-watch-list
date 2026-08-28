@@ -46,5 +46,4 @@ class MoviesController < ApplicationController
       redirect_to movies_path(list_id: @list.id), alert: @movie.errors.full_messages.to_sentence
     end
   end
-
 end

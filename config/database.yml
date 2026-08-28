@@ -85,20 +85,25 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
+  # On Heroku, a single Postgres add-on provides one DATABASE_URL. Rails
+  # automatically merges it onto the "primary" connection below; the
+  # other three connections point at the same URL explicitly, so
+  # solid_cache/solid_queue/solid_cable live in that same database
+  # (distinguished by their own tables, via migrations_paths).
   primary: &primary_production
     <<: *default
     database: rails_watch_list_production
     username: rails_watch_list
     password: <%= ENV["RAILS_WATCH_LIST_DATABASE_PASSWORD"] %>
   cache:
-    <<: *primary_production
-    database: rails_watch_list_production_cache
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
     migrations_paths: db/cache_migrate
   queue:
-    <<: *primary_production
-    database: rails_watch_list_production_queue
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
     migrations_paths: db/queue_migrate
   cable:
-    <<: *primary_production
-    database: rails_watch_list_production_cable
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
     migrations_paths: db/cable_migrate

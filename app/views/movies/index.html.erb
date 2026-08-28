@@ -22,7 +22,7 @@
         <div class="col-md-3 d-flex">
           <div class="card shadow-sm mb-4 h-100 w-100">
             <img src="<%= TmdbClient.poster_url(result["poster_path"]) %>" class="card-img-top movie-poster">
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
               <div class="d-flex justify-content-between align-items-start">
                 <h5 class="mb-0"><%= result["title"] %></h5>
                 <% if result["vote_average"].present? && result["vote_average"].positive? %>
@@ -31,22 +31,24 @@
               </div>
               <p class="small text-truncate"><%= result["overview"] %></p>
 
-              <% if @titles_in_list.include?(result["title"]) %>
-                <span class="badge bg-success">
-                  <i class="fa-solid fa-check"></i> Already in list
-                </span>
-              <% else %>
-                <%= form_with url: movies_path, method: :post, class: "text-center", data: { turbo_frame: "_top" } do |f| %>
-                  <%= f.hidden_field :title, value: result["title"] %>
-                  <%= f.hidden_field :overview, value: result["overview"] %>
-                  <%= f.hidden_field :poster_path, value: result["poster_path"] %>
-                  <%= f.hidden_field :vote_average, value: result["vote_average"] %>
-                  <%= f.hidden_field :genre_id, value: result["genre_ids"]&.first %>
-                  <%= f.hidden_field :list_id, value: @list.id %>
+              <div class="mt-auto">
+                <% if @titles_in_list.include?(result["title"]) %>
+                  <span class="badge bg-success">
+                    <i class="fa-solid fa-check"></i> Already in list
+                  </span>
+                <% else %>
+                  <%= form_with url: movies_path, method: :post, class: "text-center", data: { turbo_frame: "_top" } do |f| %>
+                    <%= f.hidden_field :title, value: result["title"] %>
+                    <%= f.hidden_field :overview, value: result["overview"] %>
+                    <%= f.hidden_field :poster_path, value: result["poster_path"] %>
+                    <%= f.hidden_field :vote_average, value: result["vote_average"] %>
+                    <%= f.hidden_field :genre_id, value: result["genre_ids"]&.first %>
+                    <%= f.hidden_field :list_id, value: @list.id %>
 
-                  <%= f.submit "Add", class: "btn btn-ocean btn-sm" %>
+                    <%= f.submit "Add", class: "btn btn-ocean btn-sm" %>
+                  <% end %>
                 <% end %>
-              <% end %>
+              </div>
             </div>
           </div>
         </div>

@@ -6,11 +6,11 @@ A movie watch-list app: sign up, create private lists, search real movies via [T
 
 ## Features
 
-- **Accounts** — sign up and log in; every list is private to the account that created it
+- **Accounts** — sign up and log in; every list is private to the account that created it, with email-based password reset if you forget it
 - **Lists** — create as many as you like, each with its own movies, renameable at any time
 - **Movie search** — powered by the TMDb API, filterable by category and minimum rating, with or without a title
 - **Watched / To Watch** — a toggle switch on each movie moves it between the two, updated in place with Turbo Streams (no page reload)
-- **Reviews & ratings** — a star-rating review per watched movie
+- **Reviews & ratings** — a star-rating review per watched movie, editable or removable at any time
 - **Categories** — assigned automatically from each movie's TMDb genre
 - **Kids mode** — an optional per-list flag that filters out Horror, Crime, Thriller, War, and other mature or low-quality content from search results and the list itself
 
@@ -39,6 +39,14 @@ EDITOR="code --wait" bin/rails credentials:edit
 ```yaml
 tmdb:
   api_key: your_key_here
+```
+
+Password reset emails need a Gmail account with an [App Password](https://myaccount.google.com/apppasswords) (optional locally — without it, reset requests just don't send, no crash):
+
+```yaml
+gmail:
+  user_name: you@gmail.com
+  app_password: your_app_password
 ```
 
 Then start the app:

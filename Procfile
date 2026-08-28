@@ -1,2 +1,2 @@
-web: bin/thrust bin/rails server
+web: HTTP_PORT=$PORT bin/thrust bin/rails server
 release: bin/rails db:prepare

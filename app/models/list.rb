@@ -17,6 +17,8 @@ class List < ApplicationRecord
   def movie_allowed?(movie)
     return true unless kids_mode?
 
-    !TmdbClient.mature_genre_name?(movie.category&.name) && !TmdbClient.explicit_title?(movie.title)
+    !TmdbClient.mature_genre_name?(movie.category&.name) &&
+      !TmdbClient.explicit_title?(movie.title) &&
+      !TmdbClient.low_rated?(movie.rating)
   end
 end

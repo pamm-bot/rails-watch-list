@@ -16,7 +16,7 @@ class MoviesController < ApplicationController
 
     @results = @results.select { |r| r["poster_path"].present? }
     if @list.kids_mode?
-      @results = @results.reject { |r| TmdbClient.mature?(r["genre_ids"], adult: r["adult"], title: r["title"]) }
+      @results = @results.reject { |r| TmdbClient.mature?(r["genre_ids"], adult: r["adult"], title: r["title"], vote_average: r["vote_average"]) }
     end
     if @selected_category_id.present?
       @results = @results.select { |r| r["genre_ids"]&.include?(genre_id) }

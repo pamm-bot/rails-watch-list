@@ -43,17 +43,28 @@ class TmdbClient
   end
 
   # Genres kept out of kids-mode lists. Action stays allowed on purpose.
-  MATURE_GENRE_IDS = [ 27 ].freeze # Horror
+  MATURE_GENRE_IDS = [ 27, 80, 53, 10752 ].freeze # Horror, Crime, Thriller, War
 
   # TMDb's own "adult" flag misses a lot of borderline/explicit titles
   # (e.g. parody or exploitation movies with these words right in the
   # title), so this catches them by keyword as a second line of defense.
   EXPLICIT_KEYWORDS = %w[porn porno pornographic xxx erotic erotica].freeze
 
-  def self.mature?(genre_ids, adult: false, title: nil)
+  # Softcore/erotic-themed titles are rarely flagged "adult" by TMDb and
+  # often use a suggestive-but-not-explicit title (e.g. "Hotel Desire")
+  # our keyword list won't catch, but they tend to sit well below a real
+  # movie's rating, so a low score is a decent third signal in kids mode.
+  LOW_RATING_THRESHOLD = 4.0
+
+  def self.mature?(genre_ids, adult: false, title: nil, vote_average: nil)
     adult ||
       (genre_ids || []).any? { |id| MATURE_GENRE_IDS.include?(id.to_i) } ||
-      explicit_title?(title)
+      explicit_title?(title) ||
+      low_rated?(vote_average)
+  end
+
+  def self.low_rated?(vote_average)
+    vote_average.to_f.positive? && vote_average.to_f < LOW_RATING_THRESHOLD
   end
 
   def self.explicit_title?(title)

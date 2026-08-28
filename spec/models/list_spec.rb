@@ -52,4 +52,61 @@ RSpec.describe "List", type: :model do
     list.bookmarks.create(list: list, movie: titanic, comment: "Great movie!")
     expect { list.destroy }.to change { Bookmark.count }.from(1).to(0)
   end
+
+  describe "kids mode" do
+    let(:horror_category) { Category.create!(name: "Horror") }
+    let(:kids_list) { List.create!(name: "Kids", user: user, kids_mode: true) }
+
+    # bookmarks_by_watched only surfaces movies with a poster, so these need one.
+    let(:posterable_titanic) do
+      Movie.create!(title: "Titanic", overview: "A ship sinks.", poster_url: "https://example.com/titanic.jpg")
+    end
+
+    def bookmark_for(list, movie)
+      list.bookmarks.create!(movie: movie, comment: "Some comment")
+    end
+
+    it "allows any movie when kids mode is off" do
+      list = List.create!(valid_attributes)
+      scary_movie = Movie.create!(title: "Scary Movie", overview: "Spooky.", category: horror_category)
+      expect(list.movie_allowed?(scary_movie)).to eq(true)
+    end
+
+    it "rejects movies in a mature genre" do
+      scary_movie = Movie.create!(title: "Scary Movie", overview: "Spooky.", category: horror_category)
+      expect(kids_list.movie_allowed?(scary_movie)).to eq(false)
+    end
+
+    it "rejects movies with an explicit title" do
+      explicit_movie = Movie.create!(title: "XXX Movie", overview: "Not for kids.")
+      expect(kids_list.movie_allowed?(explicit_movie)).to eq(false)
+    end
+
+    it "rejects movies with a low rating" do
+      low_rated_movie = Movie.create!(title: "Bad Movie", overview: "Not great.", rating: 2)
+      expect(kids_list.movie_allowed?(low_rated_movie)).to eq(false)
+    end
+
+    it "allows an ordinary movie" do
+      expect(kids_list.movie_allowed?(posterable_titanic)).to eq(true)
+    end
+
+    it "filters out disallowed movies from bookmarks_by_watched" do
+      scary_movie = Movie.create!(title: "Scary Movie", overview: "Spooky.", category: horror_category, poster_url: "https://example.com/scary.jpg")
+      bookmark_for(kids_list, posterable_titanic)
+      bookmark_for(kids_list, scary_movie)
+
+      to_watch, watched = kids_list.bookmarks_by_watched
+      expect((to_watch + watched).map(&:movie)).to eq([ posterable_titanic ])
+    end
+
+    it "still partitions watched vs. to-watch movies when kids mode is on" do
+      bookmark = bookmark_for(kids_list, posterable_titanic)
+      bookmark.update!(watched: true)
+
+      to_watch, watched = kids_list.bookmarks_by_watched
+      expect(to_watch).to be_empty
+      expect(watched.map(&:movie)).to eq([ posterable_titanic ])
+    end
+  end
 end

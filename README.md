@@ -62,3 +62,14 @@ bin/rails server
 ```bash
 bundle exec rspec
 ```
+
+Runs automatically on every push and pull request via GitHub Actions. The
+suite covers models, controllers, and the TMDb client, including auth,
+kids mode, and the watched/review flows.
+
+## Code quality
+
+```bash
+bundle exec rubocop    # style, following Rails' omakase config
+bundle exec brakeman   # static security analysis
+```

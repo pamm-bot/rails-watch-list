@@ -1,5 +1,7 @@
 # My Watch List
 
+[![CI](https://github.com/pamm-bot/rails-watch-list/actions/workflows/ci.yml/badge.svg)](https://github.com/pamm-bot/rails-watch-list/actions/workflows/ci.yml)
+
 A movie watch-list app: sign up, create private lists, search real movies via [The Movie Database](https://www.themoviedb.org/) (TMDb), track what's watched vs. still to watch, and leave star ratings and reviews once you've seen something.
 
 **Live demo:** https://rails-watch-list-pam-ed2b83622ee0.herokuapp.com/

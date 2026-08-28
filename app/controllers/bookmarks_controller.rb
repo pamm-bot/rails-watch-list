@@ -1,6 +1,6 @@
 class BookmarksController < ApplicationController
   def create
-    @list = List.find(params[:list_id])
+    @list = Current.user.lists.find(params[:list_id])
     @bookmark = Bookmark.new(bookmark_params)
     @bookmark.list = @list
 
@@ -14,7 +14,7 @@ class BookmarksController < ApplicationController
   end
 
   def update
-    @bookmark = Bookmark.find(params[:id])
+    @bookmark = Current.user.bookmarks.find(params[:id])
     @bookmark.update(bookmark_params)
 
     respond_to do |format|
@@ -24,7 +24,7 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    bookmark = Bookmark.find(params[:id])
+    bookmark = Current.user.bookmarks.find(params[:id])
     bookmark.destroy
     redirect_to bookmark.list
   end

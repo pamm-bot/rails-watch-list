@@ -44,7 +44,8 @@ RSpec.describe "Movie", type: :model do
 
   it "should not be able to destroy self if has bookmarks children" do
     movie = Movie.create!(valid_attributes)
-    list = List.create!(name: "Drama")
+    user = User.create!(email_address: "movie_spec@example.com", password: "password123")
+    list = List.create!(name: "Drama", user: user)
     movie.bookmarks.create(list: list, comment: "Great movie!")
 
     expect { movie.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)

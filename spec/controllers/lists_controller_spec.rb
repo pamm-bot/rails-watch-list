@@ -6,6 +6,10 @@ end
 
 if defined?(ListsController)
   RSpec.describe ListsController, type: :controller do
+    let(:user) do
+      User.create!(email_address: "lists_controller_spec@example.com", password: "password123")
+    end
+
     let(:valid_attributes) do
       {
         name: "Comedy"
@@ -16,9 +20,11 @@ if defined?(ListsController)
       { name: "" }
     end
 
+    before(:each) { sign_in_as(user) }
+
     describe "GET index" do
       it "assigns all lists as @lists" do
-        list = List.create! valid_attributes
+        list = List.create! valid_attributes.merge(user: user)
         get :index, params: {}
         expect(assigns(:lists)).to eq([list])
       end
@@ -26,7 +32,7 @@ if defined?(ListsController)
 
     describe "GET show" do
       it "assigns the requested list as @list" do
-        list = List.create! valid_attributes
+        list = List.create! valid_attributes.merge(user: user)
         get :show, params: { id: list.to_param }
         expect(assigns(:list)).to eq(list)
       end

@@ -1,0 +1,19 @@
+<div class="container mt-4" style="max-width: 400px;">
+  <h1>Log In</h1>
+
+  <div class="card p-3 shadow-sm mb-4">
+    <%= form_with url: session_path, class: "d-flex flex-column gap-2" do |f| %>
+      <%= f.label :email_address, "Email" %>
+      <%= f.email_field :email_address, required: true, autofocus: true, autocomplete: "username",
+            class: "form-control", value: params[:email_address] %>
+
+      <%= f.label :password, "Password" %>
+      <%= f.password_field :password, required: true, autocomplete: "current-password",
+            maxlength: 72, class: "form-control" %>
+
+      <%= f.submit "Log In", class: "btn btn-ocean mt-2" %>
+    <% end %>
+  </div>
+
+  <p>Don't have an account? <%= link_to "Sign up", new_registration_path %></p>
+</div>

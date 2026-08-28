@@ -9,12 +9,16 @@ RSpec.describe "Bookmark", type: :model do
     Movie.create!(title: "Wonder Woman 1984", overview: "Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s")
   end
 
+  let(:user) do
+    User.create!(email_address: "bookmark_spec@example.com", password: "password123")
+  end
+
   let(:classic_list) do
-    List.create!(name: "Classic Movies")
+    List.create!(name: "Classic Movies", user: user)
   end
 
   let(:comedy_list) do
-    List.create!(name: "Comedy")
+    List.create!(name: "Comedy", user: user)
   end
 
   let(:valid_attributes) do

@@ -1,0 +1,14 @@
+<div class="container mt-4" style="max-width: 400px;">
+  <h1>Sign Up</h1>
+
+  <div class="card p-3 shadow-sm mb-4">
+    <%= simple_form_for @user, url: registration_path do |f| %>
+      <%= f.input :email_address, label: "Email", input_html: { autofocus: true, autocomplete: "username" } %>
+      <%= f.input :password, input_html: { autocomplete: "new-password", maxlength: 72 } %>
+      <%= f.input :password_confirmation, label: "Confirm password", input_html: { autocomplete: "new-password", maxlength: 72 } %>
+      <%= f.submit "Sign Up", class: "btn btn-ocean mt-2" %>
+    <% end %>
+  </div>
+
+  <p>Already have an account? <%= link_to "Log in", new_session_path %></p>
+</div>

@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   def create
-    @bookmark = Bookmark.find(params[:bookmark_id])
+    @bookmark = Current.user.bookmarks.find(params[:bookmark_id])
     @review = Review.new(review_params)
     @review.bookmark = @bookmark
 

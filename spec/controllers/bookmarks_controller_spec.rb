@@ -8,8 +8,10 @@ if defined?(BookmarksController)
   RSpec.describe BookmarksController, type: :controller do
 
     before(:each) do
+      @user = User.create!(email_address: "bookmarks_controller_spec@example.com", password: "password123")
+      sign_in_as(@user)
       @movie = Movie.create!(title: "Titanic", overview: "101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years later.")
-      @list = List.create!(name: "Drama")
+      @list = List.create!(name: "Drama", user: @user)
     end
 
     let(:valid_attributes) do

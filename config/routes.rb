@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resource :session
+  resource :registration, only: [ :new, :create ]
   get "up" => "rails/health#show", as: :rails_health_check
 
   root "lists#index"

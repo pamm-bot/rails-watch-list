@@ -1,9 +1,10 @@
 class List < ApplicationRecord
+  belongs_to :user
   has_many :bookmarks, dependent: :destroy
   has_many :movies, through: :bookmarks
   has_many :reviews, through: :bookmarks
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { scope: :user_id }
 
   def bookmarks_by_watched(category_id: nil)
     scope = bookmarks.includes(:movie, :reviews)

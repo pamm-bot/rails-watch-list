@@ -1,9 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "List", type: :model do
+  let(:user) do
+    User.create!(email_address: "list_spec@example.com", password: "password123")
+  end
+
   let(:valid_attributes) do
     {
-      name: "Comedy"
+      name: "Comedy",
+      user: user
     }
   end
 
@@ -12,18 +17,18 @@ RSpec.describe "List", type: :model do
   end
 
   it "has a name" do
-    list = List.new(name: "Comedy")
+    list = List.new(name: "Comedy", user: user)
     expect(list.name).to eq("Comedy")
   end
 
   it "name cannot be blank" do
-    list = List.new
+    list = List.new(user: user)
     expect(list).not_to be_valid
   end
 
   it "name is unique" do
-    List.create!(name: "Comedy")
-    list = List.new(name: "Comedy")
+    List.create!(name: "Comedy", user: user)
+    list = List.new(name: "Comedy", user: user)
     expect(list).not_to be_valid
   end
 

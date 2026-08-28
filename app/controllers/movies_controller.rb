@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   def index
     @query = params[:query]
-    @list = List.find(params[:list_id])
+    @list = Current.user.lists.find(params[:list_id])
     @categories = Category.all
     @selected_category_id = params[:category_id]
     @min_rating = params[:min_rating]
@@ -29,7 +29,7 @@ class MoviesController < ApplicationController
   end
 
   def create
-    @list = List.find(params[:list_id])
+    @list = Current.user.lists.find(params[:list_id])
     @movie = Movie.find_or_initialize_by(title: params[:title])
     @movie.overview = params[:overview].presence || "No overview available."
     @movie.poster_url = TmdbClient.poster_url(params[:poster_path])

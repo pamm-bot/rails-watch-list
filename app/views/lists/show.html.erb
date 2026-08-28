@@ -1,11 +1,16 @@
-<div class="container mt-4">
-  <h1><%= @list.name %></h1>
+<div class="container mt-4" data-controller="toggle">
+  <div class="d-flex justify-content-between align-items-center">
+    <h1 class="mb-0"><%= @list.name %></h1>
+    <button type="button" class="btn btn-link p-0 link-ocean" data-action="click->toggle#toggle" aria-label="Rename list">
+      <i class="fa-solid fa-pen"></i>
+    </button>
+  </div>
 
-  <div class="card p-3 shadow-sm mb-3" style="max-width: 400px;">
+  <div class="card p-3 shadow-sm mb-3 mt-2 d-none" style="max-width: 400px;" data-toggle-target="content">
     <%= simple_form_for @list do |f| %>
       <%= f.input :name, input_html: { class: "form-control-narrow" } %>
       <%= f.input :kids_mode, as: :boolean, label: '<i class="fa-solid fa-shield-halved"></i> Under 12'.html_safe %>
-      <%= f.submit "Save Changes", class: "btn btn-outline-ocean btn-sm" %>
+      <%= f.submit "Save", class: "btn btn-outline-ocean btn-sm d-block mx-auto" %>
     <% end %>
   </div>
 

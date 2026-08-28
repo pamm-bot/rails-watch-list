@@ -3,7 +3,7 @@
     <h3>Create a New List</h3>
     <%= simple_form_for @list do |f| %>
       <%= f.input :name, input_html: { class: "form-control-narrow" } %>
-      <%= f.input :kids_mode, as: :boolean, label: "Are you under 12?" %>
+      <%= f.input :kids_mode, as: :boolean, label: '<i class="fa-solid fa-shield-halved"></i> Under 12'.html_safe %>
       <%= f.submit "Create List", class: "btn btn-ocean" %>
     <% end %>
   </div>

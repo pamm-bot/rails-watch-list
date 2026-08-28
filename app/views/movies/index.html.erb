@@ -1,13 +1,15 @@
 <div class="container mt-4">
-  <%= form_with url: movies_path, method: :get, class: "d-flex gap-2 mb-4 flex-wrap",
+  <%= form_with url: movies_path, method: :get, class: "d-flex align-items-center gap-2 flex-wrap mb-4",
         data: { controller: "search auto-submit", turbo_frame: "movie_results" } do |f| %>
     <%= f.hidden_field :list_id, value: @list.id %>
     <%= f.text_field :query, value: @query, placeholder: "Search for a movie...", class: "form-control form-control-narrow",
           data: { action: "input->search#submit" } %>
+
+    <span class="small text-muted ms-auto">Filter by</span>
     <%= f.select :category_id, @categories.map { |c| [c.name, c.id] }, { include_blank: "Category", selected: @selected_category_id },
-          { class: "form-select w-auto", data: { action: "change->auto-submit#submit" } } %>
+          { class: "form-select w-auto", data: { controller: "select-placeholder", action: "change->auto-submit#submit change->select-placeholder#update" } } %>
     <%= f.select :min_rating, [["7+", 7], ["8+", 8], ["9+", 9]], { include_blank: "Rating", selected: @min_rating },
-          { class: "form-select w-auto", data: { action: "change->auto-submit#submit" } } %>
+          { class: "form-select w-auto", data: { controller: "select-placeholder", action: "change->auto-submit#submit change->select-placeholder#update" } } %>
   <% end %>
 
   <%= turbo_frame_tag "movie_results" do %>

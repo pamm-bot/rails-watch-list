@@ -1,14 +1,14 @@
 <div class="container mt-4">
   <h1>Browse Movies</h1>
 
-  <%= link_to "Back to list", list_path(@list), class: "btn btn-outline-secondary btn-sm mb-3" %>
+  <%= link_to "Back to list", list_path(@list), class: "btn btn-outline-ocean btn-sm mb-3" %>
 
   <%= form_with url: movies_path, method: :get, class: "d-flex gap-2 mb-4",
         data: { controller: "search", turbo_frame: "movie_results" } do |f| %>
     <%= f.hidden_field :list_id, value: @list.id %>
     <%= f.text_field :query, value: @query, placeholder: "Search for a movie...", class: "form-control",
           data: { action: "input->search#submit" } %>
-    <%= f.submit "Search", class: "btn btn-primary" %>
+    <%= f.submit "Search", class: "btn btn-ocean" %>
   <% end %>
 
   <%= turbo_frame_tag "movie_results" do %>
@@ -24,7 +24,12 @@
               <img src="<%= TmdbClient.poster_url(result["poster_path"]) %>" class="card-img-top movie-poster">
             <% end %>
             <div class="card-body">
-              <h5><%= result["title"] %></h5>
+              <div class="d-flex justify-content-between align-items-start">
+                <h5 class="mb-0"><%= result["title"] %></h5>
+                <% if result["vote_average"].present? && result["vote_average"].positive? %>
+                  <span class="movie-rating"><i class="fa-star"></i> <%= result["vote_average"].round %>/10</span>
+                <% end %>
+              </div>
               <p class="small text-truncate"><%= result["overview"] %></p>
 
               <% if @titles_in_list.include?(result["title"]) %>
@@ -32,7 +37,7 @@
                   <i class="fa-solid fa-check"></i> Already in list
                 </span>
               <% else %>
-                <%= form_with url: movies_path, method: :post, data: { turbo_frame: "_top" } do |f| %>
+                <%= form_with url: movies_path, method: :post, class: "text-center", data: { turbo_frame: "_top" } do |f| %>
                   <%= f.hidden_field :title, value: result["title"] %>
                   <%= f.hidden_field :overview, value: result["overview"] %>
                   <%= f.hidden_field :poster_path, value: result["poster_path"] %>
@@ -40,12 +45,7 @@
                   <%= f.hidden_field :genre_id, value: result["genre_ids"]&.first %>
                   <%= f.hidden_field :list_id, value: @list.id %>
 
-                  <div class="form-check mb-2">
-                    <%= f.check_box :watched, class: "form-check-input" %>
-                    <%= f.label :watched, "Already watched?", class: "form-check-label" %>
-                  </div>
-
-                  <%= f.submit "Add to #{@list.name}", class: "btn btn-success btn-sm" %>
+                  <%= f.submit "Add", class: "btn btn-ocean btn-sm" %>
                 <% end %>
               <% end %>
             </div>

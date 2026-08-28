@@ -4,6 +4,30 @@
   background-color: #0f766e;
 }
 
+.btn-ocean {
+  background-color: #0f766e;
+  border-color: #0f766e;
+  color: #fff;
+
+  &:hover {
+    background-color: #0c5f59;
+    border-color: #0c5f59;
+    color: #fff;
+  }
+}
+
+.btn-outline-ocean {
+  background-color: transparent;
+  border-color: #0f766e;
+  color: #0f766e;
+
+  &:hover {
+    background-color: #0f766e;
+    border-color: #0f766e;
+    color: #fff;
+  }
+}
+
 .movie-poster {
   height: 220px;
   object-fit: cover;

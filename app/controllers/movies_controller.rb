@@ -21,9 +21,7 @@ class MoviesController < ApplicationController
     end
 
     if @movie.save
-      Bookmark.find_or_create_by(list: @list, movie: @movie) do |bookmark|
-        bookmark.watched = params[:watched] == "1"
-      end
+      Bookmark.find_or_create_by(list: @list, movie: @movie)
       redirect_to @list, notice: "#{@movie.title} added to #{@list.name}."
     else
       redirect_to movies_path(list_id: @list.id), alert: @movie.errors.full_messages.to_sentence

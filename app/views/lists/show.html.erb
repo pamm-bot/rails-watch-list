@@ -15,22 +15,20 @@
   <hr>
 
   <h3>To Watch</h3>
-  <div class="row mt-3">
-    <% if @to_watch.empty? %>
-      <p>Nothing here yet.</p>
-    <% else %>
-      <%= render @to_watch %>
-    <% end %>
+  <% if @to_watch.empty? %>
+    <p>Nothing here yet.</p>
+  <% end %>
+  <div class="row mt-3" id="to_watch_movies">
+    <%= render @to_watch %>
   </div>
 
   <hr>
 
   <h3>Watched</h3>
-  <div class="row mt-3">
-    <% if @watched.empty? %>
-      <p>No movies marked as watched yet.</p>
-    <% else %>
-      <%= render @watched %>
-    <% end %>
+  <% if @watched.empty? %>
+    <p>No movies marked as watched yet.</p>
+  <% end %>
+  <div class="row mt-3" id="watched_movies">
+    <%= render @watched %>
   </div>
 </div>

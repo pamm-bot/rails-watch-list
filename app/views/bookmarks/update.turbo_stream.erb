@@ -1,0 +1,3 @@
+<%= turbo_stream.remove(@bookmark) %>
+<%= turbo_stream.append(@bookmark.watched? ? "watched_movies" : "to_watch_movies",
+      partial: "bookmarks/bookmark", locals: { bookmark: @bookmark }) %>

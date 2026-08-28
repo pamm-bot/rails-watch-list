@@ -16,7 +16,11 @@ class BookmarksController < ApplicationController
   def update
     @bookmark = Bookmark.find(params[:id])
     @bookmark.update(bookmark_params)
-    redirect_back fallback_location: root_path
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_back fallback_location: root_path }
+    end
   end
 
   def destroy

@@ -1,0 +1,15 @@
+<div class="container mt-4" style="max-width: 400px;">
+  <h1>Reset Password</h1>
+
+  <div class="card p-3 shadow-sm mb-4">
+    <%= form_with url: passwords_path, class: "d-flex flex-column gap-2" do |f| %>
+      <%= f.label :email_address, "Email" %>
+      <%= f.email_field :email_address, required: true, autofocus: true, autocomplete: "username",
+            class: "form-control" %>
+
+      <%= f.submit "Send Reset Instructions", class: "btn btn-ocean mt-2" %>
+    <% end %>
+  </div>
+
+  <p><%= link_to "Back to log in", new_session_path, class: "link-ocean" %></p>
+</div>

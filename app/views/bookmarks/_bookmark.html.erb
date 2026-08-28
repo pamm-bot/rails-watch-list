@@ -30,35 +30,26 @@
 
       <% if bookmark.watched? %>
         <hr>
-        <% if bookmark.reviews.any? %>
-          <ul class="list-group mb-2">
-            <% bookmark.reviews.each do |review| %>
-              <li class="list-group-item">
-                <span class="star-display">
-                  <% (1..5).each do |n| %>
-                    <i class="fa-star <%= "filled" if n <= review.rating %>"></i>
-                  <% end %>
-                </span>
-                — <%= review.content %>
-              </li>
-            <% end %>
-          </ul>
-        <% else %>
-          <%= simple_form_for [bookmark, Review.new] do |f| %>
-            <%= f.input :content, label: "Review" %>
-            <div class="form-group mb-2">
-              <label>Rating</label>
-              <div class="star-rating">
-                <% (5).downto(1) do |n| %>
-                  <%= f.radio_button :rating, n, id: "bookmark_#{bookmark.id}_rating_#{n}" %>
-                  <%= f.label :rating, for: "bookmark_#{bookmark.id}_rating_#{n}" do %>
-                    <span class="visually-hidden"><%= n %> stars</span>
-                  <% end %>
+        <% review = bookmark.reviews.first || bookmark.reviews.build %>
+        <%= simple_form_for [bookmark, review] do |f| %>
+          <%= f.input :content, label: "Review" %>
+          <div class="form-group mb-2">
+            <label>Rating</label>
+            <div class="star-rating">
+              <% (5).downto(1) do |n| %>
+                <%= f.radio_button :rating, n, id: "bookmark_#{bookmark.id}_rating_#{n}" %>
+                <%= f.label :rating, for: "bookmark_#{bookmark.id}_rating_#{n}" do %>
+                  <span class="visually-hidden"><%= n %> stars</span>
                 <% end %>
-              </div>
+              <% end %>
             </div>
-            <%= f.submit "Submit", class: "btn btn-ocean btn-sm d-block mx-auto" %>
-          <% end %>
+          </div>
+          <%= f.submit review.persisted? ? "Update" : "Submit", class: "btn btn-ocean btn-sm d-block mx-auto" %>
+        <% end %>
+
+        <% if review.persisted? %>
+          <%= button_to "Delete Review", [ bookmark, review ], method: :delete,
+              class: "btn btn-link btn-sm text-muted p-0 d-block mx-auto mt-1" %>
         <% end %>
       <% end %>
     </div>

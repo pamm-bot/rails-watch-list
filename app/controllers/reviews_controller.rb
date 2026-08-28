@@ -11,6 +11,23 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def update
+    @review = Current.user.reviews.find(params[:id])
+
+    if @review.update(review_params)
+      redirect_to @review.bookmark.list, notice: "Review updated."
+    else
+      redirect_to @review.bookmark.list, alert: @review.errors.full_messages.to_sentence
+    end
+  end
+
+  def destroy
+    review = Current.user.reviews.find(params[:id])
+    list = review.bookmark.list
+    review.destroy
+    redirect_to list, notice: "Review deleted."
+  end
+
   private
 
   def review_params

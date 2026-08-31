@@ -1,14 +1,13 @@
 // Components folder
 
-// "Premiere" gradient: the app's accent — orange fading into red into an
-// electric blue. Deliberately not red-into-purple: that blend passes
-// through magenta/pink in the middle, which is exactly what this palette
-// is avoiding. Class names below keep their original "-ocean" suffix
-// from the old flat teal theme — renaming them would mean touching every
-// view that references them, for a purely cosmetic reason.
-$gradient-premiere: linear-gradient(135deg, #f77f00 0%, #d62828 78%, #0066ff 100%);
+// "Premiere" gradient: the app's accent — a simple two-stop orange into
+// red, after a lot of back and forth on a third color. Class names below
+// keep their original "-ocean" suffix from the old flat teal theme —
+// renaming them would mean touching every view that references them,
+// for a purely cosmetic reason.
+$gradient-premiere: linear-gradient(135deg, #f77f00 0%, #d62828 100%);
 $accent-warm: #d62828;
-$accent-deep: #0066ff;
+$accent-warm-dark: #a91d1d;
 
 .navbar-ocean {
   background: $gradient-premiere;
@@ -16,7 +15,7 @@ $accent-deep: #0066ff;
 
 body {
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(180deg, #fff9f2 0%, #fdf1ee 45%, #eef1f6 100%);
+  background: linear-gradient(180deg, #fff9f2 0%, #fdf1ee 100%);
   min-height: 100vh;
 }
 
@@ -51,7 +50,7 @@ h1, h2, h3, h4, h5, .navbar-brand {
   text-decoration: none;
 
   &:hover {
-    color: $accent-deep;
+    color: $accent-warm-dark;
   }
 }
 
@@ -68,8 +67,8 @@ h1, h2, h3, h4, h5, .navbar-brand {
 
 .btn-outline-ocean {
   background-color: transparent;
-  border-color: $accent-deep;
-  color: $accent-deep;
+  border-color: $accent-warm;
+  color: $accent-warm;
 
   &:hover {
     background: $gradient-premiere;

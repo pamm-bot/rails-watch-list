@@ -24,9 +24,13 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    bookmark = Current.user.bookmarks.find(params[:id])
-    bookmark.destroy
-    redirect_to bookmark.list
+    @bookmark = Current.user.bookmarks.find(params[:id])
+    @bookmark.destroy
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to @bookmark.list }
+    end
   end
 
   private

@@ -54,10 +54,6 @@ h1, h2, h3, h4, h5, .navbar-brand {
   }
 }
 
-.list-name {
-  @extend .link-ocean;
-}
-
 .btn-ocean {
   background: $gradient-premiere;
   border: none;
@@ -128,14 +124,73 @@ h1, h2, h3, h4, h5, .navbar-brand {
   object-fit: cover;
 }
 
-.list-card {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  border-top: 4px solid;
+.list-menu {
+  max-width: 480px;
 }
 
-.list-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(114, 9, 183, 0.12) !important;
+.list-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 0;
+}
+
+.list-row-name {
+  color: var(--accent);
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  transition: transform 0.15s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--accent);
+    transition: width 0.2s ease;
+  }
+
+  &:hover {
+    transform: scale(1.03);
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.list-row-delete {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+
+  &::before {
+    content: "\f00d";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 0.85rem;
+    color: #9aa0ac;
+  }
+
+  &:hover::before {
+    color: $accent-pink;
+  }
+}
+
+.list-row:hover .list-row-delete {
+  opacity: 1;
 }
 
 .empty-state {

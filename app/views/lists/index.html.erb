@@ -14,19 +14,15 @@
   </div>
 
   <% if @lists.any? %>
-    <div class="row">
+    <div class="list-menu mx-auto mt-4">
       <% @lists.each_with_index do |list, index| %>
-        <div class="col-md-4">
-          <div class="card shadow-sm mb-4 position-relative list-card" style="border-top-color: <%= list_accent_color(index) %>;">
-            <%= link_to "",
-                list_path(list),
-                data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-                class: "delete-x",
-                aria: { label: "Delete" } %>
-            <div class="card-body">
-              <h3><%= link_to list.name, list_path(list), class: "list-name" %></h3>
-            </div>
-          </div>
+        <div class="list-row" style="--accent: <%= list_accent_color(index) %>;">
+          <%= link_to list.name, list_path(list), class: "list-row-name" %>
+          <%= link_to "",
+              list_path(list),
+              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+              class: "list-row-delete",
+              aria: { label: "Delete" } %>
         </div>
       <% end %>
     </div>

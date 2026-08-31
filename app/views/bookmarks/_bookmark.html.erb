@@ -2,6 +2,11 @@
   <div class="card shadow-sm mb-4 h-100 w-100">
     <div class="position-relative">
       <img src="<%= bookmark.movie.poster_url %>" class="card-img-top movie-poster">
+      <% if bookmark.movie.category.present? %>
+        <span class="genre-badge" style="background-color: <%= genre_badge_color(bookmark.movie.category.name) %>;">
+          <%= bookmark.movie.category.name %>
+        </span>
+      <% end %>
       <%= link_to "",
           bookmark_path(bookmark),
           data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },

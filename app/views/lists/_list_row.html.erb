@@ -22,7 +22,7 @@
           <%= f.radio_button :emoji, "", id: "list_#{list.id}_emoji_none", checked: list.emoji.blank?, data: { action: "change->list-customize#previewEmoji" } %>
           <span>—</span>
         </label>
-        <% %w[🎬 🍿 🎥 👻 🚀 🌟 🦄 😎 🍕 🐶 🐱 🦊 🐼].each_with_index do |emoji, emoji_index| %>
+        <% %w[🎬 🍿 🎥 👻 🚀 🌟 🦄 😎 🍕 🐶 🐱 🦊 🐼 🕸️].each_with_index do |emoji, emoji_index| %>
           <label class="emoji-swatch">
             <%= f.radio_button :emoji, emoji, id: "list_#{list.id}_emoji_#{emoji_index}", checked: list.emoji == emoji, data: { action: "change->list-customize#previewEmoji" } %>
             <span><%= emoji %></span>

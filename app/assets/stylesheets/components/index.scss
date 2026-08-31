@@ -150,6 +150,10 @@ h1, h2, h3, h4, h5, .navbar-brand {
 .list-pill-avatar {
   font-size: 1.4rem;
   line-height: 1;
+
+  &:empty {
+    display: none;
+  }
 }
 
 .list-pill-actions {
@@ -243,6 +247,35 @@ h1, h2, h3, h4, h5, .navbar-brand {
 
   &:has(input:checked) {
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--swatch);
+  }
+}
+
+.emoji-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.emoji-swatch {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f1f2f5;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 0 0 2px transparent;
+  transition: box-shadow 0.15s ease, background 0.15s ease;
+
+  input {
+    display: none;
+  }
+
+  &:has(input:checked) {
+    background: #fff;
+    box-shadow: 0 0 0 2px var(--accent);
   }
 }
 

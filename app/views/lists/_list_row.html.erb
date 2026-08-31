@@ -1,8 +1,6 @@
-<div class="list-pill" data-controller="toggle" style="--accent: <%= list_accent_color(list, index) %>;">
+<div class="list-pill" data-controller="toggle list-customize" style="--accent: <%= list_accent_color(list, index) %>;">
   <div class="list-pill-row">
-    <% if list.emoji.present? %>
-      <span class="list-pill-avatar"><%= list.emoji %></span>
-    <% end %>
+    <span class="list-pill-avatar" data-list-customize-target="avatar"><%= list.emoji %></span>
     <%= link_to list.name, list_path(list), class: "list-row-name" %>
     <div class="list-pill-actions">
       <button type="button" class="list-pill-edit-btn" data-action="click->toggle#toggle" aria-label="Customize list">
@@ -18,13 +16,25 @@
 
   <div class="list-pill-edit d-none" data-toggle-target="content">
     <%= simple_form_for list do |f| %>
-      <%= f.input :emoji, label: "Avatar", input_html: { maxlength: 8, class: "form-control-sm form-control-narrow", placeholder: "🎬" } %>
+      <label class="d-block small text-muted mb-1">Avatar</label>
+      <div class="emoji-swatches mb-3">
+        <label class="emoji-swatch">
+          <%= f.radio_button :emoji, "", id: "list_#{list.id}_emoji_none", checked: list.emoji.blank?, data: { action: "change->list-customize#previewEmoji" } %>
+          <span>—</span>
+        </label>
+        <% %w[🎬 🍿 🎥 👻 💕 🚀 🏆 😂 😱 🎭 📺 🔥].each_with_index do |emoji, emoji_index| %>
+          <label class="emoji-swatch">
+            <%= f.radio_button :emoji, emoji, id: "list_#{list.id}_emoji_#{emoji_index}", checked: list.emoji == emoji, data: { action: "change->list-customize#previewEmoji" } %>
+            <span><%= emoji %></span>
+          </label>
+        <% end %>
+      </div>
 
       <label class="d-block small text-muted mb-1">Color</label>
-      <div class="color-swatches mb-2">
-        <% List::ACCENT_COLORS.each do |color| %>
+      <div class="color-swatches mb-3">
+        <% List::ACCENT_COLORS.each_with_index do |color, color_index| %>
           <label class="color-swatch" style="--swatch: <%= color %>;">
-            <%= f.radio_button :color, color, checked: list.color == color %>
+            <%= f.radio_button :color, color, id: "list_#{list.id}_color_#{color_index}", checked: list.color == color, data: { action: "change->list-customize#previewColor" } %>
           </label>
         <% end %>
       </div>

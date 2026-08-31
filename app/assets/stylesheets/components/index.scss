@@ -146,12 +146,12 @@ h1, h2, h3, h4, h5, .navbar-brand {
 }
 
 .list-menu {
-  max-width: 720px;
+  max-width: 960px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 20px;
   align-items: start;
-  margin-bottom: 48px;
+  margin: 0 auto 48px;
 }
 
 // Drop to two columns on tablets, one on narrow phones, where three or

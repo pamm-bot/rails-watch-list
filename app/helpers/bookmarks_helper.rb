@@ -24,6 +24,6 @@ module BookmarksHelper
   }.freeze
 
   def genre_badge_color(genre_name)
-    GENRE_COLORS[genre_name] || "#1d3557"
+    GENRE_COLORS[genre_name] || "#0066ff"
   end
 end

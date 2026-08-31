@@ -1,14 +1,14 @@
 // Components folder
 
-// "Premiere" gradient: the app's accent — orange fading into red into a
-// dark navy. Deliberately not red-into-purple: that blend passes through
-// magenta/pink in the middle, which is exactly what this palette is
-// avoiding. Class names below keep their original "-ocean" suffix from
-// the old flat teal theme — renaming them would mean touching every view
-// that references them, for a purely cosmetic reason.
-$gradient-premiere: linear-gradient(135deg, #f77f00 0%, #d62828 55%, #1d3557 100%);
+// "Premiere" gradient: the app's accent — orange fading into red into an
+// electric blue. Deliberately not red-into-purple: that blend passes
+// through magenta/pink in the middle, which is exactly what this palette
+// is avoiding. Class names below keep their original "-ocean" suffix
+// from the old flat teal theme — renaming them would mean touching every
+// view that references them, for a purely cosmetic reason.
+$gradient-premiere: linear-gradient(135deg, #f77f00 0%, #d62828 55%, #0066ff 100%);
 $accent-warm: #d62828;
-$accent-deep: #1d3557;
+$accent-deep: #0066ff;
 
 .navbar-ocean {
   background: $gradient-premiere;
@@ -209,6 +209,26 @@ h1, h2, h3, h4, h5, .navbar-brand {
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.list-pill-edit-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.list-pill-back-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 1;
+  font-size: 0.9rem;
+  color: var(--accent);
+
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 .list-row-name {

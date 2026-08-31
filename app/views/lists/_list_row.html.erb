@@ -15,6 +15,13 @@
   </div>
 
   <div class="list-pill-edit d-none" data-toggle-target="content">
+    <div class="list-pill-edit-header">
+      <button type="button" class="list-pill-back-btn" data-action="click->toggle#toggle" aria-label="Back">
+        <i class="fa-solid fa-arrow-rotate-left"></i>
+      </button>
+      <span class="small text-muted">Customize</span>
+    </div>
+
     <%= simple_form_for list do |f| %>
       <label class="d-block small text-muted mb-1">Avatar</label>
       <div class="emoji-swatches mb-3">

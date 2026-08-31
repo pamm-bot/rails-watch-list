@@ -1,7 +1,7 @@
 <div class="list-pill" data-controller="toggle list-customize" style="--accent: <%= list_accent_color(list, index) %>;">
   <div class="list-pill-row">
     <span class="list-pill-avatar" data-list-customize-target="avatar"><%= list.emoji %></span>
-    <%= link_to list.name, list_path(list), class: "list-row-name" %>
+    <%= link_to list.name, list_path(list), class: "list-row-name", data: { list_customize_target: "name" } %>
     <div class="list-pill-actions">
       <button type="button" class="list-pill-edit-btn" data-action="click->toggle#toggle" aria-label="Customize list">
         <i class="fa-solid fa-pen"></i>
@@ -16,6 +16,10 @@
 
   <div class="list-pill-edit d-none" data-toggle-target="content">
     <%= simple_form_for list do |f| %>
+      <label class="d-block small text-muted mb-1">Name</label>
+      <%= f.input_field :name, class: "form-control form-control-sm mb-3",
+            data: { action: "input->list-customize#previewName" } %>
+
       <label class="d-block small text-muted mb-1">Avatar</label>
       <div class="emoji-swatches mb-3">
         <label class="emoji-swatch">

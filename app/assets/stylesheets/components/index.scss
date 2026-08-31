@@ -37,6 +37,24 @@ body {
   box-shadow: 0 0 0 0.25rem rgba(214, 40, 40, 0.2);
 }
 
+// Chrome/Safari paint autofilled inputs pale blue, which clashes with the
+// warm palette. Mask it with an inset shadow the colour of the card and
+// keep the text in the warm near-black.
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #3d2b28;
+  -webkit-box-shadow: 0 0 0 1000px #fff inset;
+  box-shadow: 0 0 0 1000px #fff inset;
+  caret-color: #3d2b28;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset, 0 0 0 0.25rem rgba(214, 40, 40, 0.2);
+  box-shadow: 0 0 0 1000px #fff inset, 0 0 0 0.25rem rgba(214, 40, 40, 0.2);
+}
+
 h1, h2, h3, h4, h5, .navbar-brand {
   font-weight: 600;
 }

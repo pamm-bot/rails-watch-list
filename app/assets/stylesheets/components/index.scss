@@ -17,6 +17,9 @@ body {
   font-family: "Poppins", sans-serif;
   background: linear-gradient(180deg, #fff9f2 0%, #fdf1ee 100%);
   min-height: 100vh;
+  // Warm near-black instead of Bootstrap's cold #212529, which looks
+  // harsh against the cream background.
+  color: #3d2b28;
 }
 
 .form-control-narrow {

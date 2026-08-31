@@ -129,14 +129,15 @@ h1, h2, h3, h4, h5, .navbar-brand {
 }
 
 .list-pill {
-  border: 2px solid var(--accent);
+  border: 2px solid transparent;
   border-radius: 18px;
   padding: 14px 18px;
   margin-bottom: 14px;
-  transition: box-shadow 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .list-pill:hover {
+  border-color: var(--accent);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
@@ -156,12 +157,22 @@ h1, h2, h3, h4, h5, .navbar-brand {
   align-items: center;
   gap: 12px;
   margin-left: auto;
-  opacity: 0;
+  // Dimmed rather than hidden at rest: a fully opacity:0 control can be
+  // impossible to reach on touch devices, which have no hover state.
+  opacity: 0.35;
   transition: opacity 0.15s ease;
 }
 
 .list-pill:hover .list-pill-actions {
   opacity: 1;
+}
+
+// Touch devices have no real hover — always show these at full strength
+// there instead of relying on a hover state that may never trigger.
+@media (hover: none) {
+  .list-pill-actions {
+    opacity: 1;
+  }
 }
 
 .list-pill-edit-btn {
@@ -188,29 +199,6 @@ h1, h2, h3, h4, h5, .navbar-brand {
   font-size: 1.6rem;
   font-weight: 700;
   text-decoration: none;
-  position: relative;
-  display: inline-block;
-  transition: transform 0.15s ease;
-
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -3px;
-    width: 0;
-    height: 3px;
-    border-radius: 999px;
-    background: var(--accent);
-    transition: width 0.2s ease;
-  }
-
-  &:hover {
-    transform: scale(1.03);
-
-    &::after {
-      width: 100%;
-    }
-  }
 }
 
 .list-row-delete {

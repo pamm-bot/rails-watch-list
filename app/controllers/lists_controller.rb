@@ -24,7 +24,7 @@ class ListsController < ApplicationController
   def update
     @list = Current.user.lists.find(params[:id])
     if @list.update(list_params)
-      redirect_to list_path(@list)
+      redirect_back fallback_location: list_path(@list)
     else
       @categories = Category.all
       @selected_category_id = params[:category_id]
@@ -42,6 +42,6 @@ class ListsController < ApplicationController
   private
 
   def list_params
-    params.require(:list).permit(:name, :kids_mode)
+    params.require(:list).permit(:name, :kids_mode, :color, :emoji)
   end
 end

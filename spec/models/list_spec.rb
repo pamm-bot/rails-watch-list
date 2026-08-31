@@ -32,6 +32,26 @@ RSpec.describe "List", type: :model do
     expect(list).not_to be_valid
   end
 
+  it "accepts a color from the app's accent palette" do
+    list = List.new(name: "Comedy", user: user, color: List::ACCENT_COLORS.first)
+    expect(list).to be_valid
+  end
+
+  it "rejects a color outside the accent palette" do
+    list = List.new(name: "Comedy", user: user, color: "#123456")
+    expect(list).not_to be_valid
+  end
+
+  it "allows a blank color" do
+    list = List.new(name: "Comedy", user: user, color: nil)
+    expect(list).to be_valid
+  end
+
+  it "rejects an overly long emoji field" do
+    list = List.new(name: "Comedy", user: user, emoji: "a" * 9)
+    expect(list).not_to be_valid
+  end
+
   it "has many bookmarks" do
     list = List.new(valid_attributes)
     expect(list).to respond_to(:bookmarks)

@@ -16,14 +16,7 @@
   <% if @lists.any? %>
     <div class="list-menu mx-auto mt-4">
       <% @lists.each_with_index do |list, index| %>
-        <div class="list-row" style="--accent: <%= list_accent_color(index) %>;">
-          <%= link_to list.name, list_path(list), class: "list-row-name" %>
-          <%= link_to "",
-              list_path(list),
-              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-              class: "list-row-delete",
-              aria: { label: "Delete" } %>
-        </div>
+        <%= render "list_row", list: list, index: index %>
       <% end %>
     </div>
   <% else %>

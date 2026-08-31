@@ -1,0 +1,35 @@
+<div class="list-pill" data-controller="toggle" style="--accent: <%= list_accent_color(list, index) %>;">
+  <div class="list-pill-row">
+    <% if list.emoji.present? %>
+      <span class="list-pill-avatar"><%= list.emoji %></span>
+    <% end %>
+    <%= link_to list.name, list_path(list), class: "list-row-name" %>
+    <div class="list-pill-actions">
+      <button type="button" class="list-pill-edit-btn" data-action="click->toggle#toggle" aria-label="Customize list">
+        <i class="fa-solid fa-pen"></i>
+      </button>
+      <%= link_to "",
+          list_path(list),
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+          class: "list-row-delete",
+          aria: { label: "Delete" } %>
+    </div>
+  </div>
+
+  <div class="list-pill-edit d-none" data-toggle-target="content">
+    <%= simple_form_for list do |f| %>
+      <%= f.input :emoji, label: "Avatar", input_html: { maxlength: 8, class: "form-control-sm form-control-narrow", placeholder: "🎬" } %>
+
+      <label class="d-block small text-muted mb-1">Color</label>
+      <div class="color-swatches mb-2">
+        <% List::ACCENT_COLORS.each do |color| %>
+          <label class="color-swatch" style="--swatch: <%= color %>;">
+            <%= f.radio_button :color, color, checked: list.color == color %>
+          </label>
+        <% end %>
+      </div>
+
+      <%= f.submit "Save", class: "btn btn-sm btn-ocean" %>
+    <% end %>
+  </div>
+</div>

@@ -70,6 +70,32 @@ if defined?(ListsController)
         end
       end
     end
+
+    describe "PATCH update" do
+      it "updates the list's color and emoji" do
+        list = List.create!(valid_attributes.merge(user: user))
+        patch :update, params: { id: list.to_param, list: { color: List::ACCENT_COLORS.first, emoji: "🎬" } }
+
+        list.reload
+        expect(list.color).to eq(List::ACCENT_COLORS.first)
+        expect(list.emoji).to eq("🎬")
+      end
+
+      it "redirects back to where the request came from" do
+        list = List.create!(valid_attributes.merge(user: user))
+        request.env["HTTP_REFERER"] = lists_path
+        patch :update, params: { id: list.to_param, list: { name: "New name" } }
+
+        expect(response).to redirect_to(lists_path)
+      end
+
+      it "falls back to the list's page when there's no referer" do
+        list = List.create!(valid_attributes.merge(user: user))
+        patch :update, params: { id: list.to_param, list: { name: "New name" } }
+
+        expect(response).to redirect_to(list_path(list))
+      end
+    end
   end
 
 else

@@ -6,6 +6,12 @@ A movie watch-list app: sign up, create private lists, search real movies via [T
 
 **Live demo:** https://rails-watch-list-pam-ed2b83622ee0.herokuapp.com/
 
+Sign up with any email, or use the ready-made demo account:
+
+| Email | Password |
+| --- | --- |
+| `demo@watchlist.dev` | `moviebuff` |
+
 ## Features
 
 - **Accounts** — sign up and log in; every list is private to the account that created it, with email-based password reset if you forget it
@@ -29,8 +35,12 @@ A movie watch-list app: sign up, create private lists, search real movies via [T
 
 ```bash
 bundle install
-bin/rails db:setup
+bin/rails db:setup   # create, load schema, and seed the demo account
 ```
+
+`db:seed` builds the `demo@watchlist.dev` account with three sample lists,
+pulling the movies live from TMDb (it's skipped cleanly if no API key is
+set yet). Re-running it rebuilds that account and leaves other users alone.
 
 You'll need a free TMDb API key (v3 auth), added to Rails credentials:
 

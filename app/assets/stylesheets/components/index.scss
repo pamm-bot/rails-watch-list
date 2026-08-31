@@ -149,6 +149,17 @@ h1, h2, h3, h4, h5, .navbar-brand {
   object-fit: cover;
 }
 
+// Each movie grid shows a placeholder line until it holds a card. Driving
+// it with :has() means Turbo Stream adds and removes flip the empty state
+// with no extra request.
+.movie-grid-empty {
+  color: #9aa0ac;
+}
+
+.movie-grid:has(> [id^="bookmark_"]) .movie-grid-empty {
+  display: none;
+}
+
 .list-menu {
   max-width: 960px;
   display: grid;

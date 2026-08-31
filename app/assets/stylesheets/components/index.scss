@@ -146,15 +146,23 @@ h1, h2, h3, h4, h5, .navbar-brand {
 }
 
 .list-menu {
-  max-width: 620px;
+  max-width: 720px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   align-items: start;
+  margin-bottom: 48px;
 }
 
-// One column on narrow phones, where two would squeeze names too tight.
-@media (max-width: 480px) {
+// Drop to two columns on tablets, one on narrow phones, where three or
+// two would squeeze names too tight.
+@media (max-width: 640px) {
+  .list-menu {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 420px) {
   .list-menu {
     grid-template-columns: 1fr;
   }

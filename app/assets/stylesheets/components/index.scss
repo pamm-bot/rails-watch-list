@@ -1,12 +1,11 @@
 // Components folder
 
-// "Premiere" gradient: the app's accent, echoing the warmer end of the
-// genre-badge palette (Adventure orange, Romance pink, Fantasy purple).
-// Class names below keep their original "-ocean" suffix from the old flat
-// teal theme — renaming them would mean touching every view that
-// references them, for a purely cosmetic reason.
-$gradient-premiere: linear-gradient(135deg, #f77f00 0%, #e0218a 55%, #7209b7 100%);
-$accent-pink: #e0218a;
+// "Premiere" gradient: the app's accent — orange into a bold coral-red
+// into purple. Class names below keep their original "-ocean" suffix
+// from the old flat teal theme — renaming them would mean touching
+// every view that references them, for a purely cosmetic reason.
+$gradient-premiere: linear-gradient(135deg, #f77f00 0%, #e63946 55%, #7209b7 100%);
+$accent-warm: #e63946;
 $accent-purple: #7209b7;
 
 .navbar-ocean {
@@ -15,7 +14,7 @@ $accent-purple: #7209b7;
 
 body {
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(180deg, #fff8f2 0%, #fdf2f8 45%, #f7f0fb 100%);
+  background: linear-gradient(180deg, #fff9f2 0%, #fdf3ef 45%, #f4f1fa 100%);
   min-height: 100vh;
 }
 
@@ -30,8 +29,8 @@ body {
 .form-control:focus,
 .form-select:focus,
 .form-check-input:focus {
-  border-color: $accent-pink;
-  box-shadow: 0 0 0 0.25rem rgba(224, 33, 138, 0.2);
+  border-color: $accent-warm;
+  box-shadow: 0 0 0 0.25rem rgba(230, 57, 70, 0.2);
 }
 
 h1, h2, h3, h4, h5, .navbar-brand {
@@ -46,7 +45,7 @@ h1, h2, h3, h4, h5, .navbar-brand {
 }
 
 .link-ocean {
-  color: $accent-pink;
+  color: $accent-warm;
   text-decoration: none;
 
   &:hover {
@@ -112,7 +111,7 @@ h1, h2, h3, h4, h5, .navbar-brand {
 }
 
 .watched-toggle input:checked ~ .watched-toggle-slider {
-  background: $accent-pink;
+  background: $accent-warm;
 
   &::before {
     transform: translateX(16px);
@@ -125,15 +124,26 @@ h1, h2, h3, h4, h5, .navbar-brand {
 }
 
 .list-menu {
-  max-width: 480px;
+  max-width: 620px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+// One column on narrow phones, where two would squeeze names too tight.
+@media (max-width: 480px) {
+  .list-menu {
+    grid-template-columns: 1fr;
+  }
 }
 
 .list-pill {
   border: 2px solid transparent;
-  border-radius: 18px;
-  padding: 14px 18px;
-  margin-bottom: 14px;
+  border-radius: 16px;
+  padding: 10px 14px;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  min-width: 0;
 }
 
 .list-pill:hover {
@@ -144,12 +154,13 @@ h1, h2, h3, h4, h5, .navbar-brand {
 .list-pill-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .list-pill-avatar {
-  font-size: 1.4rem;
+  font-size: 1.15rem;
   line-height: 1;
+  flex-shrink: 0;
 
   &:empty {
     display: none;
@@ -200,9 +211,13 @@ h1, h2, h3, h4, h5, .navbar-brand {
 
 .list-row-name {
   color: var(--accent);
-  font-size: 1.6rem;
+  font-size: 1.1rem;
   font-weight: 700;
   text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 .list-row-delete {
@@ -222,7 +237,7 @@ h1, h2, h3, h4, h5, .navbar-brand {
   }
 
   &:hover::before {
-    color: $accent-pink;
+    color: $accent-warm;
   }
 }
 
@@ -283,7 +298,7 @@ h1, h2, h3, h4, h5, .navbar-brand {
   color: #9aa0ac;
 
   i {
-    color: $accent-pink;
+    color: $accent-warm;
     opacity: 0.6;
   }
 }

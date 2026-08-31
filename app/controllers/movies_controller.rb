@@ -41,7 +41,7 @@ class MoviesController < ApplicationController
 
     if @movie.save
       Bookmark.find_or_create_by(list: @list, movie: @movie)
-      redirect_to @list, notice: "#{@movie.title} added to #{@list.name}."
+      redirect_to @list
     else
       redirect_to movies_path(list_id: @list.id), alert: @movie.errors.full_messages.to_sentence
     end

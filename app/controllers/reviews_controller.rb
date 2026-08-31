@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
     @review.bookmark = @bookmark
 
     if @review.save
-      redirect_to @bookmark.list, notice: "Review added."
+      redirect_to @bookmark.list
     else
       redirect_to @bookmark.list, alert: @review.errors.full_messages.to_sentence
     end

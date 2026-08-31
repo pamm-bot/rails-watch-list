@@ -1,12 +1,14 @@
 // Components folder
 
-// "Premiere" gradient: the app's accent — orange into a bold coral-red
-// into purple. Class names below keep their original "-ocean" suffix
-// from the old flat teal theme — renaming them would mean touching
-// every view that references them, for a purely cosmetic reason.
-$gradient-premiere: linear-gradient(135deg, #f77f00 0%, #e63946 55%, #7209b7 100%);
-$accent-warm: #e63946;
-$accent-purple: #7209b7;
+// "Premiere" gradient: the app's accent — orange fading into red into a
+// dark navy. Deliberately not red-into-purple: that blend passes through
+// magenta/pink in the middle, which is exactly what this palette is
+// avoiding. Class names below keep their original "-ocean" suffix from
+// the old flat teal theme — renaming them would mean touching every view
+// that references them, for a purely cosmetic reason.
+$gradient-premiere: linear-gradient(135deg, #f77f00 0%, #d62828 55%, #1d3557 100%);
+$accent-warm: #d62828;
+$accent-deep: #1d3557;
 
 .navbar-ocean {
   background: $gradient-premiere;
@@ -14,7 +16,7 @@ $accent-purple: #7209b7;
 
 body {
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(180deg, #fff9f2 0%, #fdf3ef 45%, #f4f1fa 100%);
+  background: linear-gradient(180deg, #fff9f2 0%, #fdf1ee 45%, #eef1f6 100%);
   min-height: 100vh;
 }
 
@@ -30,7 +32,7 @@ body {
 .form-select:focus,
 .form-check-input:focus {
   border-color: $accent-warm;
-  box-shadow: 0 0 0 0.25rem rgba(230, 57, 70, 0.2);
+  box-shadow: 0 0 0 0.25rem rgba(214, 40, 40, 0.2);
 }
 
 h1, h2, h3, h4, h5, .navbar-brand {
@@ -49,7 +51,7 @@ h1, h2, h3, h4, h5, .navbar-brand {
   text-decoration: none;
 
   &:hover {
-    color: $accent-purple;
+    color: $accent-deep;
   }
 }
 
@@ -66,8 +68,8 @@ h1, h2, h3, h4, h5, .navbar-brand {
 
 .btn-outline-ocean {
   background-color: transparent;
-  border-color: $accent-purple;
-  color: $accent-purple;
+  border-color: $accent-deep;
+  color: $accent-deep;
 
   &:hover {
     background: $gradient-premiere;

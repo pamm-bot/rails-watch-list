@@ -2,8 +2,8 @@
   <defs>
     <linearGradient id="premiere" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#f77f00"/>
-      <stop offset="55%" stop-color="#e63946"/>
-      <stop offset="100%" stop-color="#7209b7"/>
+      <stop offset="55%" stop-color="#d62828"/>
+      <stop offset="100%" stop-color="#1d3557"/>
     </linearGradient>
     <clipPath id="board-clip">
       <rect x="88" y="132" width="336" height="256" rx="30" ry="30"/>
@@ -18,7 +18,7 @@
   <g filter="url(#board-shadow)">
     <g clip-path="url(#board-clip)">
       <rect x="88" y="132" width="336" height="256" fill="#ffffff"/>
-      <g fill="#7209b7">
+      <g fill="#1d3557">
         <polygon points="28,122 84,122 44,228 -12,228"/>
         <polygon points="140,122 196,122 156,228 100,228"/>
         <polygon points="252,122 308,122 268,228 212,228"/>
@@ -32,7 +32,7 @@
     <circle cx="122" cy="157" r="9"/>
     <circle cx="390" cy="157" r="9"/>
   </g>
-  <g fill="#7209b7">
+  <g fill="#1d3557">
     <circle cx="122" cy="157" r="4"/>
     <circle cx="390" cy="157" r="4"/>
   </g>

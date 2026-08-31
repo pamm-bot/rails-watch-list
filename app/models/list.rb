@@ -6,7 +6,7 @@ class List < ApplicationRecord
 
   # The app's accent palette, shared between the default cycling colors
   # on the home page and the picker for customizing a single list.
-  ACCENT_COLORS = %w[#f77f00 #e63946 #7209b7 #118ab2 #06d6a0].freeze
+  ACCENT_COLORS = %w[#f77f00 #d62828 #1d3557 #118ab2 #06d6a0].freeze
 
   validates :name, presence: true, uniqueness: { scope: :user_id }
   validates :color, inclusion: { in: ACCENT_COLORS }, allow_blank: true

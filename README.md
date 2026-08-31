@@ -12,6 +12,10 @@ Sign up with any email, or use the ready-made demo account:
 | --- | --- |
 | `demo@watchlist.dev` | `moviebuff` |
 
+![A watch list with its To Watch and Watched sections, movie posters, genre badges, star ratings and reviews](docs/screenshot-list.jpg)
+
+![The home page: a form to create a list, and the colour-coded lists below it](docs/screenshot-home.png)
+
 ## Features
 
 - **Accounts** — sign up and log in; every list is private to the account that created it, with email-based password reset if you forget it

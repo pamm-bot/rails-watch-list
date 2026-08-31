@@ -141,7 +141,11 @@ h1, h2, h3, h4, h5, .navbar-brand {
 }
 
 .movie-poster {
-  height: 220px;
+  width: 100%;
+  // TMDb posters are all 2:3, so matching that ratio keeps the cards a
+  // uniform height without cropping the artwork the way a fixed pixel
+  // height did.
+  aspect-ratio: 2 / 3;
   object-fit: cover;
 }
 

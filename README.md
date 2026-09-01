@@ -33,7 +33,7 @@ Sign up with any email, or use the ready-made demo account:
 - **Lists** — create as many as you like, each renameable and customisable with an emoji avatar and an accent colour
 - **Movie search** — powered by the TMDb API, filterable by category and minimum rating, with or without a title; results refresh as you type
 - **Watched / To Watch** — a toggle switch on each movie moves it between the two, updated in place with Turbo Streams (no page reload)
-- **Reviews & ratings** — a star-rating review per watched movie, editable or removable at any time
+- **Reviews & ratings** — for a watched movie, a 1–5 star rating and a written note; the two are independent (rate without writing, or the reverse), and the card shows the saved review until you choose to edit it, all without the page jumping
 - **Categories** — assigned automatically from each movie's TMDb genre
 - **Kids mode** — an optional per-list flag that keeps mature and low-quality titles out (see below)
 
@@ -74,12 +74,14 @@ A few decisions worth calling out, and why they went the way they did:
   Authorisation is just scoping: every query starts from `Current.user`, so one
   account can't even address another's records (it gets a 404, not a 403).
 
-- **Turbo Streams instead of a JavaScript front-end.** The only interactive
-  moments — moving a movie between Watched and To Watch, deleting a bookmark,
-  live search — carry no client-side state. The server renders HTML fragments and
-  Turbo swaps them in; a JSON API plus a front-end framework would have been far
+- **Turbo Streams instead of a JavaScript front-end.** The interactive moments —
+  moving a movie between Watched and To Watch, deleting a bookmark, saving a
+  review, live search — carry no client-side state. The server renders HTML
+  fragments and Turbo swaps them in, so the page keeps its scroll position
+  instead of reloading; a JSON API plus a front-end framework would have been far
   more code for the same behaviour. Stimulus covers the small stuff: debounced
-  search, and the live preview of a list's colour and emoji while you pick them.
+  search, the live preview of a list's colour and emoji, and toggling a review
+  card between its saved view and its edit form.
 
 - **A service object for TMDb.** Every HTTP call and the "is this an adult title?"
   logic live in one class (`TmdbClient`), so controllers stay thin and the rules

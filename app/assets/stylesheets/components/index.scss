@@ -160,13 +160,24 @@ h1, h2, h3, h4, h5, .navbar-brand {
   display: none;
 }
 
+// The home page is short — a form and a row of lists — so centre the
+// whole block in the space under the navbar instead of letting it trail
+// off into a tall empty background. It still grows and scrolls normally
+// once there are enough lists to fill the screen.
+.lists-home {
+  min-height: calc(100vh - 9rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .list-menu {
   max-width: 960px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   align-items: start;
-  margin: 0 auto 48px;
+  margin: 0 auto;
 }
 
 // Drop to two columns on tablets, one on narrow phones, where three or
@@ -184,9 +195,11 @@ h1, h2, h3, h4, h5, .navbar-brand {
 }
 
 .list-pill {
-  border: 2px solid transparent;
+  border: 2px solid rgba(0, 0, 0, 0.06);
   border-radius: 16px;
-  padding: 10px 14px;
+  padding: 14px 16px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
   min-width: 0;
 }

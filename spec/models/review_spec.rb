@@ -23,8 +23,18 @@ RSpec.describe "Review", type: :model do
     expect(review).to be_valid
   end
 
-  it "requires content" do
+  it "is valid with only a rating" do
     review = Review.new(valid_attributes.merge(content: nil))
+    expect(review).to be_valid
+  end
+
+  it "is valid with only written content" do
+    review = Review.new(valid_attributes.merge(rating: nil))
+    expect(review).to be_valid
+  end
+
+  it "is invalid with neither a rating nor content" do
+    review = Review.new(valid_attributes.merge(content: " ", rating: nil))
     expect(review).not_to be_valid
   end
 

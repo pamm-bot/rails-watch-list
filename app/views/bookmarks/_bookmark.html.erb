@@ -35,26 +35,29 @@
 
       <% if bookmark.watched? %>
         <hr>
-        <% review = bookmark.reviews.first || bookmark.reviews.build %>
-        <%= simple_form_for [bookmark, review] do |f| %>
-          <%= f.input :content, label: "Review" %>
-          <div class="form-group mb-2">
-            <label>Rating</label>
-            <div class="star-rating">
-              <% (5).downto(1) do |n| %>
-                <%= f.radio_button :rating, n, id: "bookmark_#{bookmark.id}_rating_#{n}" %>
-                <%= f.label :rating, for: "bookmark_#{bookmark.id}_rating_#{n}" do %>
-                  <span class="visually-hidden"><%= n %> stars</span>
-                <% end %>
+        <% review = bookmark.reviews.first %>
+        <% if review %>
+          <div data-controller="toggle">
+            <div data-toggle-target="content">
+              <% if review.rating.present? %>
+                <div class="star-display mb-1">
+                  <% 5.times do |i| %><i class="<%= "filled" if i < review.rating %>"></i><% end %>
+                </div>
               <% end %>
+              <% if review.content.present? %>
+                <p class="mb-2"><%= review.content %></p>
+              <% end %>
+              <div class="d-flex justify-content-center align-items-center gap-2">
+                <button type="button" class="btn btn-ocean btn-sm" data-action="click->toggle#toggle">Update</button>
+                <%= button_to "Delete", [ bookmark, review ], method: :delete, class: "list-pill-cancel-btn" %>
+              </div>
+            </div>
+            <div class="d-none" data-toggle-target="content">
+              <%= render "bookmarks/review_form", bookmark: bookmark, review: review, submit_label: "Save", with_back: true %>
             </div>
           </div>
-          <%= f.submit review.persisted? ? "Update" : "Submit", class: "btn btn-ocean btn-sm d-block mx-auto" %>
-        <% end %>
-
-        <% if review.persisted? %>
-          <%= button_to "Delete Review", [ bookmark, review ], method: :delete,
-              class: "btn btn-link btn-sm text-muted p-0 d-block mx-auto mt-1" %>
+        <% else %>
+          <%= render "bookmarks/review_form", bookmark: bookmark, review: bookmark.reviews.build, submit_label: "Submit" %>
         <% end %>
       <% end %>
     </div>

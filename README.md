@@ -21,7 +21,7 @@ Sign up with any email, or use the ready-made demo account:
 - [Features](#features)
 - [Kids mode](#kids-mode)
 - [Stack](#stack)
-- [Design notes](#design-notes)
+- [Design decisions](#design-decisions)
 - [Setup](#setup)
 - [Tests](#tests)
 - [Code quality](#code-quality)
@@ -64,15 +64,14 @@ too.
 - RSpec, RuboCop, Brakeman; CI on GitHub Actions
 - Deployed on Heroku (Puma, Thrust)
 
-## Design notes
-
-A few decisions worth calling out, and why they went the way they did:
+## Design decisions
 
 - **Rails 8's built-in auth instead of Devise.** The framework ships a generator
   for it now, so it was a chance to work directly with sessions, signed cookies
   and single-use reset tokens instead of treating them as a black box.
-  Authorisation is just scoping: every query starts from `Current.user`, so one
-  account can't even address another's records (it gets a 404, not a 403).
+  Authorisation is just scoping: every query starts from `Current.user`
+  (`Current.user.lists.find(id)`, and so on), so one account can't even address
+  another's records — a missing resource is a 404, not a 403.
 
 - **Turbo Streams instead of a JavaScript front-end.** The interactive moments —
   moving a movie between Watched and To Watch, deleting a bookmark, saving a
@@ -83,9 +82,20 @@ A few decisions worth calling out, and why they went the way they did:
   search, the live preview of a list's colour and emoji, and toggling a review
   card between its saved view and its edit form.
 
+- **No JavaScript build step.** Modules are served straight from
+  [`app/javascript`](app/javascript) through importmap — no Node, no bundler in
+  the pipeline. Turbo plus a handful of small Stimulus controllers are the whole
+  front-end.
+
 - **A service object for TMDb.** Every HTTP call and the "is this an adult title?"
-  logic live in one class (`TmdbClient`), so controllers stay thin and the rules
-  are unit-tested against canned API responses.
+  logic live in one class,
+  [`app/services/tmdb_client.rb`](app/services/tmdb_client.rb), so controllers
+  stay thin and the rules are unit-tested against canned API responses.
+
+- **Layered kids-mode filtering.** TMDb's own `adult` flag misses too much, so
+  Under 12 combines three independent signals — blocked genres, explicit title
+  keywords, and an unusually low vote average (detailed under
+  [Kids mode](#kids-mode)). It's a best-effort filter, and the code says so.
 
 - **Movies are shared, bookmarks are per-list.** A `Movie` row is global and
   deduplicated by title; the per-user state (watched, review) hangs off the

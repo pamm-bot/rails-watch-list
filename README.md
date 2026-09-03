@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/pamm-bot/rails-watch-list/actions/workflows/ci.yml/badge.svg)](https://github.com/pamm-bot/rails-watch-list/actions/workflows/ci.yml)
 
+**English** · [Français](README.fr.md)
+
 A movie watch-list app: sign up, create private lists, search real movies via [The Movie Database](https://www.themoviedb.org/) (TMDb), track what's watched vs. still to watch, and leave star ratings and reviews once you've seen something. Any list can be flagged **Under 12**, which filters mature and low-quality titles out of both search and the list itself.
 
 **Live demo:** https://rails-watch-list-pam-ed2b83622ee0.herokuapp.com/
@@ -14,7 +16,7 @@ Sign up with any email, or use the ready-made demo account:
 
 ![A watch list with its To Watch and Watched sections, movie posters, genre badges, star ratings and reviews](docs/screenshot-list.jpg)
 
-![The home page: a form to create a list, and the colour-coded lists below it](docs/screenshot-home.png)
+![The home page: a form to create a list, the colour-coded lists below it, and the language flags in the header](docs/screenshot-home.png)
 
 ## Contents
 
@@ -155,7 +157,7 @@ bundle exec rspec
 
 Runs automatically on every push and pull request via GitHub Actions. The
 suite covers models, controllers, and the TMDb client, including auth,
-kids mode, and the watched/review flows.
+kids mode, the watched/review flows, and locale switching.
 
 ## Code quality
 

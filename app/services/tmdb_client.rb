@@ -15,19 +15,30 @@ class TmdbClient
     10770 => "TV Movie", 53 => "Thriller", 10752 => "War", 37 => "Western"
   }.freeze
 
-  def self.search(query)
+  # Maps an app locale (:en/:it/:fr) to the TMDb `language` parameter, so
+  # titles and overviews come back in the language the UI is showing.
+  TMDB_LANGUAGES = { en: "en-US", it: "it-IT", fr: "fr-FR" }.freeze
+
+  def self.language_for(locale)
+    TMDB_LANGUAGES[locale.to_sym]
+  end
+
+  def self.search(query, language: nil)
     return [] if query.blank?
 
-    get("/search/movie", query: query, include_adult: false)["results"] || []
+    params = { query: query, include_adult: false }
+    params[:language] = language if language.present?
+    get("/search/movie", params)["results"] || []
   end
 
   # For filter-only browsing (no title typed): TMDb's search endpoint
   # requires a query string, so this uses "discover" instead, which
   # supports filtering by genre/rating with no text query.
-  def self.discover(genre_id: nil, min_rating: nil)
+  def self.discover(genre_id: nil, min_rating: nil, language: nil)
     params = { include_adult: false, sort_by: "popularity.desc" }
     params[:with_genres] = genre_id if genre_id.present?
     params["vote_average.gte"] = min_rating if min_rating.present?
+    params[:language] = language if language.present?
 
     get("/discover/movie", params)["results"] || []
   end

@@ -8,10 +8,11 @@ class MoviesController < ApplicationController
 
     genre_id = TmdbClient::GENRES.key(Category.find(@selected_category_id).name) if @selected_category_id.present?
 
+    language = TmdbClient.language_for(I18n.locale)
     @results = if @query.present?
-      TmdbClient.search(@query)
+      TmdbClient.search(@query, language: language)
     else
-      TmdbClient.discover(genre_id: genre_id, min_rating: @min_rating)
+      TmdbClient.discover(genre_id: genre_id, min_rating: @min_rating, language: language)
     end
 
     @results = @results.select { |r| r["poster_path"].present? }
@@ -31,7 +32,7 @@ class MoviesController < ApplicationController
   def create
     @list = Current.user.lists.find(params[:list_id])
     @movie = Movie.find_or_initialize_by(title: params[:title])
-    @movie.overview = params[:overview].presence || "No overview available."
+    @movie.overview = params[:overview].presence || t("movies.no_overview")
     @movie.poster_url = TmdbClient.poster_url(params[:poster_path])
     @movie.rating = params[:vote_average].to_f.round
 

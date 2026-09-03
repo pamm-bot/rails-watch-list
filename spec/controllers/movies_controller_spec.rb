@@ -17,12 +17,12 @@ RSpec.describe MoviesController, type: :controller do
 
   describe "GET index" do
     it "searches by title when a query is given" do
-      allow(TmdbClient).to receive(:search).with("Titanic").and_return([ ordinary_result ])
+      allow(TmdbClient).to receive(:search).with("Titanic", language: "en-US").and_return([ ordinary_result ])
       allow(TmdbClient).to receive(:discover)
 
       get :index, params: { list_id: @list.id, query: "Titanic" }
 
-      expect(TmdbClient).to have_received(:search).with("Titanic")
+      expect(TmdbClient).to have_received(:search).with("Titanic", language: "en-US")
       expect(TmdbClient).not_to have_received(:discover)
       expect(assigns(:results)).to eq([ ordinary_result ])
     end

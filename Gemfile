@@ -6,6 +6,8 @@ gem "rails", "~> 8.1.3"
 # gem "sprockets-rails"
 gem "bootstrap", "~> 5.3"
 gem "simple_form"
+# Translations for Rails' own strings (validation errors, dates, ...) in it/fr.
+gem "rails-i18n"
 gem "sassc-rails"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"

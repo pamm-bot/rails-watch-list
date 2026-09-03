@@ -36,6 +36,12 @@ module RailsWatchList
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    # UI languages. The locale is chosen per session (see LocalesController),
+    # with English as the fallback for any missing translation.
+    config.i18n.available_locales = %i[en it fr]
+    config.i18n.default_locale = :en
+    config.i18n.fallbacks = [ :en ]
+
     # Don't generate system test files.
     config.generators.system_tests = nil
   end

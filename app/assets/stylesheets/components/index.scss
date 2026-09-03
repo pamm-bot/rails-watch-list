@@ -219,7 +219,7 @@ h1, h2, h3, h4, h5, .navbar-brand {
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   align-items: start;
-  margin: 0 auto;
+  margin: 0 auto 3rem;
 }
 
 // Drop to two columns on tablets, one on narrow phones, where three or

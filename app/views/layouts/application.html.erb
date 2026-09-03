@@ -35,6 +35,11 @@
           <% if authenticated? && !(controller_name == "lists" && action_name == "index") %>
             <%= link_to t("nav.home"), root_path, class: "nav-link text-light" %>
           <% end %>
+          <% if authenticated? %>
+            <%= button_to t("nav.log_out"), session_path, method: :delete, class: "btn btn-outline-light btn-sm" %>
+          <% end %>
+          <%# Kept last so the flags stay pinned to the right edge and don't
+              shift when the surrounding labels change width between languages. %>
           <div class="locale-switch" role="group" aria-label="<%= t("nav.language") %>">
             <% available_locales.each do |loc| %>
               <%= link_to locale_flag(loc), locale_path(loc),
@@ -43,9 +48,6 @@
                     aria: { label: t("locales.#{loc}"), current: (I18n.locale == loc ? "true" : nil) } %>
             <% end %>
           </div>
-          <% if authenticated? %>
-            <%= button_to t("nav.log_out"), session_path, method: :delete, class: "btn btn-outline-light btn-sm" %>
-          <% end %>
         </div>
       </div>
     </nav>

@@ -31,7 +31,7 @@ fr:
       color: "Couleur"
     index:
       title: "Vos listes"
-      tagline: "Chercher. Regarder. Noter."
+      tagline: "Cherche. Regarde. Note."
       create_heading: "Créer une nouvelle liste"
       create_button: "Créer la liste"
       empty: "Aucune liste pour l'instant — créez-en une ci-dessus !"

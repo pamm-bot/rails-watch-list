@@ -31,7 +31,7 @@ it:
       color: "Colore"
     index:
       title: "Le tue liste"
-      tagline: "Cerca. Guarda. Recensisci."
+      tagline: "Cerca. Guarda. Vota."
       create_heading: "Crea una nuova lista"
       create_button: "Crea lista"
       empty: "Ancora nessuna lista — creane una qui sopra!"

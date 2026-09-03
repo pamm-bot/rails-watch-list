@@ -26,7 +26,7 @@ it:
   lists:
     form:
       name: "Nome"
-      kids_mode: "Under 12"
+      kids_mode: "Meno di 12 anni"
       avatar: "Avatar"
       color: "Colore"
     index:

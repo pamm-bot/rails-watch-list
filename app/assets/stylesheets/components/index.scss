@@ -205,6 +205,14 @@ h1, h2, h3, h4, h5, .navbar-brand {
   justify-content: center;
 }
 
+// As flex-column children with auto side margins, the form card and the
+// list grid would otherwise shrink to their content width; keep them at
+// their intended max-width.
+.lists-home > .card,
+.lists-home > .list-menu {
+  width: 100%;
+}
+
 .list-menu {
   max-width: 960px;
   display: grid;

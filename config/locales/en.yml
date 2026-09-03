@@ -1,31 +1,128 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  app_name: "My Watch List"
+
+  locales:
+    en: "English"
+    it: "Italian"
+    fr: "French"
+
+  nav:
+    home: "Home"
+    log_out: "Log out"
+    language: "Language"
+
+  common:
+    save: "Save"
+    back: "Back"
+    delete: "Delete"
+    update: "Update"
+    confirm_delete: "Are you sure?"
+
+  auth:
+    email: "Email"
+    password: "Password"
+    password_confirmation: "Confirm password"
+
+  lists:
+    form:
+      name: "Name"
+      kids_mode: "Under 12"
+      avatar: "Avatar"
+      color: "Colour"
+    index:
+      title: "Your Watch Lists"
+      tagline: "Search. Watch. Review."
+      create_heading: "Create a new list"
+      create_button: "Create list"
+      empty: "No lists yet — create your first one above!"
+    show:
+      rename: "Rename list"
+      search_movies: "Search movies"
+      to_watch: "To Watch"
+      to_watch_empty: "Nothing here yet."
+      watched: "Watched"
+      watched_empty: "No movies marked as watched yet."
+    row:
+      customize: "Customise list"
+
+  movies:
+    search_placeholder: "Search for a movie..."
+    filter_by: "Filter by"
+    category: "Category"
+    rating: "Rating"
+    no_results: "No results."
+    no_results_for: 'No results for "%{query}".'
+    already_in_list: "Already in list"
+    add: "Add"
+    no_overview: "No overview available."
+
+  bookmarks:
+    watched: "Watched"
+
+  reviews:
+    rating: "Rating"
+    review: "Review"
+    submit: "Submit"
+    stars:
+      one: "%{count} star"
+      other: "%{count} stars"
+
+  sessions:
+    rate_limited: "Try again later."
+    failed: "Try another email address or password."
+    new:
+      title: "Log in"
+      submit: "Log in"
+      no_account: "Don't have an account?"
+      sign_up: "Sign up"
+      forgot_password: "Forgot password?"
+
+  registrations:
+    new:
+      title: "Sign up"
+      submit: "Sign up"
+      have_account: "Already have an account?"
+      log_in: "Log in"
+
+  passwords:
+    sent: "Password reset instructions sent (if an account with that email exists)."
+    reset_done: "Password has been reset."
+    mismatch: "Passwords did not match."
+    invalid_link: "Password reset link is invalid or has expired."
+    new:
+      title: "Reset password"
+      submit: "Send reset instructions"
+      back_to_login: "Back to log in"
+    edit:
+      title: "Set a new password"
+      new_password: "New password"
+      confirm_new_password: "Confirm new password"
+      submit: "Save new password"
+
+  passwords_mailer:
+    reset:
+      subject: "Reset your password"
+      intro: "Someone asked to reset your My Watch List password."
+      link_label: "Reset my password"
+      expiry: "This link expires in 15 minutes. If you didn't request this, you can safely ignore this email."
+
+  genres:
+    action: "Action"
+    adventure: "Adventure"
+    animation: "Animation"
+    comedy: "Comedy"
+    crime: "Crime"
+    documentary: "Documentary"
+    drama: "Drama"
+    family: "Family"
+    fantasy: "Fantasy"
+    history: "History"
+    horror: "Horror"
+    music: "Music"
+    mystery: "Mystery"
+    romance: "Romance"
+    science_fiction: "Science Fiction"
+    tv_movie: "TV Movie"
+    thriller: "Thriller"
+    war: "War"
+    western: "Western"

@@ -13,6 +13,36 @@ $accent-warm-dark: #a91d1d;
   background: $gradient-premiere;
 }
 
+// Language switcher: small round flag buttons in the navbar. The active
+// one gets a light ring so the current language reads at a glance.
+.locale-switch {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.locale-flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 1rem;
+  line-height: 1;
+  text-decoration: none;
+  opacity: 0.55;
+  transition: opacity 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.is-active {
+    opacity: 1;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+  }
+}
+
 body {
   font-family: "Poppins", sans-serif;
   background: linear-gradient(180deg, #fff9f2 0%, #fdf1ee 100%);

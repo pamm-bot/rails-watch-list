@@ -1,0 +1,128 @@
+it:
+  app_name: "My Watch List"
+
+  locales:
+    en: "Inglese"
+    it: "Italiano"
+    fr: "Francese"
+
+  nav:
+    home: "Home"
+    log_out: "Esci"
+    language: "Lingua"
+
+  common:
+    save: "Salva"
+    back: "Indietro"
+    delete: "Elimina"
+    update: "Modifica"
+    confirm_delete: "Sei sicuro?"
+
+  auth:
+    email: "Email"
+    password: "Password"
+    password_confirmation: "Conferma password"
+
+  lists:
+    form:
+      name: "Nome"
+      kids_mode: "Under 12"
+      avatar: "Avatar"
+      color: "Colore"
+    index:
+      title: "Le tue liste"
+      tagline: "Cerca. Guarda. Recensisci."
+      create_heading: "Crea una nuova lista"
+      create_button: "Crea lista"
+      empty: "Ancora nessuna lista — creane una qui sopra!"
+    show:
+      rename: "Rinomina lista"
+      search_movies: "Cerca film"
+      to_watch: "Da vedere"
+      to_watch_empty: "Ancora niente qui."
+      watched: "Visti"
+      watched_empty: "Nessun film segnato come visto."
+    row:
+      customize: "Personalizza lista"
+
+  movies:
+    search_placeholder: "Cerca un film..."
+    filter_by: "Filtra per"
+    category: "Categoria"
+    rating: "Voto"
+    no_results: "Nessun risultato."
+    no_results_for: 'Nessun risultato per "%{query}".'
+    already_in_list: "Già nella lista"
+    add: "Aggiungi"
+    no_overview: "Nessuna descrizione disponibile."
+
+  bookmarks:
+    watched: "Visto"
+
+  reviews:
+    rating: "Voto"
+    review: "Recensione"
+    submit: "Invia"
+    stars:
+      one: "%{count} stella"
+      other: "%{count} stelle"
+
+  sessions:
+    rate_limited: "Riprova più tardi."
+    failed: "Prova con un'altra email o password."
+    new:
+      title: "Accedi"
+      submit: "Accedi"
+      no_account: "Non hai un account?"
+      sign_up: "Registrati"
+      forgot_password: "Password dimenticata?"
+
+  registrations:
+    new:
+      title: "Registrati"
+      submit: "Registrati"
+      have_account: "Hai già un account?"
+      log_in: "Accedi"
+
+  passwords:
+    sent: "Istruzioni per il reset inviate (se esiste un account con quell'email)."
+    reset_done: "La password è stata reimpostata."
+    mismatch: "Le password non corrispondono."
+    invalid_link: "Il link per il reset non è valido o è scaduto."
+    new:
+      title: "Reimposta password"
+      submit: "Invia istruzioni"
+      back_to_login: "Torna all'accesso"
+    edit:
+      title: "Imposta una nuova password"
+      new_password: "Nuova password"
+      confirm_new_password: "Conferma nuova password"
+      submit: "Salva nuova password"
+
+  passwords_mailer:
+    reset:
+      subject: "Reimposta la tua password"
+      intro: "Qualcuno ha richiesto il reset della password del tuo account My Watch List."
+      link_label: "Reimposta la password"
+      expiry: "Questo link scade tra 15 minuti. Se non hai fatto questa richiesta, puoi ignorare questa email."
+
+  genres:
+    action: "Azione"
+    adventure: "Avventura"
+    animation: "Animazione"
+    comedy: "Commedia"
+    crime: "Crime"
+    documentary: "Documentario"
+    drama: "Dramma"
+    family: "Famiglia"
+    fantasy: "Fantasy"
+    history: "Storico"
+    horror: "Horror"
+    music: "Musica"
+    mystery: "Mistero"
+    romance: "Romantico"
+    science_fiction: "Fantascienza"
+    tv_movie: "Film TV"
+    thriller: "Thriller"
+    war: "Guerra"
+    western: "Western"

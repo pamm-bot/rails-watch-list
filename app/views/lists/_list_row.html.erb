@@ -3,24 +3,24 @@
     <span class="list-pill-avatar" data-list-customize-target="avatar"><%= list.emoji %></span>
     <%= link_to list.name, list_path(list), class: "list-row-name", data: { list_customize_target: "name" } %>
     <div class="list-pill-actions">
-      <button type="button" class="list-pill-edit-btn" data-action="click->toggle#toggle" aria-label="Customize list">
+      <button type="button" class="list-pill-edit-btn" data-action="click->toggle#toggle" aria-label="<%= t("lists.row.customize") %>">
         <i class="fa-solid fa-pen"></i>
       </button>
       <%= link_to "",
           list_path(list),
-          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+          data: { turbo_method: :delete, turbo_confirm: t("common.confirm_delete") },
           class: "list-row-delete",
-          aria: { label: "Delete" } %>
+          aria: { label: t("common.delete") } %>
     </div>
   </div>
 
   <div class="list-pill-edit d-none" data-toggle-target="content">
     <%= simple_form_for list do |f| %>
-      <label class="d-block small text-muted mb-1">Name</label>
+      <label class="d-block small text-muted mb-1"><%= t("lists.form.name") %></label>
       <%= f.input_field :name, class: "form-control form-control-sm mb-3",
             data: { action: "input->list-customize#previewName" } %>
 
-      <label class="d-block small text-muted mb-1">Avatar</label>
+      <label class="d-block small text-muted mb-1"><%= t("lists.form.avatar") %></label>
       <div class="emoji-swatches mb-3">
         <label class="emoji-swatch">
           <%= f.radio_button :emoji, "", id: "list_#{list.id}_emoji_none", checked: list.emoji.blank?, data: { action: "change->list-customize#previewEmoji" } %>
@@ -34,7 +34,7 @@
         <% end %>
       </div>
 
-      <label class="d-block small text-muted mb-1">Color</label>
+      <label class="d-block small text-muted mb-1"><%= t("lists.form.color") %></label>
       <div class="color-swatches mb-3">
         <% List::ACCENT_COLORS.each_with_index do |color, color_index| %>
           <label class="color-swatch" style="--swatch: <%= color %>;">
@@ -45,9 +45,9 @@
 
       <div class="d-flex justify-content-end align-items-center gap-2">
         <button type="button" class="list-pill-cancel-btn" data-action="click->toggle#toggle">
-          Back
+          <%= t("common.back") %>
         </button>
-        <%= f.submit "Save", class: "btn btn-sm btn-ocean" %>
+        <%= f.submit t("common.save"), class: "btn btn-sm btn-ocean" %>
       </div>
     <% end %>
   </div>

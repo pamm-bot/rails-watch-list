@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= I18n.locale %>">
   <head>
-    <title><%= content_for(:title) || "My Watch List" %></title>
+    <title><%= content_for(:title) || t("app_name") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="My Watch List">
@@ -30,13 +30,21 @@
   <body>
     <nav class="navbar navbar-expand navbar-dark navbar-ocean py-4">
       <div class="container d-flex justify-content-between align-items-center">
-        <%= link_to "My Watch List", root_path, class: "navbar-brand mb-0 h3 text-light" %>
+        <%= link_to t("app_name"), root_path, class: "navbar-brand mb-0 h3 text-light" %>
         <div class="d-flex align-items-center gap-3">
           <% if authenticated? && !(controller_name == "lists" && action_name == "index") %>
-            <%= link_to "Home", root_path, class: "nav-link text-light" %>
+            <%= link_to t("nav.home"), root_path, class: "nav-link text-light" %>
           <% end %>
+          <div class="locale-switch" role="group" aria-label="<%= t("nav.language") %>">
+            <% available_locales.each do |loc| %>
+              <%= link_to locale_flag(loc), locale_path(loc),
+                    class: "locale-flag#{' is-active' if I18n.locale == loc}",
+                    title: t("locales.#{loc}"),
+                    aria: { label: t("locales.#{loc}"), current: (I18n.locale == loc ? "true" : nil) } %>
+            <% end %>
+          </div>
           <% if authenticated? %>
-            <%= button_to "Log Out", session_path, method: :delete, class: "btn btn-outline-light btn-sm" %>
+            <%= button_to t("nav.log_out"), session_path, method: :delete, class: "btn btn-outline-light btn-sm" %>
           <% end %>
         </div>
       </div>

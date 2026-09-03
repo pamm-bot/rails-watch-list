@@ -1,22 +1,22 @@
 <%= simple_form_for [ bookmark, review ], html: { class: "review-form" } do |f| %>
   <div class="form-group mb-2">
-    <label class="d-block small text-muted mb-1">Rating</label>
+    <label class="d-block small text-muted mb-1"><%= t("reviews.rating") %></label>
     <div class="star-rating">
       <% 5.downto(1) do |n| %>
         <%= f.radio_button :rating, n, id: "bookmark_#{bookmark.id}_rating_#{n}", checked: review.rating == n %>
         <%= f.label :rating, for: "bookmark_#{bookmark.id}_rating_#{n}" do %>
-          <span class="visually-hidden"><%= n %> stars</span>
+          <span class="visually-hidden"><%= t("reviews.stars", count: n) %></span>
         <% end %>
       <% end %>
     </div>
   </div>
 
-  <%= f.input :content, label: "Review", required: false, input_html: { rows: 2 } %>
+  <%= f.input :content, label: t("reviews.review"), required: false, input_html: { rows: 2 } %>
 
   <div class="d-flex justify-content-center align-items-center gap-2">
     <%= f.submit submit_label, class: "btn btn-ocean btn-sm" %>
     <% if local_assigns[:with_back] %>
-      <button type="button" class="list-pill-cancel-btn" data-action="click->toggle#toggle">Back</button>
+      <button type="button" class="list-pill-cancel-btn" data-action="click->toggle#toggle"><%= t("common.back") %></button>
     <% end %>
   </div>
 <% end %>

@@ -1,0 +1,128 @@
+fr:
+  app_name: "My Watch List"
+
+  locales:
+    en: "Anglais"
+    it: "Italien"
+    fr: "Français"
+
+  nav:
+    home: "Accueil"
+    log_out: "Se déconnecter"
+    language: "Langue"
+
+  common:
+    save: "Enregistrer"
+    back: "Retour"
+    delete: "Supprimer"
+    update: "Modifier"
+    confirm_delete: "Êtes-vous sûr ?"
+
+  auth:
+    email: "E-mail"
+    password: "Mot de passe"
+    password_confirmation: "Confirmer le mot de passe"
+
+  lists:
+    form:
+      name: "Nom"
+      kids_mode: "Moins de 12 ans"
+      avatar: "Avatar"
+      color: "Couleur"
+    index:
+      title: "Vos listes"
+      tagline: "Chercher. Regarder. Noter."
+      create_heading: "Créer une nouvelle liste"
+      create_button: "Créer la liste"
+      empty: "Aucune liste pour l'instant — créez-en une ci-dessus !"
+    show:
+      rename: "Renommer la liste"
+      search_movies: "Chercher des films"
+      to_watch: "À voir"
+      to_watch_empty: "Rien ici pour l'instant."
+      watched: "Vus"
+      watched_empty: "Aucun film marqué comme vu."
+    row:
+      customize: "Personnaliser la liste"
+
+  movies:
+    search_placeholder: "Chercher un film..."
+    filter_by: "Filtrer par"
+    category: "Catégorie"
+    rating: "Note"
+    no_results: "Aucun résultat."
+    no_results_for: 'Aucun résultat pour "%{query}".'
+    already_in_list: "Déjà dans la liste"
+    add: "Ajouter"
+    no_overview: "Aucun résumé disponible."
+
+  bookmarks:
+    watched: "Vu"
+
+  reviews:
+    rating: "Note"
+    review: "Critique"
+    submit: "Envoyer"
+    stars:
+      one: "%{count} étoile"
+      other: "%{count} étoiles"
+
+  sessions:
+    rate_limited: "Réessayez plus tard."
+    failed: "Essayez une autre adresse e-mail ou un autre mot de passe."
+    new:
+      title: "Connexion"
+      submit: "Se connecter"
+      no_account: "Pas encore de compte ?"
+      sign_up: "S'inscrire"
+      forgot_password: "Mot de passe oublié ?"
+
+  registrations:
+    new:
+      title: "Inscription"
+      submit: "S'inscrire"
+      have_account: "Vous avez déjà un compte ?"
+      log_in: "Se connecter"
+
+  passwords:
+    sent: "Instructions de réinitialisation envoyées (si un compte existe avec cet e-mail)."
+    reset_done: "Le mot de passe a été réinitialisé."
+    mismatch: "Les mots de passe ne correspondent pas."
+    invalid_link: "Le lien de réinitialisation est invalide ou a expiré."
+    new:
+      title: "Réinitialiser le mot de passe"
+      submit: "Envoyer les instructions"
+      back_to_login: "Retour à la connexion"
+    edit:
+      title: "Définir un nouveau mot de passe"
+      new_password: "Nouveau mot de passe"
+      confirm_new_password: "Confirmer le nouveau mot de passe"
+      submit: "Enregistrer le nouveau mot de passe"
+
+  passwords_mailer:
+    reset:
+      subject: "Réinitialisez votre mot de passe"
+      intro: "Quelqu'un a demandé la réinitialisation du mot de passe de votre compte My Watch List."
+      link_label: "Réinitialiser mon mot de passe"
+      expiry: "Ce lien expire dans 15 minutes. Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail."
+
+  genres:
+    action: "Action"
+    adventure: "Aventure"
+    animation: "Animation"
+    comedy: "Comédie"
+    crime: "Policier"
+    documentary: "Documentaire"
+    drama: "Drame"
+    family: "Famille"
+    fantasy: "Fantastique"
+    history: "Histoire"
+    horror: "Horreur"
+    music: "Musique"
+    mystery: "Mystère"
+    romance: "Romance"
+    science_fiction: "Science-fiction"
+    tv_movie: "Téléfilm"
+    thriller: "Thriller"
+    war: "Guerre"
+    western: "Western"

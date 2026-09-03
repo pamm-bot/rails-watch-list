@@ -4,14 +4,14 @@
       <img src="<%= bookmark.movie.poster_url %>" class="card-img-top movie-poster">
       <% if bookmark.movie.category.present? %>
         <span class="genre-badge" style="background-color: <%= genre_badge_color(bookmark.movie.category.name) %>;">
-          <%= bookmark.movie.category.name %>
+          <%= genre_label(bookmark.movie.category.name) %>
         </span>
       <% end %>
       <%= link_to "",
           bookmark_path(bookmark),
-          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+          data: { turbo_method: :delete, turbo_confirm: t("common.confirm_delete") },
           class: "delete-x",
-          aria: { label: "Delete" } %>
+          aria: { label: t("common.delete") } %>
     </div>
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-start">
@@ -29,7 +29,7 @@
         <label class="watched-toggle">
           <%= f.check_box :watched, data: { action: "change->auto-submit#submit" } %>
           <span class="watched-toggle-slider"></span>
-          <span class="watched-toggle-label">Watched</span>
+          <span class="watched-toggle-label"><%= t("bookmarks.watched") %></span>
         </label>
       <% end %>
 
@@ -48,16 +48,16 @@
                 <p class="mb-2"><%= review.content %></p>
               <% end %>
               <div class="d-flex justify-content-center align-items-center gap-2">
-                <button type="button" class="btn btn-ocean btn-sm" data-action="click->toggle#toggle">Update</button>
-                <%= button_to "Delete", [ bookmark, review ], method: :delete, class: "list-pill-cancel-btn" %>
+                <button type="button" class="btn btn-ocean btn-sm" data-action="click->toggle#toggle"><%= t("common.update") %></button>
+                <%= button_to t("common.delete"), [ bookmark, review ], method: :delete, class: "list-pill-cancel-btn" %>
               </div>
             </div>
             <div class="d-none" data-toggle-target="content">
-              <%= render "bookmarks/review_form", bookmark: bookmark, review: review, submit_label: "Save", with_back: true %>
+              <%= render "bookmarks/review_form", bookmark: bookmark, review: review, submit_label: t("common.save"), with_back: true %>
             </div>
           </div>
         <% else %>
-          <%= render "bookmarks/review_form", bookmark: bookmark, review: bookmark.reviews.build, submit_label: "Submit" %>
+          <%= render "bookmarks/review_form", bookmark: bookmark, review: bookmark.reviews.build, submit_label: t("reviews.submit") %>
         <% end %>
       <% end %>
     </div>

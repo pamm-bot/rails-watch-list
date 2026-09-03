@@ -36,6 +36,7 @@ Sign up with any email, or use the ready-made demo account:
 - **Reviews & ratings** — for a watched movie, a 1–5 star rating and a written note; the two are independent (rate without writing, or the reverse), and the card shows the saved review until you choose to edit it, all without the page jumping
 - **Categories** — assigned automatically from each movie's TMDb genre
 - **Kids mode** — an optional per-list flag that keeps mature and low-quality titles out (see below)
+- **Languages** — English, Italian and French, switched from the flag buttons in the header; the UI and the genre labels translate, and movie titles and summaries are re-fetched from TMDb in the chosen language
 
 ## Kids mode
 
@@ -59,6 +60,7 @@ too.
 - Hotwire (Turbo + Stimulus) with importmap — no JavaScript build step
 - Bootstrap 5, simple_form, SCSS
 - Rails 8's built-in authentication (bcrypt, signed-cookie sessions)
+- i18n (en / it / fr), with `rails-i18n` for the framework's own strings
 - solid_cache / solid_queue (database-backed cache and jobs)
 - [TMDb API](https://developer.themoviedb.org/reference/intro/getting-started) for movie data, reached through a service object
 - RSpec, RuboCop, Brakeman; CI on GitHub Actions
@@ -96,6 +98,13 @@ too.
   Under 12 combines three independent signals — blocked genres, explicit title
   keywords, and an unusually low vote average (detailed under
   [Kids mode](#kids-mode)). It's a best-effort filter, and the code says so.
+
+- **Locale lives in the session, not the URL.** Switching language is a plain
+  link to `/locale/:locale` that records the choice and redirects back — same
+  URLs, same page, re-rendered. TMDb requests pass a matching `language`
+  parameter, so search results come back in that language too; genre names stay
+  English internally (they key the kids-mode rules and the badge colours) and are
+  translated only for display.
 
 - **Movies are shared, bookmarks are per-list.** A `Movie` row is global and
   deduplicated by title; the per-user state (watched, review) hangs off the

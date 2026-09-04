@@ -20,6 +20,9 @@
           <span class="movie-rating"><i class="fa-star"></i> <%= bookmark.movie.rating %>/10</span>
         <% end %>
       </div>
+      <% if bookmark.movie.overview.present? %>
+        <p class="movie-overview"><%= bookmark.movie.overview %></p>
+      <% end %>
       <% if bookmark.comment.present? %>
         <p><%= bookmark.comment %></p>
       <% end %>

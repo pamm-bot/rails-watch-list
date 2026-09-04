@@ -187,6 +187,19 @@ h1, h2, h3, h4, h5, .navbar-brand {
   }
 }
 
+// TMDb synopsis under the title on a saved card. Clamped to a few lines
+// so cards in a row stay roughly the same height.
+.movie-overview {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #6c6a68;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .movie-poster {
   width: 100%;
   // TMDb posters are all 2:3, so matching that ratio keeps the cards a

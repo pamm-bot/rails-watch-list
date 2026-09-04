@@ -101,5 +101,15 @@ RSpec.describe TmdbClient do
 
       expect(TmdbClient.discover).to eq([ { "title" => "Popular Movie" } ])
     end
+
+    it "forwards the page parameter" do
+      allow(Net::HTTP).to receive(:get).and_return({ "results" => [] }.to_json)
+
+      TmdbClient.discover(page: 4)
+
+      expect(Net::HTTP).to have_received(:get) do |uri|
+        expect(uri.query).to include("page=4")
+      end
+    end
   end
 end

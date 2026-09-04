@@ -52,9 +52,9 @@ if defined?(ListsController)
           expect(assigns(:list)).to be_persisted
         end
 
-        it "redirects to the lists index" do
+        it "redirects into the discovery deck for the new list" do
           post :create, params: { list: valid_attributes }
-          expect(response).to redirect_to(lists_path)
+          expect(response).to redirect_to(list_discover_path(assigns(:list)))
         end
       end
 

@@ -31,14 +31,13 @@ class MoviesController < ApplicationController
 
   def create
     @list = Current.user.lists.find(params[:list_id])
-    @movie = Movie.find_or_initialize_by(title: params[:title])
-    @movie.overview = params[:overview].presence || t("movies.no_overview")
-    @movie.poster_url = TmdbClient.poster_url(params[:poster_path])
-    @movie.rating = params[:vote_average].to_f.round
-
-    if (genre_name = TmdbClient.genre_name(params[:genre_id]))
-      @movie.category = Category.find_or_create_by(name: genre_name)
-    end
+    @movie = Movie.upsert_from_tmdb(
+      title: params[:title],
+      overview: params[:overview],
+      poster_path: params[:poster_path],
+      vote_average: params[:vote_average],
+      genre_id: params[:genre_id]
+    )
 
     # Come back to the search results with the same filters, so adding
     # several movies in a row doesn't kick you out of the list you were
@@ -46,7 +45,7 @@ class MoviesController < ApplicationController
     filters = params.permit(:query, :category_id, :min_rating).to_h.compact_blank
     search_path = movies_path(list_id: @list.id, **filters)
 
-    if @movie.save
+    if @movie.persisted?
       Bookmark.find_or_create_by(list: @list, movie: @movie)
       redirect_to search_path
     else

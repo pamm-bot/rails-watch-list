@@ -1,0 +1,15 @@
+<div class="container mt-4">
+  <div class="mb-4">
+    <%= link_to list_path(@list), class: "link-ocean d-inline-flex align-items-center gap-2 fs-4 fw-semibold" do %>
+      <i class="fa-solid fa-arrow-left"></i> <%= @list.name %>
+    <% end %>
+  </div>
+
+  <div id="discover-card">
+    <%= render "discoveries/card", movie: @movie, list: @list %>
+  </div>
+
+  <p class="text-center mt-4">
+    <%= link_to t("discover.done"), list_path(@list), class: "link-ocean" %>
+  </p>
+</div>

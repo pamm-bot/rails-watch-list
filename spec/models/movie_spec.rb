@@ -50,4 +50,30 @@ RSpec.describe "Movie", type: :model do
 
     expect { movie.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
   end
+
+  describe ".upsert_from_tmdb" do
+    let(:payload) do
+      { title: "Dune", overview: "Paul Atreides.", poster_path: "/dune.jpg", vote_average: "8.1", genre_id: "878" }
+    end
+
+    it "creates a movie, rounding the rating and assigning the genre category" do
+      movie = Movie.upsert_from_tmdb(**payload)
+
+      expect(movie).to be_persisted
+      expect(movie.rating).to eq(8)
+      expect(movie.category.name).to eq("Science Fiction")
+    end
+
+    it "reuses an existing movie with the same title" do
+      Movie.create!(title: "Dune", overview: "Old copy.")
+
+      expect { Movie.upsert_from_tmdb(**payload) }.not_to change(Movie, :count)
+    end
+
+    it "falls back to the no-overview string when the payload has none" do
+      movie = Movie.upsert_from_tmdb(**payload, overview: "")
+
+      expect(movie.overview).to eq(I18n.t("movies.no_overview"))
+    end
+  end
 end

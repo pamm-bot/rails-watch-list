@@ -1,0 +1,79 @@
+<% if movie %>
+  <div class="discover-card mx-auto" data-controller="discover-card">
+    <% if (poster = TmdbClient.poster_url(movie["poster_path"])) %>
+      <img src="<%= poster %>" alt="<%= movie["title"] %>" class="discover-poster">
+    <% end %>
+
+    <div class="discover-body">
+      <div class="d-flex justify-content-between align-items-start gap-2">
+        <h5 class="mb-0"><%= movie["title"] %></h5>
+        <% if movie["vote_average"].to_f.positive? %>
+          <span class="movie-rating"><i class="fa-star"></i> <%= movie["vote_average"].round %>/10</span>
+        <% end %>
+      </div>
+
+      <% if movie["overview"].present? %>
+        <p class="discover-synopsis"><%= movie["overview"] %></p>
+      <% end %>
+
+      <%= form_with url: list_discover_answer_path(list), method: :post,
+            data: { "discover-card-target": "form" } do |f| %>
+        <%= f.hidden_field :tmdb_id, value: movie["id"] %>
+        <%= f.hidden_field :title, value: movie["title"] %>
+        <%= f.hidden_field :overview, value: movie["overview"] %>
+        <%= f.hidden_field :poster_path, value: movie["poster_path"] %>
+        <%= f.hidden_field :vote_average, value: movie["vote_average"] %>
+        <%= f.hidden_field :genre_id, value: movie["genre_ids"]&.first %>
+        <%= f.hidden_field :seen, value: "", data: { "discover-card-target": "seenField" } %>
+        <%= f.hidden_field :verdict, value: "", data: { "discover-card-target": "verdictField" } %>
+
+        <div class="discover-step" data-discover-card-target="step" data-step="seen">
+          <p class="discover-question"><%= t("discover.q_seen") %></p>
+          <div class="discover-actions">
+            <button type="button" class="discover-btn discover-yes"
+                    data-action="discover-card#answerSeen" data-discover-card-choice-param="1">
+              <i class="fa-solid fa-thumbs-up"></i> <%= t("discover.answer_yes") %>
+            </button>
+            <button type="button" class="discover-btn discover-no"
+                    data-action="discover-card#answerSeen" data-discover-card-choice-param="0">
+              <i class="fa-solid fa-thumbs-down"></i> <%= t("discover.answer_no") %>
+            </button>
+          </div>
+        </div>
+
+        <div class="discover-step d-none" data-discover-card-target="step" data-step="liked">
+          <p class="discover-question"><%= t("discover.q_liked") %></p>
+          <div class="discover-actions">
+            <button type="button" class="discover-btn discover-yes"
+                    data-action="discover-card#answerVerdict" data-discover-card-choice-param="liked">
+              <i class="fa-solid fa-thumbs-up"></i> <%= t("discover.answer_yes") %>
+            </button>
+            <button type="button" class="discover-btn discover-no"
+                    data-action="discover-card#answerVerdict" data-discover-card-choice-param="disliked">
+              <i class="fa-solid fa-thumbs-down"></i> <%= t("discover.answer_no") %>
+            </button>
+          </div>
+        </div>
+
+        <div class="discover-step d-none" data-discover-card-target="step" data-step="want">
+          <p class="discover-question"><%= t("discover.q_want") %></p>
+          <div class="discover-actions">
+            <button type="button" class="discover-btn discover-yes"
+                    data-action="discover-card#answerVerdict" data-discover-card-choice-param="want">
+              <i class="fa-solid fa-thumbs-up"></i> <%= t("discover.answer_yes") %>
+            </button>
+            <button type="button" class="discover-btn discover-no"
+                    data-action="discover-card#answerVerdict" data-discover-card-choice-param="skip">
+              <i class="fa-solid fa-thumbs-down"></i> <%= t("discover.answer_no") %>
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <div class="empty-state text-center py-5">
+    <i class="fa-solid fa-clapperboard fa-2x mb-3 d-block"></i>
+    <p class="mb-0"><%= t("discover.empty") %></p>
+  </div>
+<% end %>

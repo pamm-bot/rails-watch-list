@@ -60,6 +60,16 @@ en:
     read_more: "Read more"
     read_less: "Show less"
 
+  discover:
+    enter: "Discover films"
+    q_seen: "Have you seen this film?"
+    q_liked: "Did you like it?"
+    q_want: "Would you like to see it?"
+    answer_yes: "Yes"
+    answer_no: "No"
+    done: "Go to the list"
+    empty: "That's all for now — come back later for more suggestions."
+
   bookmarks:
     watched: "Watched"
 

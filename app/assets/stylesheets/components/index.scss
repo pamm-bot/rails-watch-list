@@ -483,6 +483,93 @@ h1, h2, h3, h4, h5, .navbar-brand {
   font-size: 0.95rem;
 }
 
+// Discovery deck: one compact "have you seen this?" card at a time, with a
+// slide-out on answer and a fade-in for the next card.
+.discover-card {
+  max-width: 380px;
+  background: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+
+  &.is-entering {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+
+  &.is-leaving {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+}
+
+.discover-poster {
+  display: block;
+  width: 150px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 20px auto 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.discover-body {
+  padding: 16px 18px 20px;
+}
+
+.discover-synopsis {
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #6c6a68;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.discover-question {
+  margin: 16px 0 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.discover-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.discover-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+
+  &:hover {
+    filter: brightness(0.94);
+  }
+}
+
+.discover-yes {
+  background: #06d6a0;
+  color: #06382d;
+}
+
+.discover-no {
+  background: #f1f2f5;
+  color: #6c6a68;
+}
+
 .genre-badge {
   position: absolute;
   top: 8px;

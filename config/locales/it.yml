@@ -60,6 +60,16 @@ it:
     read_more: "Leggi tutto"
     read_less: "Riduci"
 
+  discover:
+    enter: "Scopri film"
+    q_seen: "Hai visto questo film?"
+    q_liked: "Ti è piaciuto?"
+    q_want: "Ti piacerebbe vederlo?"
+    answer_yes: "Sì"
+    answer_no: "No"
+    done: "Vai alla lista"
+    empty: "Per ora è tutto — torna più tardi per altri suggerimenti."
+
   bookmarks:
     watched: "Visto"
 

@@ -33,12 +33,15 @@ class TmdbClient
 
   # For filter-only browsing (no title typed): TMDb's search endpoint
   # requires a query string, so this uses "discover" instead, which
-  # supports filtering by genre/rating with no text query.
-  def self.discover(genre_id: nil, min_rating: nil, language: nil)
+  # supports filtering by genre/rating with no text query. `genre_id` may
+  # be a single id or a TMDb OR-list like "18|10749"; `page` (1..500)
+  # rotates the result set for the discovery deck.
+  def self.discover(genre_id: nil, min_rating: nil, language: nil, page: nil)
     params = { include_adult: false, sort_by: "popularity.desc" }
     params[:with_genres] = genre_id if genre_id.present?
     params["vote_average.gte"] = min_rating if min_rating.present?
     params[:language] = language if language.present?
+    params[:page] = page if page.present?
 
     get("/discover/movie", params)["results"] || []
   end

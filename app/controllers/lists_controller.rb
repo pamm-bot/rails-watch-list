@@ -14,7 +14,8 @@ class ListsController < ApplicationController
   def create
     @list = Current.user.lists.new(list_params)
     if @list.save
-      redirect_to lists_path
+      # Drop straight into the discovery deck to start filling the new list.
+      redirect_to list_discover_path(@list)
     else
       @lists = Current.user.lists
       render :index, status: :unprocessable_entity

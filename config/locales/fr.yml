@@ -48,6 +48,7 @@ fr:
       customize: "Personnaliser la liste"
 
   movies:
+    adding_to: "Ajouter des films à %{list}"
     search_placeholder: "Chercher un film..."
     filter_by: "Filtrer par"
     category: "Catégorie"

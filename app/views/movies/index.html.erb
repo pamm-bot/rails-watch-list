@@ -1,4 +1,11 @@
 <div class="container mt-4">
+  <div class="mb-4">
+    <%= link_to list_path(@list), class: "link-ocean d-inline-flex align-items-center gap-1" do %>
+      <i class="fa-solid fa-arrow-left"></i> <%= @list.name %>
+    <% end %>
+    <h1 class="mb-0"><%= t("movies.adding_to", list: @list.name) %></h1>
+  </div>
+
   <%= form_with url: movies_path, method: :get, class: "d-flex align-items-center gap-2 flex-wrap mb-4",
         data: { controller: "search auto-submit", turbo_frame: "movie_results" } do |f| %>
     <%= f.hidden_field :list_id, value: @list.id %>

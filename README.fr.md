@@ -37,7 +37,7 @@ Inscris-toi avec n'importe quel e-mail, ou utilise le compte de démo prêt à l
 
 - **Comptes** — inscription et connexion ; chaque liste est privée au compte qui l'a créée, avec réinitialisation du mot de passe par e-mail en cas d'oubli
 - **Listes** — autant qu'on veut, renommables et personnalisables avec un emoji-avatar et une couleur d'accent
-- **Recherche de films** — via l'API TMDb, filtrable par catégorie et note minimale, avec ou sans titre ; les résultats se mettent à jour pendant la frappe, la page indique quelle liste on remplit avec un lien pour y revenir, et chaque résultat a un résumé dépliable (un seul ouvert à la fois)
+- **Recherche de films** — via l'API TMDb, filtrable par catégorie et note minimale, avec ou sans titre ; les résultats se mettent à jour pendant la frappe, la page indique quelle liste on remplit avec un lien pour y revenir, chaque résultat a un résumé dépliable (un seul ouvert à la fois), et ajouter un film laisse sur les mêmes résultats filtrés pour en ajouter plusieurs à la suite
 - **Vu / À voir** — un interrupteur sur chaque film le déplace entre les deux, mis à jour sur place avec Turbo Streams (sans rechargement)
 - **Critiques et notes** — pour un film vu, une note de 1 à 5 étoiles et un texte ; les deux sont indépendants (noter sans écrire, ou l'inverse), et la carte affiche la critique enregistrée jusqu'à ce qu'on choisisse de la modifier, le tout sans que la page saute
 - **Catégories** — attribuées automatiquement à partir du genre TMDb de chaque film

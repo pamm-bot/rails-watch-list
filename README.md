@@ -37,7 +37,7 @@ Sign up with any email, or use the ready-made demo account:
 
 - **Accounts** — sign up and log in; every list is private to the account that created it, with email-based password reset if you forget it
 - **Lists** — create as many as you like, each renameable and customisable with an emoji avatar and an accent colour
-- **Movie search** — powered by the TMDb API, filterable by category and minimum rating, with or without a title; results refresh as you type, the page shows which list you're filling with a link back to it, and each result has an expandable synopsis (only one open at a time)
+- **Movie search** — powered by the TMDb API, filterable by category and minimum rating, with or without a title; results refresh as you type, the page shows which list you're filling with a link back to it, each result has an expandable synopsis (only one open at a time), and adding a movie leaves you on the same filtered results so you can add several in a row
 - **Watched / To Watch** — a toggle switch on each movie moves it between the two, updated in place with Turbo Streams (no page reload)
 - **Reviews & ratings** — for a watched movie, a 1–5 star rating and a written note; the two are independent (rate without writing, or the reverse), and the card shows the saved review until you choose to edit it, all without the page jumping
 - **Categories** — assigned automatically from each movie's TMDb genre

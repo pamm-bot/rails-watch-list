@@ -1,5 +1,6 @@
 class DiscoveriesController < ApplicationController
-  MAX_FETCHES = 3
+  MAX_FETCHES = 8
+  PAGE_RANGE = (1..15).freeze
   SEEN_TTL = 12.hours
   SEEN_CAP = 300
 
@@ -14,7 +15,9 @@ class DiscoveriesController < ApplicationController
     apply_verdict(@list, params[:verdict])
     mark_seen(@list, params[:tmdb_id])
 
-    render turbo_stream: turbo_stream.replace(
+    # update (not replace) so the #discover-card wrapper survives for the
+    # next answer to target.
+    render turbo_stream: turbo_stream.update(
       "discover-card",
       partial: "discoveries/card",
       locals: { movie: next_card(@list), list: @list }
@@ -49,26 +52,29 @@ class DiscoveriesController < ApplicationController
   def next_card(list)
     seen = seen_ids(list)
     titles = list.movies.pluck(:title)
-    genre_param = preferred_genre_param(list)
     language = TmdbClient.language_for(I18n.locale)
 
-    MAX_FETCHES.times do
-      results = TmdbClient.discover(genre_id: genre_param, language: language, page: rand(1..5))
-
-      candidate = results.find do |r|
-        r["poster_path"].present? && r["id"].present? &&
-          !TmdbClient.non_latin_title?(r["title"]) &&
-          seen.exclude?(r["id"].to_s) &&
-          titles.exclude?(r["title"]) &&
-          !(list.kids_mode? && TmdbClient.mature?(
-            r["genre_ids"], adult: r["adult"], title: r["title"], vote_average: r["vote_average"]
-          ))
+    # Try the genre-biased deck first, then fall back to plain popularity so
+    # the deck doesn't run dry after a handful of answers.
+    [ preferred_genre_param(list), nil ].uniq.each do |genre|
+      MAX_FETCHES.times do
+        results = TmdbClient.discover(genre_id: genre, language: language, page: rand(PAGE_RANGE))
+        candidate = results.find { |r| usable_candidate?(r, list, seen, titles) }
+        return candidate if candidate
       end
-
-      return candidate if candidate
     end
 
     nil
+  end
+
+  def usable_candidate?(result, list, seen, titles)
+    result["poster_path"].present? && result["id"].present? &&
+      !TmdbClient.non_latin_title?(result["title"]) &&
+      seen.exclude?(result["id"].to_s) &&
+      titles.exclude?(result["title"]) &&
+      !(list.kids_mode? && TmdbClient.mature?(
+        result["genre_ids"], adult: result["adult"], title: result["title"], vote_average: result["vote_average"]
+      ))
   end
 
   # Bias the deck toward the one or two genres the list already leans on.

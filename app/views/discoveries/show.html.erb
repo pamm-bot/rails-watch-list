@@ -10,8 +10,9 @@
   </div>
 
   <p class="text-center mt-4">
-    <%= link_to t("discover.done"), list_path(@list), class: "link-ocean" %>
-    <span class="text-muted mx-2">·</span>
-    <%= link_to t("lists.show.search_movies"), movies_path(list_id: @list.id), class: "link-ocean" %>
+    <%= link_to t("lists.show.search_movies"), movies_path(list_id: @list.id), class: "btn btn-outline-ocean" %>
+  </p>
+  <p class="text-center">
+    <%= link_to t("discover.done"), list_path(@list), class: "link-ocean small" %>
   </p>
 </div>

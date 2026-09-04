@@ -23,6 +23,12 @@ fr:
     password: "Mot de passe"
     password_confirmation: "Confirmer le mot de passe"
 
+  intro:
+    lead: "Votre liste personnelle de films à voir — gardez une trace de ce que vous voulez regarder."
+    step_search: "Cherchez de vrais films et ajoutez-les à vos listes"
+    step_watch: "Cochez-les au fur et à mesure que vous les regardez"
+    step_review: "Notez et commentez ce que vous avez vu"
+
   lists:
     form:
       name: "Nom"

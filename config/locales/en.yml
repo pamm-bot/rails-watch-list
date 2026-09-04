@@ -23,6 +23,12 @@ en:
     password: "Password"
     password_confirmation: "Confirm password"
 
+  intro:
+    lead: "Your personal list of movies to watch — keep track of what you want to see."
+    step_search: "Search real movies and add them to your lists"
+    step_watch: "Tick them off as you watch"
+    step_review: "Rate and review what you've seen"
+
   lists:
     form:
       name: "Name"

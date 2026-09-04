@@ -437,6 +437,26 @@ h1, h2, h3, h4, h5, .navbar-brand {
   }
 }
 
+// Short "what this app does" block on the login, sign-up and empty-list
+// screens, so a first-time visitor knows what they can do here.
+.intro-steps {
+  li {
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  i {
+    color: $accent-warm;
+    opacity: 1;
+    width: 1.4rem;
+    margin-right: 8px;
+    text-align: center;
+  }
+}
+
 .genre-badge {
   position: absolute;
   top: 8px;

@@ -1,5 +1,7 @@
-<div class="container mt-4" style="max-width: 400px;">
-  <h1><%= t("registrations.new.title") %></h1>
+<div class="container mt-4" style="max-width: 440px;">
+  <%= render "shared/intro" %>
+
+  <h2 class="h4 text-center mb-3"><%= t("registrations.new.title") %></h2>
 
   <div class="card p-3 shadow-sm mb-4">
     <%= simple_form_for @user, url: registration_path do |f| %>

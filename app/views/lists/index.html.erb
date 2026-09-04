@@ -21,7 +21,7 @@
     </div>
   <% else %>
     <div class="empty-state text-center py-5">
-      <i class="fa-solid fa-film fa-2x mb-2"></i>
+      <%= render "shared/intro", heading: false, lead: false %>
       <p class="mb-0"><%= t("lists.index.empty") %></p>
     </div>
   <% end %>

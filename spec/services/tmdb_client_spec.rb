@@ -95,14 +95,14 @@ RSpec.describe TmdbClient do
   end
 
   describe ".non_latin_title?" do
-    it "is true for Arabic, Cyrillic, Chinese and Japanese titles" do
-      [ "حب", "Ирония судьбы", "霸王别姬", "愛のぬくもり", "トウキョウソナタ" ].each do |title|
+    it "is true for any non-Latin script (Arabic, Cyrillic, CJK, Tamil, Greek, Hebrew)" do
+      [ "حب", "Ирония судьбы", "霸王别姬", "愛のぬくもり", "விஸ்வநாத் & சன்ஸ", "Το κάτι", "אהבה" ].each do |title|
         expect(TmdbClient.non_latin_title?(title)).to be(true), title
       end
     end
 
-    it "is false for Latin titles, including accented ones" do
-      [ "Amélie", "El laberinto del fauno", "Coração", "Dune: Part Two" ].each do |title|
+    it "is false for Latin titles, including accented ones and punctuation" do
+      [ "Amélie", "El laberinto del fauno", "Coração", "Dune: Part Two", "WALL·E" ].each do |title|
         expect(TmdbClient.non_latin_title?(title)).to be(false), title
       end
     end

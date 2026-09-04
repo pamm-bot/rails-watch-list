@@ -24,10 +24,7 @@ fr:
     password_confirmation: "Confirmer le mot de passe"
 
   intro:
-    lead: "Gardez la trace des films que vous voulez voir."
-    step_search: "Cherchez des films et ajoutez-les à vos listes"
-    step_watch: "Marquez ceux que vous avez vus"
-    step_review: "Donnez une note et un avis"
+    lead: "Créez votre liste, cherchez des films et notez ceux que vous avez déjà vus."
 
   lists:
     form:
@@ -40,7 +37,6 @@ fr:
       tagline: "Cherche. Regarde. Note."
       create_heading: "Créer une nouvelle liste"
       create_button: "Créer la liste"
-      empty: "Aucune liste pour l'instant — créez-en une ci-dessus !"
     show:
       rename: "Renommer la liste"
       search_movies: "Chercher des films"

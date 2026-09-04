@@ -1,15 +1,7 @@
 <% heading = local_assigns.fetch(:heading, true) %>
-<% lead = local_assigns.fetch(:lead, true) %>
 <div class="intro text-center mb-4">
   <% if heading %>
     <h1 class="fw-bold gradient-text"><i class="fa-solid fa-play"></i> <%= t("app_name") %></h1>
   <% end %>
-  <% if lead %>
-    <p class="intro-lead mb-3"><%= t("intro.lead") %></p>
-  <% end %>
-  <ul class="intro-steps list-unstyled mb-0 d-inline-block text-start">
-    <li><i class="fa-solid fa-magnifying-glass"></i><%= t("intro.step_search") %></li>
-    <li><i class="fa-solid fa-circle-check"></i><%= t("intro.step_watch") %></li>
-    <li><i class="fa-solid fa-star"></i><%= t("intro.step_review") %></li>
-  </ul>
+  <p class="intro-lead mb-0"><%= t("intro.lead") %></p>
 </div>

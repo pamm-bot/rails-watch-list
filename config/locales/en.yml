@@ -24,10 +24,7 @@ en:
     password_confirmation: "Confirm password"
 
   intro:
-    lead: "Keep track of the movies you want to watch."
-    step_search: "Search films and add them to your lists"
-    step_watch: "Mark the ones you've watched"
-    step_review: "Give a rating and a review"
+    lead: "Create your list, search for films, and rate the ones you've already watched."
 
   lists:
     form:
@@ -40,7 +37,6 @@ en:
       tagline: "Search. Watch. Review."
       create_heading: "Create a new list"
       create_button: "Create list"
-      empty: "No lists yet — create your first one above!"
     show:
       rename: "Rename list"
       search_movies: "Search movies"

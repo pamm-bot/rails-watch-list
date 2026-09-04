@@ -24,10 +24,7 @@ it:
     password_confirmation: "Conferma password"
 
   intro:
-    lead: "La tua lista di film da vedere."
-    step_search: "Cerca film e aggiungili alle liste"
-    step_watch: "Segna quelli che hai visto"
-    step_review: "Dai un voto e una recensione"
+    lead: "Crea la tua lista, cerca i film e vota quelli che hai già visto."
 
   lists:
     form:
@@ -40,7 +37,6 @@ it:
       tagline: "Cerca. Guarda. Vota."
       create_heading: "Crea una nuova lista"
       create_button: "Crea lista"
-      empty: "Ancora nessuna lista — creane una qui sopra!"
     show:
       rename: "Rinomina lista"
       search_movies: "Cerca film"

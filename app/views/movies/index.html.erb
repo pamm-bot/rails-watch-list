@@ -36,7 +36,15 @@
                   <span class="movie-rating"><i class="fa-star"></i> <%= result["vote_average"].round %>/10</span>
                 <% end %>
               </div>
-              <p class="movie-overview"><%= result["overview"] %></p>
+              <% if result["overview"].present? %>
+                <div data-controller="expandable"
+                     data-expandable-more-label-value="<%= t("movies.read_more") %>"
+                     data-expandable-less-label-value="<%= t("movies.read_less") %>">
+                  <p class="movie-overview" data-expandable-target="text"><%= result["overview"] %></p>
+                  <button type="button" class="overview-toggle" data-expandable-target="button"
+                          data-action="expandable#toggle"><%= t("movies.read_more") %></button>
+                </div>
+              <% end %>
 
               <div class="mt-auto">
                 <% if @titles_in_list.include?(result["title"]) %>

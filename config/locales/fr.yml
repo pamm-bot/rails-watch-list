@@ -57,6 +57,8 @@ fr:
     already_in_list: "Déjà dans la liste"
     add: "Ajouter"
     no_overview: "Aucun résumé disponible."
+    read_more: "Lire la suite"
+    read_less: "Réduire"
 
   bookmarks:
     watched: "Vu"

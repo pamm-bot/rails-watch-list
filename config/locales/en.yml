@@ -57,6 +57,8 @@ en:
     already_in_list: "Already in list"
     add: "Add"
     no_overview: "No overview available."
+    read_more: "Read more"
+    read_less: "Show less"
 
   bookmarks:
     watched: "Watched"

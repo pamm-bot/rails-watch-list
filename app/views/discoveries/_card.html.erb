@@ -13,7 +13,13 @@
       </div>
 
       <% if movie["overview"].present? %>
-        <p class="discover-synopsis"><%= movie["overview"] %></p>
+        <div data-controller="expandable"
+             data-expandable-more-label-value="<%= t("movies.read_more") %>"
+             data-expandable-less-label-value="<%= t("movies.read_less") %>">
+          <p class="discover-synopsis" data-expandable-target="text"><%= movie["overview"] %></p>
+          <button type="button" class="overview-toggle" data-expandable-target="button"
+                  data-action="expandable#toggle"><%= t("movies.read_more") %></button>
+        </div>
       <% end %>
 
       <%= form_with url: list_discover_answer_path(list), method: :post,

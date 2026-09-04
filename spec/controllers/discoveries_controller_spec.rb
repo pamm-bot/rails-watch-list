@@ -55,6 +55,16 @@ RSpec.describe DiscoveriesController, type: :controller do
       expect(assigns(:movie)["id"]).to eq(2)
     end
 
+    it "skips a candidate whose title is in a non-Latin script" do
+      allow(TmdbClient).to receive(:discover).and_return([
+        tmdb_result(id: 1, title: "霸王别姬"), tmdb_result(id: 2, title: "Farewell My Concubine")
+      ])
+
+      get :show, params: { list_id: @list.id }
+
+      expect(assigns(:movie)["title"]).to eq("Farewell My Concubine")
+    end
+
     it "filters mature candidates for a kids-mode list" do
       @list.update!(kids_mode: true)
       allow(TmdbClient).to receive(:discover).and_return([

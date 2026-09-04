@@ -94,6 +94,24 @@ RSpec.describe TmdbClient do
     end
   end
 
+  describe ".non_latin_title?" do
+    it "is true for Arabic, Cyrillic, Chinese and Japanese titles" do
+      [ "حب", "Ирония судьбы", "霸王别姬", "愛のぬくもり", "トウキョウソナタ" ].each do |title|
+        expect(TmdbClient.non_latin_title?(title)).to be(true), title
+      end
+    end
+
+    it "is false for Latin titles, including accented ones" do
+      [ "Amélie", "El laberinto del fauno", "Coração", "Dune: Part Two" ].each do |title|
+        expect(TmdbClient.non_latin_title?(title)).to be(false), title
+      end
+    end
+
+    it "is false for a blank title" do
+      expect(TmdbClient.non_latin_title?(nil)).to be(false)
+    end
+  end
+
   describe ".discover" do
     it "parses the results from the discover endpoint" do
       response = { "results" => [ { "title" => "Popular Movie" } ] }.to_json

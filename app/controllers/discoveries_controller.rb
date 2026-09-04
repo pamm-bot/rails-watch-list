@@ -57,6 +57,7 @@ class DiscoveriesController < ApplicationController
 
       candidate = results.find do |r|
         r["poster_path"].present? && r["id"].present? &&
+          !TmdbClient.non_latin_title?(r["title"]) &&
           seen.exclude?(r["id"].to_s) &&
           titles.exclude?(r["title"]) &&
           !(list.kids_mode? && TmdbClient.mature?(

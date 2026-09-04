@@ -16,6 +16,7 @@ class MoviesController < ApplicationController
     end
 
     @results = @results.select { |r| r["poster_path"].present? }
+    @results = @results.reject { |r| TmdbClient.non_latin_title?(r["title"]) }
     if @list.kids_mode?
       @results = @results.reject { |r| TmdbClient.mature?(r["genre_ids"], adult: r["adult"], title: r["title"], vote_average: r["vote_average"]) }
     end

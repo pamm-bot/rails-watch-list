@@ -92,6 +92,16 @@ class TmdbClient
     MATURE_GENRE_IDS.include?(GENRES.key(name))
   end
 
+  # When a film has no title in the requested language TMDb falls back to
+  # the original, which for many titles is in a script the UI can't read.
+  # Drop the ones written in Arabic, Cyrillic (Russian), Chinese, or
+  # Japanese from search and discovery.
+  NON_LATIN_TITLE = /[\p{Arabic}\p{Cyrillic}\p{Han}\p{Hiragana}\p{Katakana}]/
+
+  def self.non_latin_title?(title)
+    title.present? && title.match?(NON_LATIN_TITLE)
+  end
+
   def self.get(path, params)
     uri = URI("#{BASE_URL}#{path}")
     uri.query = URI.encode_www_form(params.merge(api_key: api_key))

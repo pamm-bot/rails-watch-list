@@ -45,6 +45,15 @@ RSpec.describe MoviesController, type: :controller do
       expect(assigns(:results)).to eq([ ordinary_result ])
     end
 
+    it "excludes results with non-Latin titles" do
+      japanese = ordinary_result.merge("title" => "愛のぬくもり")
+      allow(TmdbClient).to receive(:discover).and_return([ ordinary_result, japanese ])
+
+      get :index, params: { list_id: @list.id }
+
+      expect(assigns(:results)).to eq([ ordinary_result ])
+    end
+
     it "filters out mature results for a kids-mode list" do
       @list.update!(kids_mode: true)
       allow(TmdbClient).to receive(:discover).and_return([ ordinary_result, mature_result ])

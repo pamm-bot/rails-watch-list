@@ -39,7 +39,8 @@
               <% if result["overview"].present? %>
                 <div data-controller="expandable"
                      data-expandable-more-label-value="<%= t("movies.read_more") %>"
-                     data-expandable-less-label-value="<%= t("movies.read_less") %>">
+                     data-expandable-less-label-value="<%= t("movies.read_less") %>"
+                     data-action="expandable:expanded@window->expandable#collapseOthers">
                   <p class="movie-overview" data-expandable-target="text"><%= result["overview"] %></p>
                   <button type="button" class="overview-toggle" data-expandable-target="button"
                           data-action="expandable#toggle"><%= t("movies.read_more") %></button>

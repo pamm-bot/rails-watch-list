@@ -18,7 +18,7 @@ Sign up with any email, or use the ready-made demo account:
 
 ![A watch list with its To Watch and Watched sections, movie posters, genre badges, star ratings and reviews](docs/screenshot-list.jpg)
 
-![The movie search page, headed with the name of the list being filled: TMDb results as cards with poster, genre, rating and an expandable synopsis](docs/screenshot-search.jpg)
+![The movie search page: a link back to the list being filled, then TMDb results as cards with poster, genre, rating and an expandable synopsis](docs/screenshot-search.jpg)
 
 ![The home page: a form to create a list, the colour-coded lists below it, and the language flags in the header](docs/screenshot-home.png)
 
@@ -37,7 +37,7 @@ Sign up with any email, or use the ready-made demo account:
 
 - **Accounts** — sign up and log in; every list is private to the account that created it, with email-based password reset if you forget it
 - **Lists** — create as many as you like, each renameable and customisable with an emoji avatar and an accent colour
-- **Movie search** — powered by the TMDb API, filterable by category and minimum rating, with or without a title; results refresh as you type, the page is headed with the list you're filling, and each result shows an expandable synopsis (only one open at a time)
+- **Movie search** — powered by the TMDb API, filterable by category and minimum rating, with or without a title; results refresh as you type, the page shows which list you're filling with a link back to it, and each result has an expandable synopsis (only one open at a time)
 - **Watched / To Watch** — a toggle switch on each movie moves it between the two, updated in place with Turbo Streams (no page reload)
 - **Reviews & ratings** — for a watched movie, a 1–5 star rating and a written note; the two are independent (rate without writing, or the reverse), and the card shows the saved review until you choose to edit it, all without the page jumping
 - **Categories** — assigned automatically from each movie's TMDb genre

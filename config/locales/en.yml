@@ -48,7 +48,6 @@ en:
       customize: "Customise list"
 
   movies:
-    adding_to: "Add movies to %{list}"
     search_placeholder: "Search for a movie..."
     filter_by: "Filter by"
     category: "Category"

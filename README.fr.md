@@ -18,7 +18,7 @@ Inscris-toi avec n'importe quel e-mail, ou utilise le compte de démo prêt à l
 
 ![Une liste avec ses sections À voir et Vus, des affiches de films, des badges de genre, des notes en étoiles et des critiques](docs/screenshot-list.jpg)
 
-![La page de recherche de films, titrée avec le nom de la liste en cours de remplissage : les résultats TMDb en cartes avec affiche, genre, note et un résumé dépliable](docs/screenshot-search.jpg)
+![La page de recherche de films : un lien de retour vers la liste en cours de remplissage, puis les résultats TMDb en cartes avec affiche, genre, note et un résumé dépliable](docs/screenshot-search.jpg)
 
 ![La page d'accueil : un formulaire de création de liste, les listes en couleurs en dessous, et les drapeaux de langue dans l'en-tête](docs/screenshot-home.png)
 
@@ -37,7 +37,7 @@ Inscris-toi avec n'importe quel e-mail, ou utilise le compte de démo prêt à l
 
 - **Comptes** — inscription et connexion ; chaque liste est privée au compte qui l'a créée, avec réinitialisation du mot de passe par e-mail en cas d'oubli
 - **Listes** — autant qu'on veut, renommables et personnalisables avec un emoji-avatar et une couleur d'accent
-- **Recherche de films** — via l'API TMDb, filtrable par catégorie et note minimale, avec ou sans titre ; les résultats se mettent à jour pendant la frappe, la page est titrée avec la liste que l'on remplit, et chaque résultat affiche un résumé dépliable (un seul ouvert à la fois)
+- **Recherche de films** — via l'API TMDb, filtrable par catégorie et note minimale, avec ou sans titre ; les résultats se mettent à jour pendant la frappe, la page indique quelle liste on remplit avec un lien pour y revenir, et chaque résultat a un résumé dépliable (un seul ouvert à la fois)
 - **Vu / À voir** — un interrupteur sur chaque film le déplace entre les deux, mis à jour sur place avec Turbo Streams (sans rechargement)
 - **Critiques et notes** — pour un film vu, une note de 1 à 5 étoiles et un texte ; les deux sont indépendants (noter sans écrire, ou l'inverse), et la carte affiche la critique enregistrée jusqu'à ce qu'on choisisse de la modifier, le tout sans que la page saute
 - **Catégories** — attribuées automatiquement à partir du genre TMDb de chaque film

@@ -439,6 +439,15 @@ h1, h2, h3, h4, h5, .navbar-brand {
 
 // Short "what this app does" block on the login, sign-up and empty-list
 // screens, so a first-time visitor knows what they can do here.
+.intro {
+  // Hold the warm near-black even inside .empty-state, which dims its text.
+  color: #3d2b28;
+}
+
+.intro-lead {
+  font-size: 0.95rem;
+}
+
 .intro-steps {
   li {
     margin-bottom: 8px;

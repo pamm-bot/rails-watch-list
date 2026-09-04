@@ -187,8 +187,9 @@ h1, h2, h3, h4, h5, .navbar-brand {
   }
 }
 
-// TMDb synopsis under the title on a saved card. Clamped to a few lines
-// so cards in a row stay roughly the same height.
+// TMDb synopsis in the movie search results, so you can tell films apart
+// before adding one. Clamped to a few lines to keep the cards even; it's
+// dropped once the movie is in a list, where reviews take over.
 .movie-overview {
   margin: 8px 0 0;
   font-size: 0.85rem;

@@ -36,7 +36,7 @@
                   <span class="movie-rating"><i class="fa-star"></i> <%= result["vote_average"].round %>/10</span>
                 <% end %>
               </div>
-              <p class="small text-truncate"><%= result["overview"] %></p>
+              <p class="movie-overview"><%= result["overview"] %></p>
 
               <div class="mt-auto">
                 <% if @titles_in_list.include?(result["title"]) %>

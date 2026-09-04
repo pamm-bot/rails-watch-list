@@ -40,11 +40,17 @@ class MoviesController < ApplicationController
       @movie.category = Category.find_or_create_by(name: genre_name)
     end
 
+    # Come back to the search results with the same filters, so adding
+    # several movies in a row doesn't kick you out of the list you were
+    # browsing.
+    filters = params.permit(:query, :category_id, :min_rating).to_h.compact_blank
+    search_path = movies_path(list_id: @list.id, **filters)
+
     if @movie.save
       Bookmark.find_or_create_by(list: @list, movie: @movie)
-      redirect_to @list
+      redirect_to search_path
     else
-      redirect_to movies_path(list_id: @list.id), alert: @movie.errors.full_messages.to_sentence
+      redirect_to search_path, alert: @movie.errors.full_messages.to_sentence
     end
   end
 end

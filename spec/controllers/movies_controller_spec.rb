@@ -73,7 +73,13 @@ RSpec.describe MoviesController, type: :controller do
         post :create, params: movie_attributes
       }.to change(Movie, :count).by(1).and change(Bookmark, :count).by(1)
 
-      expect(response).to redirect_to(@list)
+      expect(response).to redirect_to(movies_path(list_id: @list.id))
+    end
+
+    it "returns to the search results with the same filters" do
+      post :create, params: movie_attributes.merge(query: "titanic", category_id: "3", min_rating: "7")
+
+      expect(response).to redirect_to(movies_path(list_id: @list.id, query: "titanic", category_id: "3", min_rating: "7"))
     end
 
     it "reuses an existing movie with the same title instead of duplicating it" do

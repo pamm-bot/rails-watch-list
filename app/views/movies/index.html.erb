@@ -66,6 +66,9 @@
                     <%= f.hidden_field :vote_average, value: result["vote_average"] %>
                     <%= f.hidden_field :genre_id, value: result["genre_ids"]&.first %>
                     <%= f.hidden_field :list_id, value: @list.id %>
+                    <%= f.hidden_field :query, value: @query %>
+                    <%= f.hidden_field :category_id, value: @selected_category_id %>
+                    <%= f.hidden_field :min_rating, value: @min_rating %>
 
                     <%= f.submit t("movies.add"), class: "btn btn-ocean btn-sm" %>
                   <% end %>

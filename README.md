@@ -14,6 +14,8 @@ Sign up with any email, or use the ready-made demo account:
 | --- | --- |
 | `demo@watchlist.dev` | `moviebuff` |
 
+![The sign-in screen: the app name, a one-line description of what it does, and the language flags](docs/screenshot-login.png)
+
 ![A watch list with its To Watch and Watched sections, movie posters, genre badges, star ratings and reviews](docs/screenshot-list.jpg)
 
 ![The home page: a form to create a list, the colour-coded lists below it, and the language flags in the header](docs/screenshot-home.png)
@@ -90,6 +92,12 @@ too.
   [`app/javascript`](app/javascript) through importmap — no Node, no bundler in
   the pipeline. Turbo plus a handful of small Stimulus controllers are the whole
   front-end.
+
+- **Layout that scales on large screens.** Bootstrap caps its container at
+  1320px, so on a wide monitor the whole UI sat tiny in the middle of the page.
+  Past 1500px and again past 2000px the container widens and the root font size
+  steps up, so the page grows with the screen; the movie grid and list menu also
+  gain a fourth column when there's room.
 
 - **A service object for TMDb.** Every HTTP call and the "is this an adult title?"
   logic live in one class,

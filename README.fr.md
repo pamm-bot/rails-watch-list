@@ -14,6 +14,8 @@ Inscris-toi avec n'importe quel e-mail, ou utilise le compte de démo prêt à l
 | --- | --- |
 | `demo@watchlist.dev` | `moviebuff` |
 
+![L'écran de connexion : le nom de l'app, une phrase qui décrit ce qu'elle fait, et les drapeaux de langue](docs/screenshot-login.png)
+
 ![Une liste avec ses sections À voir et Vus, des affiches de films, des badges de genre, des notes en étoiles et des critiques](docs/screenshot-list.jpg)
 
 ![La page d'accueil : un formulaire de création de liste, les listes en couleurs en dessous, et les drapeaux de langue dans l'en-tête](docs/screenshot-home.png)
@@ -92,6 +94,13 @@ code le dit aussi.
   [`app/javascript`](app/javascript) via importmap — pas de Node, pas de bundler
   dans la chaîne. Turbo et une poignée de petits contrôleurs Stimulus constituent
   tout le front-end.
+
+- **Une mise en page qui s'adapte aux grands écrans.** Bootstrap plafonne son
+  conteneur à 1320px, donc sur un grand moniteur toute l'interface se retrouvait
+  minuscule au centre de la page. Au-delà de 1500px puis de 2000px, le conteneur
+  s'élargit et la taille de police de base augmente, pour que la page grandisse
+  avec l'écran ; la grille de films et le menu des listes gagnent aussi une
+  quatrième colonne quand la place le permet.
 
 - **Un service object pour TMDb.** Chaque appel HTTP et la logique « ce titre
   est-il pour adultes ? » vivent dans une seule classe,

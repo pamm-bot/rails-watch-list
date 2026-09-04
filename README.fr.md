@@ -20,12 +20,15 @@ Inscris-toi avec n'importe quel e-mail, ou utilise le compte de démo prêt à l
 
 ![La page de recherche de films : un lien de retour vers la liste en cours de remplissage, puis les résultats TMDb en cartes avec affiche, genre, note et un résumé dépliable](docs/screenshot-search.jpg)
 
+![La carte de découverte « avez-vous vu ce film ? » : une petite affiche, le titre, la note, un court résumé et deux boutons pouce](docs/screenshot-discover.jpg)
+
 ![La page d'accueil : un formulaire de création de liste, les listes en couleurs en dessous, et les drapeaux de langue dans l'en-tête](docs/screenshot-home.png)
 
 ## Sommaire
 
 - [Fonctionnalités](#fonctionnalités)
 - [Mode moins de 12 ans](#mode-moins-de-12-ans)
+- [Deck de découverte](#deck-de-découverte)
 - [Stack](#stack)
 - [Choix techniques](#choix-techniques)
 - [Installation](#installation)
@@ -38,6 +41,7 @@ Inscris-toi avec n'importe quel e-mail, ou utilise le compte de démo prêt à l
 - **Comptes** — inscription et connexion ; chaque liste est privée au compte qui l'a créée, avec réinitialisation du mot de passe par e-mail en cas d'oubli
 - **Listes** — autant qu'on veut, renommables et personnalisables avec un emoji-avatar et une couleur d'accent
 - **Recherche de films** — via l'API TMDb, filtrable par catégorie et note minimale, avec ou sans titre ; les résultats se mettent à jour pendant la frappe, la page indique quelle liste on remplit avec un lien pour y revenir, chaque résultat a un résumé dépliable (un seul ouvert à la fois), et ajouter un film laisse sur les mêmes résultats filtrés pour en ajouter plusieurs à la suite
+- **Deck de découverte** — un flux à la Tinder (il s'ouvre dès qu'on crée une liste) qui demande *« avez-vous vu ce film ? »* à propos d'un titre populaire, puis *« vous avez aimé ? »* ou *« aimeriez-vous le voir ? »* ; un oui classe le film dans la liste — Vu avec une note, ou À voir — et la carte suivante glisse. Les suggestions penchent vers les genres déjà présents dans la liste (voir ci-dessous)
 - **Vu / À voir** — un interrupteur sur chaque film le déplace entre les deux, mis à jour sur place avec Turbo Streams (sans rechargement)
 - **Critiques et notes** — pour un film vu, une note de 1 à 5 étoiles et un texte ; les deux sont indépendants (noter sans écrire, ou l'inverse), et la carte affiche la critique enregistrée jusqu'à ce qu'on choisisse de la modifier, le tout sans que la page saute
 - **Catégories** — attribuées automatiquement à partir du genre TMDb de chaque film
@@ -59,6 +63,24 @@ Le filtre s'applique aux résultats de recherche comme aux films déjà enregist
 dans la liste : passer une liste en Moins de 12 ans masque tout ce qui ne
 convient plus. C'est volontairement un filtre au mieux, pas une garantie — et le
 code le dit aussi.
+
+## Deck de découverte
+
+Juste après la création d'une liste — et à tout moment via le bouton
+**Découvrir des films** — l'app montre un film populaire à la fois et pose
+une question en deux temps :
+
+1. **L'avez-vous vu ?**
+2. Si **oui** → *Vous avez aimé ?* Dans les deux cas le film est ajouté et
+   marqué vu, avec une critique de 5 ou 2 étoiles.
+   Si **non** → *Aimeriez-vous le voir ?* Un oui l'ajoute à **À voir** ; un non
+   passe simplement au suivant.
+
+Chaque réponse est retenue pour la session (dans le cache Rails, indexé par
+session et liste) pour qu'une carte ne revienne jamais. Les suggestions
+penchent vers le ou les deux genres dont la liste est la plus proche — une
+liste vide reçoit juste des titres populaires — et les listes **Moins de
+12 ans** filtrent toujours les résultats pour adultes.
 
 ## Stack
 
@@ -128,6 +150,16 @@ code le dit aussi.
   globale et dédupliquée par titre ; l'état par utilisateur (vu, critique) est
   rattaché à la jointure `Bookmark` entre une liste et un film. Deux personnes qui
   ajoutent *Inception* réutilisent le même enregistrement de film.
+
+- **Le deck de découverte est aussi piloté par le serveur.** Chaque carte est
+  un fragment de HTML ; répondre poste le verdict et Turbo échange la carte
+  suivante. L'ensemble « déjà vu pendant cette session » vit dans le cache
+  Rails (`solid_cache`), indexé par id de session et liste, plafonné avec un
+  TTL de 12 heures — aucun changement de schéma pour un état jetable. La
+  personnalisation est une petite heuristique volontaire : compter les genres
+  déjà dans la liste et orienter le `discover` de TMDb vers le ou les deux
+  premiers. Pas un moteur de recommandation, juste assez pour que le deck
+  paraisse ajusté.
 
 ## Installation
 

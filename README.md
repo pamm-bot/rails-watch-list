@@ -20,12 +20,15 @@ Sign up with any email, or use the ready-made demo account:
 
 ![The movie search page: a link back to the list being filled, then TMDb results as cards with poster, genre, rating and an expandable synopsis](docs/screenshot-search.jpg)
 
+![The "have you seen this film?" discovery card: a small poster, title, rating, short synopsis and two thumb buttons](docs/screenshot-discover.jpg)
+
 ![The home page: a form to create a list, the colour-coded lists below it, and the language flags in the header](docs/screenshot-home.png)
 
 ## Contents
 
 - [Features](#features)
 - [Kids mode](#kids-mode)
+- [Discovery deck](#discovery-deck)
 - [Stack](#stack)
 - [Design decisions](#design-decisions)
 - [Setup](#setup)
@@ -38,6 +41,7 @@ Sign up with any email, or use the ready-made demo account:
 - **Accounts** — sign up and log in; every list is private to the account that created it, with email-based password reset if you forget it
 - **Lists** — create as many as you like, each renameable and customisable with an emoji avatar and an accent colour
 - **Movie search** — powered by the TMDb API, filterable by category and minimum rating, with or without a title; results refresh as you type, the page shows which list you're filling with a link back to it, each result has an expandable synopsis (only one open at a time), and adding a movie leaves you on the same filtered results so you can add several in a row
+- **Discovery deck** — a Tinder-style flow (it opens the moment you create a list) that asks *"have you seen this film?"* about a popular title, then *"did you like it?"* or *"would you like to see it?"*; a yes files the film into the list — Watched with a rating, or To Watch — and the next card slides in. Suggestions lean toward the genres the list already holds (see below)
 - **Watched / To Watch** — a toggle switch on each movie moves it between the two, updated in place with Turbo Streams (no page reload)
 - **Reviews & ratings** — for a watched movie, a 1–5 star rating and a written note; the two are independent (rate without writing, or the reverse), and the card shows the saved review until you choose to edit it, all without the page jumping
 - **Categories** — assigned automatically from each movie's TMDb genre
@@ -59,6 +63,23 @@ The filter applies both to search results and to movies already saved in the
 list, so switching a list to Under 12 hides anything that no longer qualifies.
 It's deliberately a best-effort filter, not a guarantee — which the code says
 too.
+
+## Discovery deck
+
+Right after a list is created — and any time from the **Discover films**
+button — the app shows one popular movie at a time and asks a two-step
+question:
+
+1. **Have you seen it?**
+2. If **yes** → *Did you like it?* Either way the film is added and marked
+   watched, with a 5- or 2-star review.
+   If **no** → *Would you like to see it?* A yes adds it to **To Watch**; a no
+   just moves on.
+
+Each answer is remembered for the session (in the Rails cache, keyed by
+session and list) so a card never comes back. Suggestions are biased toward
+the one or two genres the list already leans on — an empty list just gets
+popular titles — and **Under 12** lists still filter mature results.
 
 ## Stack
 
@@ -122,6 +143,14 @@ too.
   deduplicated by title; the per-user state (watched, review) hangs off the
   `Bookmark` join between a list and a movie. Two people adding *Inception* reuse
   the same movie record.
+
+- **The discovery deck is server-driven too.** Each card is an HTML fragment;
+  answering posts the verdict and Turbo swaps in the next one. The "already
+  seen this session" set lives in the Rails cache (`solid_cache`), keyed by
+  session id and list, capped with a 12-hour TTL — no schema change for what is
+  throwaway state. Personalisation is a deliberately small heuristic: count the
+  genres already in the list and bias TMDb's `discover` toward the top one or
+  two. Not a recommender, just enough to make the deck feel tuned.
 
 ## Setup
 

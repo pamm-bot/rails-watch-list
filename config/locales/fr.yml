@@ -94,6 +94,7 @@ fr:
   registrations:
     new:
       title: "Inscription"
+      lead: "Inscrivez-vous pour créer vos listes, chercher des films et noter ceux que vous avez déjà vus."
       submit: "S'inscrire"
       have_account: "Vous avez déjà un compte ?"
       log_in: "Se connecter"

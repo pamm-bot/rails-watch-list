@@ -94,6 +94,7 @@ en:
   registrations:
     new:
       title: "Sign up"
+      lead: "Sign up to create your lists, search for films, and rate the ones you've already watched."
       submit: "Sign up"
       have_account: "Already have an account?"
       log_in: "Log in"

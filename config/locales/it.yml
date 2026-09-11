@@ -94,6 +94,7 @@ it:
   registrations:
     new:
       title: "Registrati"
+      lead: "Registrati per creare le tue liste, cercare film e votare quelli che hai già visto."
       submit: "Registrati"
       have_account: "Hai già un account?"
       log_in: "Accedi"

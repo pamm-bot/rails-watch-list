@@ -1,5 +1,11 @@
 class ListsController < ApplicationController
+  # The root route always hits here, so a guest lands on the public
+  # welcome screen instead of being bounced straight to the login form.
+  allow_unauthenticated_access only: :index
+
   def index
+    return render :home unless authenticated?
+
     @lists = Current.user.lists
     @list = List.new
   end

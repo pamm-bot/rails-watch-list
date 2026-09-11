@@ -483,6 +483,26 @@ h1, h2, h3, h4, h5, .navbar-brand {
   font-size: 0.95rem;
 }
 
+// A small poster collage on the guest welcome screen — purely decorative,
+// so the app reads as "movies" at a glance before anyone signs up.
+.landing-posters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 auto;
+  max-width: 480px;
+}
+
+.landing-poster {
+  flex: 1 1 90px;
+  max-width: 110px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
 // Discovery deck: one compact "have you seen this?" card at a time, with a
 // slide-out on answer and a fade-in for the next card.
 .discover-card {

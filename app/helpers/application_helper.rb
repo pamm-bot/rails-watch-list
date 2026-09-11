@@ -48,4 +48,17 @@ module ApplicationHelper
     key = english_name.parameterize(separator: "_")
     t("genres.#{key}", default: english_name)
   end
+
+  # A handful of well-known, stable posters shown purely as decoration on
+  # the guest landing page — not tied to any account or real list.
+  LANDING_POSTER_PATHS = [
+    "/aOIuZAjPaRIE6CMzbazvcHuHXDc.jpg", # The Matrix
+    "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg", # Spirited Away
+    "/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg", # Parasite
+    "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg" # La La Land
+  ].freeze
+
+  def landing_poster_urls
+    LANDING_POSTER_PATHS.map { |path| TmdbClient.poster_url(path) }
+  end
 end

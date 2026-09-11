@@ -98,6 +98,18 @@ if defined?(ListsController)
     end
   end
 
+  RSpec.describe ListsController, type: :controller do
+    describe "GET index when signed out" do
+      it "renders the guest welcome screen instead of redirecting to login" do
+        get :index
+
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template(:home)
+        expect(assigns(:lists)).to be_nil
+      end
+    end
+  end
+
 else
   describe "ListsController" do
     it "should exist" do

@@ -1,0 +1,14 @@
+<div class="container mt-4 lists-home">
+  <%= render "shared/intro" %>
+
+  <div class="landing-posters" aria-hidden="true">
+    <% landing_poster_urls.each do |url| %>
+      <img src="<%= url %>" class="landing-poster" alt="">
+    <% end %>
+  </div>
+
+  <div class="d-flex justify-content-center gap-2 mt-4">
+    <%= link_to t("sessions.new.title"), new_session_path, class: "btn btn-ocean" %>
+    <%= link_to t("registrations.new.title"), new_registration_path, class: "btn btn-outline-ocean" %>
+  </div>
+</div>

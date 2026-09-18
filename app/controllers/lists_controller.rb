@@ -1,4 +1,6 @@
 class ListsController < ApplicationController
+  include Discoverable
+
   # The root route always hits here, so a guest lands on the public
   # welcome screen instead of being bounced straight to the login form.
   allow_unauthenticated_access only: :index
@@ -15,13 +17,13 @@ class ListsController < ApplicationController
     @categories = Category.all
     @selected_category_id = params[:category_id]
     @to_watch, @watched = @list.bookmarks_by_watched(category_id: @selected_category_id)
+    @movie = next_card(@list)
   end
 
   def create
     @list = Current.user.lists.new(list_params)
     if @list.save
-      # Drop straight into the discovery deck to start filling the new list.
-      redirect_to list_discover_path(@list)
+      redirect_to @list
     else
       @lists = Current.user.lists
       render :index, status: :unprocessable_entity
@@ -36,6 +38,7 @@ class ListsController < ApplicationController
       @categories = Category.all
       @selected_category_id = params[:category_id]
       @to_watch, @watched = @list.bookmarks_by_watched(category_id: @selected_category_id)
+      @movie = next_card(@list)
       render :show, status: :unprocessable_entity
     end
   end

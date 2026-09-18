@@ -1,35 +1,47 @@
-<div class="container mt-4" data-controller="toggle">
-  <div class="d-flex justify-content-between align-items-center">
-    <h1 class="mb-0"><%= @list.name %></h1>
-    <button type="button" class="btn btn-link p-0 link-ocean" data-action="click->toggle#toggle" aria-label="<%= t("lists.show.rename") %>">
-      <i class="fa-solid fa-pen"></i>
-    </button>
-  </div>
+<div class="container mt-4">
+  <div class="row g-4">
+    <div class="col-lg-8" data-controller="toggle">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="mb-0"><%= @list.name %></h1>
+        <button type="button" class="btn btn-link p-0 link-ocean" data-action="click->toggle#toggle" aria-label="<%= t("lists.show.rename") %>">
+          <i class="fa-solid fa-pen"></i>
+        </button>
+      </div>
 
-  <div class="card p-3 shadow-sm mb-3 mt-2 d-none" style="max-width: 400px;" data-toggle-target="content">
-    <%= simple_form_for @list do |f| %>
-      <%= f.input :name, label: t("lists.form.name"), input_html: { class: "form-control-narrow" } %>
-      <%= f.input :kids_mode, as: :boolean, label: ('<i class="fa-solid fa-shield-halved"></i> ' + t("lists.form.kids_mode")).html_safe %>
-      <%= f.submit t("common.save"), class: "btn btn-outline-ocean btn-sm d-block mx-auto" %>
-    <% end %>
-  </div>
+      <div class="card p-3 shadow-sm mb-3 mt-2 d-none" style="max-width: 400px;" data-toggle-target="content">
+        <%= simple_form_for @list do |f| %>
+          <%= f.input :name, label: t("lists.form.name"), input_html: { class: "form-control-narrow" } %>
+          <%= f.input :kids_mode, as: :boolean, label: ('<i class="fa-solid fa-shield-halved"></i> ' + t("lists.form.kids_mode")).html_safe %>
+          <%= f.submit t("common.save"), class: "btn btn-outline-ocean btn-sm d-block mx-auto" %>
+        <% end %>
+      </div>
 
-  <%= link_to t("discover.enter"), list_discover_path(@list), class: "btn btn-ocean mt-3" %>
-  <%= link_to t("lists.show.search_movies"), movies_path(list_id: @list.id), class: "btn btn-outline-ocean mt-3" %>
+      <%= link_to t("lists.show.search_movies"), movies_path(list_id: @list.id), class: "btn btn-ocean mt-3" %>
 
-  <hr>
+      <hr>
 
-  <h3><%= t("lists.show.to_watch") %></h3>
-  <div class="row mt-3 movie-grid" id="to_watch_movies">
-    <p class="movie-grid-empty"><%= t("lists.show.to_watch_empty") %></p>
-    <%= render @to_watch %>
-  </div>
+      <h3><%= t("lists.show.to_watch") %></h3>
+      <div class="row mt-3 movie-grid" id="to_watch_movies">
+        <p class="movie-grid-empty"><%= t("lists.show.to_watch_empty") %></p>
+        <%= render @to_watch %>
+      </div>
 
-  <hr>
+      <hr>
 
-  <h3><%= t("lists.show.watched") %></h3>
-  <div class="row mt-3 movie-grid" id="watched_movies">
-    <p class="movie-grid-empty"><%= t("lists.show.watched_empty") %></p>
-    <%= render @watched %>
+      <h3><%= t("lists.show.watched") %></h3>
+      <div class="row mt-3 movie-grid" id="watched_movies">
+        <p class="movie-grid-empty"><%= t("lists.show.watched_empty") %></p>
+        <%= render @watched %>
+      </div>
+    </div>
+
+    <div class="col-lg-4 order-first order-lg-last">
+      <div class="discover-sidebar">
+        <h3 class="text-center"><%= t("discover.enter") %></h3>
+        <div id="discover-card">
+          <%= render "discoveries/card", movie: @movie, list: @list %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

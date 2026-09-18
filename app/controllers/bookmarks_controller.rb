@@ -1,4 +1,6 @@
 class BookmarksController < ApplicationController
+  include Discoverable
+
   def create
     @list = Current.user.lists.find(params[:list_id])
     @bookmark = Bookmark.new(bookmark_params)
@@ -9,6 +11,7 @@ class BookmarksController < ApplicationController
     else
       @categories = Category.all
       @to_watch, @watched = @list.bookmarks_by_watched
+      @movie = next_card(@list)
       render "lists/show", status: :unprocessable_entity
     end
   end

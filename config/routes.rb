@@ -11,7 +11,6 @@ Rails.application.routes.draw do
 
   resources :lists, only: [ :index, :show, :create, :update, :destroy ] do
     resources :bookmarks, only: [ :create ]
-    get "discover", to: "discoveries#show", as: :discover
     post "discover/answer", to: "discoveries#answer", as: :discover_answer
   end
 

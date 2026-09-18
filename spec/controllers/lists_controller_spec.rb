@@ -31,10 +31,103 @@ if defined?(ListsController)
     end
 
     describe "GET show" do
+      def tmdb_result(id:, title:, genre_ids: [ 18 ], vote_average: 7.5, adult: false)
+        {
+          "id" => id, "title" => title, "poster_path" => "/#{id}.jpg",
+          "overview" => "About #{title}.", "genre_ids" => genre_ids,
+          "vote_average" => vote_average, "adult" => adult
+        }
+      end
+
       it "assigns the requested list as @list" do
         list = List.create! valid_attributes.merge(user: user)
         get :show, params: { id: list.to_param }
         expect(assigns(:list)).to eq(list)
+      end
+
+      it "assigns the first usable discovery candidate as @movie" do
+        list = List.create! valid_attributes.merge(user: user)
+        allow(TmdbClient).to receive(:discover).and_return([ tmdb_result(id: 1, title: "Heat") ])
+
+        get :show, params: { id: list.to_param }
+
+        expect(assigns(:movie)["title"]).to eq("Heat")
+      end
+
+      it "skips a discovery candidate already in the list" do
+        list = List.create! valid_attributes.merge(user: user)
+        movie = Movie.create!(title: "Heat", overview: "Crime saga.")
+        Bookmark.create!(list: list, movie: movie)
+        allow(TmdbClient).to receive(:discover).and_return([
+          tmdb_result(id: 1, title: "Heat"), tmdb_result(id: 2, title: "Collateral")
+        ])
+
+        get :show, params: { id: list.to_param }
+
+        expect(assigns(:movie)["title"]).to eq("Collateral")
+      end
+
+      it "excludes a discovery candidate already recorded as seen" do
+        list = List.create! valid_attributes.merge(user: user)
+        allow(Rails.cache).to receive(:read).and_return([ "1" ])
+        allow(TmdbClient).to receive(:discover).and_return([
+          tmdb_result(id: 1, title: "Heat"), tmdb_result(id: 2, title: "Collateral")
+        ])
+
+        get :show, params: { id: list.to_param }
+
+        expect(assigns(:movie)["id"]).to eq(2)
+      end
+
+      it "skips a discovery candidate whose title is in a non-Latin script" do
+        list = List.create! valid_attributes.merge(user: user)
+        allow(TmdbClient).to receive(:discover).and_return([
+          tmdb_result(id: 1, title: "霸王别姬"), tmdb_result(id: 2, title: "Farewell My Concubine")
+        ])
+
+        get :show, params: { id: list.to_param }
+
+        expect(assigns(:movie)["title"]).to eq("Farewell My Concubine")
+      end
+
+      it "filters mature discovery candidates for a kids-mode list" do
+        list = List.create! valid_attributes.merge(user: user, kids_mode: true)
+        allow(TmdbClient).to receive(:discover).and_return([
+          tmdb_result(id: 1, title: "Saw", genre_ids: [ 27 ]),
+          tmdb_result(id: 2, title: "Paddington", genre_ids: [ 10751 ])
+        ])
+
+        get :show, params: { id: list.to_param }
+
+        expect(assigns(:movie)["title"]).to eq("Paddington")
+      end
+
+      it "biases the discovery deck toward the genre the list already leans on" do
+        list = List.create! valid_attributes.merge(user: user)
+        drama = Category.find_or_create_by!(name: "Drama")
+        Bookmark.create!(list: list, movie: Movie.create!(title: "Nomadland", overview: "Road.", category: drama))
+        allow(TmdbClient).to receive(:discover).and_return([ tmdb_result(id: 9, title: "Marriage Story") ])
+
+        get :show, params: { id: list.to_param }
+
+        expect(TmdbClient).to have_received(:discover).with(hash_including(genre_id: "18")).at_least(:once)
+      end
+
+      it "assigns no @movie when nothing survives filtering" do
+        list = List.create! valid_attributes.merge(user: user)
+        allow(TmdbClient).to receive(:discover).and_return([])
+
+        get :show, params: { id: list.to_param }
+
+        expect(assigns(:movie)).to be_nil
+      end
+
+      it "404s for another user's list" do
+        other = List.create!(name: "Private", user: User.create!(email_address: "other_lists_spec@example.com", password: "password123"))
+
+        expect {
+          get :show, params: { id: other.to_param }
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -52,9 +145,9 @@ if defined?(ListsController)
           expect(assigns(:list)).to be_persisted
         end
 
-        it "redirects into the discovery deck for the new list" do
+        it "redirects to the new list" do
           post :create, params: { list: valid_attributes }
-          expect(response).to redirect_to(list_discover_path(assigns(:list)))
+          expect(response).to redirect_to(list_path(assigns(:list)))
         end
       end
 

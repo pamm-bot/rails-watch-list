@@ -503,10 +503,18 @@ h1, h2, h3, h4, h5, .navbar-brand {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
+// The deck sits in a sidebar next to the list contents and stays in view
+// while the (usually longer) list on the left scrolls.
+.discover-sidebar {
+  position: sticky;
+  top: 1.5rem;
+}
+
 // Discovery deck: one compact "have you seen this?" card at a time, with a
 // slide-out on answer and a fade-in for the next card.
 .discover-card {
   max-width: 380px;
+  width: 100%;
   background: #fff;
   border: 2px solid rgba(0, 0, 0, 0.06);
   border-radius: 16px;

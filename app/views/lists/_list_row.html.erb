@@ -1,7 +1,7 @@
 <div class="list-pill" data-controller="toggle list-customize" style="--accent: <%= list_accent_color(list, index) %>;">
   <div class="list-pill-row">
     <span class="list-pill-avatar" data-list-customize-target="avatar"><%= list.emoji %></span>
-    <%= link_to list.name, list_path(list), class: "list-row-name", data: { list_customize_target: "name" } %>
+    <%= link_to list.name, list_discover_path(list), class: "list-row-name", data: { list_customize_target: "name" } %>
     <div class="list-pill-actions">
       <button type="button" class="list-pill-edit-btn" data-action="click->toggle#toggle" aria-label="<%= t("lists.row.customize") %>">
         <i class="fa-solid fa-pen"></i>

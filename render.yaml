@@ -1,0 +1,20 @@
+# Render Blueprint: free web service, database hosted on Neon (DATABASE_URL).
+# The cache/queue/cable connections share the same database (see config/database.yml).
+services:
+  - type: web
+    name: my-watch-list
+    runtime: ruby
+    plan: free
+    buildCommand: bundle install && bin/rails assets:precompile && bin/rails db:prepare && DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bin/rails db:schema:load:cache db:schema:load:queue db:schema:load:cable && bin/rails db:seed
+    startCommand: bin/rails server -b 0.0.0.0 -p $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: APP_HOST
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: SOLID_QUEUE_IN_PUMA
+        value: "true"
